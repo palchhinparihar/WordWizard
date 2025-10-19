@@ -44,6 +44,7 @@ const Navbar = (props) => {
         <div className="text-sm lg:flex-grow">
           <Link className="block mt-4 lg:inline-block lg:mt-0 mr-4 hover:text-blue-400" to="/">Home</Link>
           <Link className="block mt-4 lg:inline-block lg:mt-0 mr-4 hover:text-blue-400" to="/about">About</Link>
+          <Link className="block mt-4 lg:inline-block lg:mt-0 mr-4 hover:text-blue-400" to="/ai">AI</Link>
         </div>
         
         <div className="flex items-center space-x-4">

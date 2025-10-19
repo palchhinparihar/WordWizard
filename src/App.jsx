@@ -7,6 +7,7 @@ import Alert from "./components/Alert";
 import TextForm from "./components/TextForm";
 import About from "./components/About";
 import Welcome from "./components/Welcome";
+import AIWriter from "./components/AIWriter";
 
 function App() {
   const [theme, setTheme] = useState("light");
@@ -95,6 +96,10 @@ function App() {
               <Route
                 path="/about"
                 element={<About showAlert={showAlert} theme={theme} />}
+              />
+              <Route
+                path="/ai"
+                element={<AIWriter showAlert={showAlert} theme={theme} colorTheme={colorTheme} />}
               />
             </Routes>
           </>
