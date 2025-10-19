@@ -10,6 +10,14 @@ const TextForm = (props) => {
 
   const textOperations = getTextOperations(text, setText, props);
 
+  const buttonStyle = {
+    color: props.theme === 'light' ? 'black' : 'white',
+    backgroundColor: props.theme === 'light' ? '#faffa3' : `${props.colorTheme}`,
+    filter: props.theme === 'light' ? 'none' : 'brightness(240%)',
+    fontWeight: props.theme === 'light' ? 400 : 300,
+    boxShadow: '2px 2px 8px rgba(0, 0, 0, 0.15)',
+  };
+
   const removePunctuation = () => {
     const newText = text.replace(/[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/g, '');
     setText(newText);
@@ -61,7 +69,6 @@ const TextForm = (props) => {
           ></textarea>
         </div>
 
-        {/* Text operation buttons */}
         <div className="flex flex-wrap gap-3 mb-8">
           {[...textOperations, { label: 'Remove Punctuation', func: removePunctuation }].map(
             (operation, index) => (
@@ -86,59 +93,55 @@ const TextForm = (props) => {
             )
           )}
         </div>
-      </div>
 
-      {/* Summary Section */}
-      <div
-        className="container mx-auto px-4 max-w-4xl rounded-xl p-6 shadow-md transition-all duration-500"
-        style={{
-          background: props.theme === 'light' ? '#f9fafb' : '#1f2937',
-          color: props.theme === 'light' ? '#000' : '#fff',
-        }}
-      >
-        <h2 className="text-2xl font-bold mb-4">Summary of the Text</h2>
-        <div className="space-y-2 mb-6">
-          <p className="text-lg">
-            <span className="font-semibold">
-              {text.split(/\s+/).filter((element) => element.length !== 0).length}
-            </span>{' '}
-            words and <span className="font-semibold">{text.length}</span> characters
-          </p>
-          <p className="text-lg">
-            <span className="font-semibold">
-              {(0.008 *
-                text.split(' ').filter((element) => element.length !== 0).length
-              ).toFixed(2)}
-            </span>{' '}
-            minutes to read
-          </p>
-
-          {topWords.length > 0 && (
-            <p className="text-lg">
-              <span className="font-semibold">Top Words:</span>{' '}
-              {topWords.map(([word, count], index) => (
-                <span
-                  key={index}
-                  className="inline-block transform transition-all duration-500 hover:scale-110"
-                >
-                  {word} ({count}){index < topWords.length - 1 ? ', ' : ''}
-                </span>
-              ))}
-            </p>
-          )}
-        </div>
-
-        <h2 className="text-2xl font-bold mb-4">Preview of the Text</h2>
-        <p
-          className="text-lg p-4 rounded-lg border shadow-lg transition-all duration-300"
+        <div
+          className="container mx-auto px-4 max-w-4xl rounded-xl p-6 shadow-md transition-all duration-500"
           style={{
-            background: props.theme === 'light' ? '#ffffff' : '#374151',
-            borderColor: props.theme === 'light' ? '#e5e7eb' : '#4b5563',
+            background: props.theme === 'light' ? '#f9fafb' : '#1f2937',
             color: props.theme === 'light' ? '#000' : '#fff',
           }}
         >
-          {text.length > 0 ? text : 'Nothing to preview!'}
-        </p>
+          <h2 className="text-2xl font-bold mb-4">Summary of the Text</h2>
+          <div className="space-y-2 mb-6">
+            <p className="text-lg">
+              <span className="font-semibold">{text.split(/\s+/).filter((e) => e.length !== 0).length}</span> words and{' '}
+              <span className="font-semibold">{text.length}</span> characters
+            </p>
+            <p className="text-lg">
+              <span className="font-semibold">
+                {(0.008 * text.split(' ').filter((e) => e.length !== 0).length).toFixed(2)}
+              </span>{' '}
+              minutes to read
+            </p>
+
+            {topWords.length > 0 && (
+              <p className="text-lg">
+                <span className="font-semibold">Top Words:</span>{' '}
+                {topWords.map(([word, count], index) => (
+                  <span
+                    key={index}
+                    className="inline-block transform transition-all duration-500 hover:scale-110"
+                  >
+                    {word} ({count})
+                    {index < topWords.length - 1 ? ', ' : ''}
+                  </span>
+                ))}
+              </p>
+            )}
+          </div>
+
+          <h2 className="text-2xl font-bold mb-4">Preview of the Text</h2>
+          <p
+            className="text-lg p-4 rounded-lg border shadow-lg transition-all duration-300"
+            style={{
+              background: props.theme === 'light' ? '#ffffff' : '#374151',
+              borderColor: props.theme === 'light' ? '#e5e7eb' : '#4b5563',
+              color: props.theme === 'light' ? '#000' : '#fff',
+            }}
+          >
+            {text.length > 0 ? text : 'Nothing to preview!'}
+          </p>
+        </div>
       </div>
     </section>
   );
