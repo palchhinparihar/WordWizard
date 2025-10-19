@@ -86,13 +86,7 @@ const TextForm = (props) => {
           )}
         </div>
 
-        <div
-          className="container mx-auto px-4 max-w-4xl rounded-xl p-6 shadow-md transition-all duration-500"
-          style={{
-            background: props.theme === 'light' ? '#f9fafb' : '#1f2937',
-            color: props.theme === 'light' ? '#000' : '#fff',
-          }}
-        >
+        <div className={`container mx-auto px-4 max-w-4xl ${props.theme === 'light' ? 'bg-gradient-to-br from-gray-50 to-gray-100' : 'bg-gradient-to-br from-gray-800 to-gray-900'} rounded-lg p-6`}>
           <h2 className="text-2xl font-bold mb-4">Summary of the Text</h2>
           <div className="space-y-2 mb-6">
             <p className="text-lg">
@@ -123,15 +117,8 @@ const TextForm = (props) => {
           </div>
 
           <h2 className="text-2xl font-bold mb-4">Preview of the Text</h2>
-          <p
-            className="text-lg p-4 rounded-lg border shadow-lg transition-all duration-300"
-            style={{
-              background: props.theme === 'light' ? '#ffffff' : '#374151',
-              borderColor: props.theme === 'light' ? '#e5e7eb' : '#4b5563',
-              color: props.theme === 'light' ? '#000' : '#fff',
-            }}
-          >
-            {text.length > 0 ? text : 'Nothing to preview!'}
+          <p className={`text-lg p-4 rounded-lg ${props.theme === 'light' ? 'bg-gradient-to-r from-white to-gray-50 border border-gray-200' : 'bg-gradient-to-r from-gray-700 to-gray-600 border border-gray-500'}`}>
+            {text.length > 0 ? text : "Nothing to preview!"}
           </p>
         </div>
       </div>
