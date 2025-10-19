@@ -5,10 +5,24 @@
     min-height: 100vh;
     font-size: 4.5rem;
   }
-  
+
   @media (max-width: 768px) {
     .welcome {
       font-size: 1.875rem;
     }
+  }
+
+  /* ----------------------------
+     Gradient animation for TextForm
+  ---------------------------- */
+  .animated-gradient {
+    background-size: 600% 600%;
+    animation: gradientAnimation 15s ease infinite;
+  }
+
+  @keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 }
