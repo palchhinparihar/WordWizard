@@ -10,14 +10,6 @@ const TextForm = (props) => {
 
   const textOperations = getTextOperations(text, setText, props);
 
-  const buttonStyle = {
-    color: props.theme === 'light' ? 'black' : 'white',
-    backgroundColor: props.theme === 'light' ? '#faffa3' : `${props.colorTheme}`,
-    filter: props.theme === 'light' ? 'none' : 'brightness(240%)',
-    fontWeight: props.theme === 'light' ? 400 : 300,
-    boxShadow: '2px 2px 8px rgba(0, 0, 0, 0.15)',
-  };
-
   const removePunctuation = () => {
     const newText = text.replace(/[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/g, '');
     setText(newText);
@@ -48,8 +40,8 @@ const TextForm = (props) => {
       className="min-h-screen py-10 px-4 transition-all duration-500 animated-gradient"
       style={{
         background: props.theme === 'light'
-          ? `linear-gradient(270deg, ${props.colorTheme || '#fef3c7'}, #ffffff, ${props.colorTheme || '#fef3c7'})`
-          : `linear-gradient(270deg, ${props.colorTheme || '#3b82f6'}, #000000, ${props.colorTheme || '#3b82f6'})`,
+          ? `linear-gradient(270deg, ${props.colorTheme || '#a0522d'}, #ffffff, ${props.colorTheme || '#a0522d'})`
+          : `linear-gradient(270deg, ${props.colorTheme || '#a0522d'}, #000000, ${props.colorTheme || '#a0522d'})`,
         color: props.theme === 'light' ? '#000' : '#fff',
       }}
     >
@@ -76,16 +68,16 @@ const TextForm = (props) => {
                 key={index}
                 disabled={text.length === 0}
                 onClick={operation.func}
-                className={`px-5 py-2.5 rounded-lg font-semibold transition-all duration-300 transform ${
+                className={`px-5 py-2.5 rounded-lg font-semibold transition-all duration-300 transform cursor-pointer ${
                   text.length === 0
                     ? 'opacity-50 cursor-not-allowed'
                     : 'hover:scale-110 hover:rotate-1 hover:shadow-xl active:scale-95'
                 }`}
                 style={{
                   background: props.theme === 'light'
-                    ? `linear-gradient(to right, ${props.colorTheme || '#fef3c7'}, #fde68a)`
-                    : `linear-gradient(to right, ${props.colorTheme || '#3b82f6'}, #2563eb)`,
-                  color: props.theme === 'light' ? '#000' : '#fff',
+                    ? `linear-gradient(to right, #7c3aed, #a78bfa)`
+                    : `linear-gradient(to right, #9333ea, #c084fc)`,
+                  color: '#fff',
                 }}
               >
                 {operation.label}
