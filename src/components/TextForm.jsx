@@ -46,6 +46,7 @@ const TextForm = (props) => {
       }}
     >
       <div className="container mx-auto max-w-4xl">
+        {/* Textarea Section */}
         <div className="mb-6">
           <h1 className="text-3xl font-bold mb-6">{props.heading}</h1>
           <textarea
@@ -61,6 +62,7 @@ const TextForm = (props) => {
           ></textarea>
         </div>
 
+        {/* Buttons */}
         <div className="flex flex-wrap gap-3 mb-8">
           {[...textOperations, { label: 'Remove Punctuation', func: removePunctuation }].map(
             (operation, index) => (
@@ -86,6 +88,7 @@ const TextForm = (props) => {
           )}
         </div>
 
+        {/* Summary & Preview Section */}
         <div className={`container mx-auto px-4 max-w-4xl ${props.theme === 'light' ? 'bg-gradient-to-br from-gray-50 to-gray-100' : 'bg-gradient-to-br from-gray-800 to-gray-900'} rounded-lg p-6`}>
           <h2 className="text-2xl font-bold mb-4">Summary of the Text</h2>
           <div className="space-y-2 mb-6">
