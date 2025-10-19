@@ -13,20 +13,20 @@ const Navbar = (props) => {
   const colors = [
     {
       colorName: "Green",
-      hexCode: "#063729"
+      hexCode: "linear-gradient(135deg, #063729 0%, #0a5f3f 100%)"
     },
     {
       colorName: "Brown",
-      hexCode: "#392626"
+      hexCode: "linear-gradient(135deg, #392626 0%, #6b4423 100%)"
     },
     {
       colorName: "Purple",
-      hexCode: "#421a42"
+      hexCode: "linear-gradient(135deg, #421a42 0%, #7d3c7d 100%)"
     }
   ];
 
   return (
-    <nav {...(animate ? { 'data-aos': 'fade-up' } : {})} className={`flex items-center justify-between flex-wrap p-4 ${props.theme === 'light' ? 'bg-white text-gray-800 border-b border-gray-200' : 'bg-gray-800 text-white border-b border-gray-700'}`}>
+    <nav {...(animate ? { 'data-aos': 'fade-up' } : {})} className={`flex items-center justify-between flex-wrap p-4 ${props.theme === 'light' ? 'bg-gradient-to-r from-white to-gray-50 text-gray-800 border-b border-gray-200' : 'bg-gradient-to-r from-gray-800 to-gray-900 text-white border-b border-gray-700'}`}>
       <div className="flex items-center flex-shrink-0 mr-6">
         <Link className="font-bold text-xl" to="/"><strong>{props.title}</strong></Link>
       </div>
@@ -69,7 +69,7 @@ const Navbar = (props) => {
                   name="colorThemes" 
                   value={color.colorName} 
                   className={`w-8 h-8 rounded border-2 ${props.theme === 'light' ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110 transition-transform'}`}
-                  style={{ backgroundColor: color.hexCode, filter: 'brightness(240%)' }}
+                  style={{ backgroundImage: color.hexCode }}
                 />
               )
             })}

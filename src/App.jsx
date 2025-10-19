@@ -29,11 +29,11 @@ function App() {
     if (theme === "light") {
       // Switch to dark mode
       setTheme("dark");
-      setColorTheme("#042743");
+      setColorTheme("linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)");
       showAlert(`Dark theme enabled!`, "success");
     } else {
       setTheme("light");
-      setColorTheme("#ffffff");
+      setColorTheme("linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%)");
       showAlert("Light theme enabled!", "success");
     }
   };
@@ -48,7 +48,7 @@ function App() {
   };
 
   useEffect(() => {
-    document.body.style.backgroundColor = colorTheme;
+    document.body.style.background = colorTheme;
   }, [colorTheme]);
 
   useEffect(() => {

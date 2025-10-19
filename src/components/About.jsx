@@ -19,7 +19,7 @@ const About = ({ theme }) => {
             return (
               <div key={item.id} className={`border rounded-lg overflow-hidden ${theme === 'light' ? 'border-gray-200' : 'border-gray-600'}`}>
                 <button 
-                  className={`w-full px-6 py-4 text-left font-semibold flex justify-between items-center transition-colors ${theme === 'light' ? 'bg-white hover:bg-gray-50 text-gray-900' : 'bg-gray-800 hover:bg-gray-700 text-white'}`}
+                  className={`w-full px-6 py-4 text-left font-semibold flex justify-between items-center transition-colors ${theme === 'light' ? 'bg-gradient-to-r from-white to-gray-50 hover:from-gray-50 hover:to-gray-100 text-gray-900' : 'bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white'}`}
                   onClick={() => toggleAccordion(item.id)}
                 >
                   <span>{item.title}</span>
@@ -33,7 +33,7 @@ const About = ({ theme }) => {
                   </svg>
                 </button>
                 <div className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-                  <div className={`px-6 py-4 ${theme === 'light' ? 'bg-gray-50 text-gray-900' : 'bg-gray-700 text-white'}`}>
+                  <div className={`px-6 py-4 ${theme === 'light' ? 'bg-gradient-to-br from-gray-50 to-gray-100 text-gray-900' : 'bg-gradient-to-br from-gray-700 to-gray-600 text-white'}`}>
                     <span>{item.content}</span>
                   </div>
                 </div>
