@@ -137,6 +137,13 @@ export const getTextOperations = (
     props.showAlert(isStrike ? "Strikethrough removed." : "Strikethrough applied.", "success");
   };
 
+  const handleReverseText = () => {
+    const src = previewText || text;
+    const reversedText = src.split("").reverse().join("");
+    setPreviewText(reversedText);
+    props.showAlert("Text has been reversed.", "success");
+  };
+
   const handleGrammarCheck = async () => {
     if (!text.trim()) return;
     setLoadingGrammar(true);
@@ -175,6 +182,7 @@ export const getTextOperations = (
     { func: handleItalic, label: "Italic" },
     { func: handleUnderline, label: "Underline" },
     { func: handleStrike, label: "Strikethrough", allowEmpty: true },
+    { func: handleReverseText, label: "Reverse Text", allowEmpty: false },
   ];
 
   return obj;
