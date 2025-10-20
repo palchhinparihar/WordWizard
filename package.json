@@ -13,10 +13,14 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@google/genai": "^1.25.0",
     "aos": "^2.3.4",
+    "lodash.debounce": "^4.0.8",
+    "lucide-react": "^0.546.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.5.0"
+    "react-router-dom": "^7.5.0",
+    "react-tooltip": "^5.30.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

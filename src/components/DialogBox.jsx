@@ -6,9 +6,11 @@ const DialogBox = ({
   setText,
   showAlert,
   theme,
+  setPreviewText
 }) => {
   const handleClear = () => {
     setText("");
+    setPreviewText("");
     setDialogBoxOpen(false);
     if (showAlert) {
       showAlert("Cleared the text.", "success");
@@ -19,24 +21,10 @@ const DialogBox = ({
     setDialogBoxOpen(false);
   };
 
-  const modalContentStyle = {
-    backgroundColor: theme === "light" ? "white" : "#313131",
-    color: theme === "light" ? "black" : "white",
-    border: theme === "light" ? "0px solid black" : "0px solid grey",
-    padding: "20px",
-    borderRadius: "8px",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-    maxWidth: "400px",
-    width: "90%",
-    marginTop: "200px",
-    // marginBottom: '90%'
-  };
-
   return (
     <div
-      className="modal-overlay"
+      className="fixed flex justify-center items-start z-[9999]"
       style={{
-        position: "fixed",
         top: -135,
         left: 0,
         right: 0,
@@ -47,26 +35,30 @@ const DialogBox = ({
         overflow: "visible",
         backgroundColor:
           theme === "light" ? "rgba(0, 0, 0, 0.5)" : "rgba(0, 0, 0, 0.7)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "start",
-        zIndex: 9999,
       }}
     >
-      <div className="modal-content" style={modalContentStyle}>
-        <h5 className="modal-title mb-3">Clear Text</h5>
+      <div
+        className="w-[90%] max-w-[400px] p-5 rounded-lg shadow-md mt-[200px]"
+        style={{
+          backgroundColor: theme === "light" ? "white" : "#313131",
+          color: theme === "light" ? "black" : "white",
+          border: theme === "light" ? "0px solid black" : "0px solid grey",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <h5 className="text-lg font-medium mb-3">Clear Text</h5>
         <p className="mb-4">{question}</p>
-        <div className="d-flex justify-content-end gap-2">
+        <div className="flex justify-end gap-2">
           <button
             type="button"
-            className="btn btn-secondary"
+            className="px-3 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
             onClick={handleCancel}
           >
             Cancel
           </button>
           <button
             type="button"
-            className="btn btn-danger"
+            className="px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
             onClick={handleClear}
           >
             Clear

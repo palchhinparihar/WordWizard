@@ -96,6 +96,7 @@ const TextForm = (props) => {
     .filter(Boolean)
     .join(" ") || "none";
 
+  
   return (
     <section
       data-aos="fade-up"
