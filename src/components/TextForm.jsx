@@ -62,20 +62,6 @@ const TextForm = (props) => {
     loremParagraphs
   );
 
-
-
-
-  useEffect(() => {
-  // When text becomes empty, reset formatting states
-  if (!text.trim()) {
-    setIsBold(false);
-    setIsItalic(false);
-    setIsUnderline(false);
-    setIsStrike(false);
-  }
-}, [text]);
-
-
   const buttonStyle = {
     color: props.theme === "light" ? "black" : "white",
     backgroundImage:
@@ -102,7 +88,6 @@ const TextForm = (props) => {
     const sortedWords = Object.entries(freq).sort((a, b) => b[1] - a[1]);
     return sortedWords.slice(0, 5);
   };
-  
 
   const topWords = getTopWords(text);
 
@@ -208,7 +193,7 @@ const TextForm = (props) => {
               </button>
             )
           ))}
-        </div> */}
+        </div>
       </div>
 
       {/* SUMMARY CARD */}

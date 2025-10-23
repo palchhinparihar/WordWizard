@@ -10,8 +10,8 @@ import {
 
 const ICON_MAP = {
   Bold, Italic, Underline, Strikethrough,
-  // "Import file": Upload,
-  // "Export text": Download,
+  "Import file": Upload,
+  "Export text": Download,
   "Check Grammar": SpellCheck,
   "Clear text": Trash2,
   "Copy text": Copy,
@@ -31,8 +31,8 @@ const ALT_TEXT = {
   Italic: "Italic Text",
   Underline: "Underline Text",
   Strikethrough: "Strikethrough Text",
-  // "Import file": "Upload a text file",
-  // "Export text": "Download the current text",
+  "Import file": "Upload a text file",
+  "Export text": "Download the current text",
   "Check Grammar": "Check the grammar of your text",
   "Clear text": "Clear all text",
   "Copy text": "Copy text to clipboard",
@@ -49,37 +49,24 @@ const ALT_TEXT = {
 
 const BUTTONS = Object.keys(ICON_MAP);
 
-// Portal-based tooltip with scroll tracking + fade animation
+// Portal-based tooltip
 const Tooltip = ({ targetRef, text, visible }) => {
   const [coords, setCoords] = useState({ top: 0, left: 0 });
-  const tooltipRef = useRef(null);
-
-  const updatePosition = () => {
-    if (targetRef.current) {
-      const rect = targetRef.current.getBoundingClientRect();
-      setCoords({
-        top: rect.top + window.scrollY - 35, // account for scroll
-        left: rect.left + rect.width / 2 + window.scrollX,
-      });
-    }
-  };
 
   React.useEffect(() => {
-    if (visible) updatePosition();
+    if (targetRef.current && visible) {
+      const rect = targetRef.current.getBoundingClientRect();
+      setCoords({
+        top: rect.top - 30, // 30px above button
+        left: rect.left + rect.width / 2,
+      });
+    }
+  }, [targetRef, visible]);
 
-    // Recalculate when scrolling or resizing
-    window.addEventListener("scroll", updatePosition);
-    window.addEventListener("resize", updatePosition);
-
-    return () => {
-      window.removeEventListener("scroll", updatePosition);
-      window.removeEventListener("resize", updatePosition);
-    };
-  }, [visible]);
+  if (!visible) return null;
 
   return createPortal(
     <div
-      ref={tooltipRef}
       style={{
         position: "absolute",
         top: coords.top,
@@ -87,16 +74,12 @@ const Tooltip = ({ targetRef, text, visible }) => {
         transform: "translateX(-50%)",
         background: "#111",
         color: "#fff",
-        padding: "0.35rem 0.6rem",
-        borderRadius: "0.35rem",
+        padding: "0.25rem 0.5rem",
+        borderRadius: "0.25rem",
         fontSize: "0.75rem",
         pointerEvents: "none",
         whiteSpace: "nowrap",
         zIndex: 9999,
-        opacity: visible ? 1 : 0,
-        transition: "opacity 0.2s ease-out, transform 0.2s ease-out",
-        transformOrigin: "bottom center",
-        transform: `translateX(-50%) translateY(${visible ? "0" : "5px"})`,
       }}
     >
       {text}
@@ -139,7 +122,7 @@ const Toolbar = ({ textOperations, theme, colorTheme, loadingGrammar, text, acti
 
   return (
     <div className={`z-50 mb-4 p-2 rounded-xl border shadow-sm backdrop-blur-sm flex gap-1 overflow-x-auto whitespace-nowrap
-      ${theme === "light" ? "bg-yellow-200/90 border-yellow-400" : "bg-gray-900/90 border-gray-700"}`}>
+      ${theme === "light" ? "bg-yellow-200/90 border-yellow-300" : "bg-gray-900/90 border-gray-700"}`}>
       
       {BUTTONS.map((label, idx) => {
         const isActive = activeStyles?.[label];
@@ -156,9 +139,9 @@ const Toolbar = ({ textOperations, theme, colorTheme, loadingGrammar, text, acti
               onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
               className={`relative flex items-center justify-center rounded-md transition-all
-                ${isDisabled(label) ? "opacity-50 cursor-not-allowed" : "hover:scale-105 cursor-pointer"}
+                ${isDisabled(label) ? "opacity-50 cursor-not-allowed" : "hover:scale-105"}
                 ${isActive ? "ring-2 ring-yellow-400 shadow" : ""}`}
-                style={{
+              style={{
                 ...buttonStyle,
                 background: isActive
                   ? theme === "light"
