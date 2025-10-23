@@ -40,7 +40,7 @@ export const getTextOperations = (
   };
 
   const handleExtraSpaces = () => {
-    const newText = text.split(/[ ]+/).join(" ");
+    const newText = text.split(/\s+/).join(" ");
     setPreviewText(newText);
     props.showAlert("Removed extra spaces.", "success");
   };
@@ -162,67 +162,6 @@ export const getTextOperations = (
     }
   };
 
-  // Case Conversion Handlers
-  const handleTitleCase = () => {
-    const minorWords = ['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'by', 'in', 'of'];
-    const newText = (previewText || text).toLowerCase().split(' ').map((word, index) => {
-      if (index === 0 || !minorWords.includes(word)) {
-        return word.charAt(0).toUpperCase() + word.slice(1);
-      }
-      return word;
-    }).join(' ');
-    setPreviewText(newText);
-    props.showAlert("Title case applied.", "success");
-  };
-
-  const handleToggleCase = () => {
-    const newText = (previewText || text).split('').map(char => {
-      if (char === char.toUpperCase()) {
-        return char.toLowerCase();
-      }
-      return char.toUpperCase();
-    }).join('');
-    setPreviewText(newText);
-    props.showAlert("Case toggled.", "success");
-  };
-
-  const handleAlternatingCase = () => {
-    let shouldCapitalize = true;
-    const newText = (previewText || text).split('').map(char => {
-      if (/[a-zA-Z]/.test(char)) {
-        const result = shouldCapitalize ? char.toUpperCase() : char.toLowerCase();
-        shouldCapitalize = !shouldCapitalize;
-        return result;
-      }
-      return char;
-    }).join('');
-    setPreviewText(newText);
-    props.showAlert("Alternating case applied.", "success");
-  };
-
-  // List Conversion Handlers
-  const handleBulletedList = () => {
-    const src = previewText || text;
-    const lines = src.split(/\r?\n/);
-    const newText = lines.map(line => line.trim() ? `- ${line.trim()}` : line).join('\n');
-    setPreviewText(newText);
-    props.showAlert("Converted to bulleted list.", "success");
-  };
-
-  const handleNumberedList = () => {
-    const src = previewText || text;
-    const lines = src.split(/\r?\n/);
-    let counter = 1;
-    const newText = lines.map(line => {
-      if (line.trim()) {
-        return `${counter++}. ${line.trim()}`;
-      }
-      return line;
-    }).join('\n');
-    setPreviewText(newText);
-    props.showAlert("Converted to numbered list.", "success");
-  };
-
   const obj = [
     { id: "uppercase", func: handleUpClick, label: "Convert to uppercase" },
     { id: "lowercase", func: handleLoClick, label: "Convert to lowercase" },
@@ -242,11 +181,7 @@ export const getTextOperations = (
     { id: "italic", func: handleItalic, label: "Italic" },
     { id: "underline", func: handleUnderline, label: "Underline" },
     { id: "strike", func: handleStrike, label: "Strikethrough", allowEmpty: true },
-    { id: "title-case", func: handleTitleCase, label: "Title Case" },
-    { id: "toggle-case", func: handleToggleCase, label: "Toggle Case" },
-    { id: "alternating-case", func: handleAlternatingCase, label: "Alternating Case" },
-    { id: "bulleted-list", func: handleBulletedList, label: "Bulleted List", allowEmpty: false },
-    { id: "numbered-list", func: handleNumberedList, label: "Numbered List", allowEmpty: false },
   ];
+
   return obj;
 };
