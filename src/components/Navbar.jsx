@@ -1,5 +1,3 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import {
   Sun,
@@ -11,12 +9,12 @@ import {
 } from "lucide-react";
 
 const Navbar = (props) => {
-  const [animate, setAnimate] = useState(true);
+  const [animate, setAnimate] = useState(false);
+  const [textAnimate, setTextAnimate] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const { t, i18n } = useTranslation();
-
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -25,10 +23,18 @@ const Navbar = (props) => {
 
   const fileInputRef = useRef(null);
 
+  
+  
   useEffect(() => {
     const timer = setTimeout(() => setAnimate(false), 1000);
     return () => clearTimeout(timer);
   }, []);
+  
+  useEffect(() => {
+    setTextAnimate(true); // trigger animation
+    const timer = setTimeout(() => setTextAnimate(false), 500); // duration of animation
+    return () => clearTimeout(timer);
+  }, [props.currentThemeId]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -191,23 +197,27 @@ const Navbar = (props) => {
 
   return (
     <nav
-      {...(animate ? { 'data-aos': 'fade-up' } : {})}
-      className={`sticky top-0 z-50 shadow-md flex items-center justify-between flex-wrap p-4 transition-all duration-300 ${isDark
-          ? 'bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white border-b border-gray-700'
-          : 'bg-gradient-to-r from-white via-gray-50 to-white text-gray-800 border-b border-gray-200'
-        }`}
+      {...(animate ? { "data-aos": "fade-up" } : {})}
+      className={`sticky top-0 z-50 shadow-md flex items-center justify-between flex-wrap p-4 transition-all duration-300 ${
+        isDark
+          ? "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white border-b border-gray-700"
+          : "bg-gradient-to-r from-white via-gray-50 to-white text-gray-800 border-b border-gray-200"
+      }`}
     >
       <div className="flex items-center flex-shrink-0 mr-6">
         <Link
-          className="font-bold text-xl tracking-tight hover:text-blue-500 transition-colors"
+          className={`font-bold text-xl tracking-tight hover:text-blue-500 transition-colors ${
+            textAnimate ? 'animate-textChange' : ''
+          }`}
           to="/"
         >
           <strong>{props.title}</strong>
         </Link>
+
       </div>
 
       {/* Hamburger button */}
-      <div className="block lg:hidden">
+      <div className={`block lg:hidden ${textAnimate ? 'animate-textChange' : ''}`}>
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className={`flex items-center px-3 py-2 border rounded transition-colors ${isDark
@@ -232,7 +242,7 @@ const Navbar = (props) => {
           } lg:block`}
       >
         {/* Links */}
-        <div className="text-sm lg:flex-grow">
+        <div className={`text-sm lg:flex-grow ${textAnimate ? 'animate-textChange' : ''}`}>
           <Link
             className={`block mt-4 lg:inline-block lg:mt-0 mr-4 transition-colors ${isDark ? "hover:text-blue-400" : "hover:text-blue-600"
               }`}
@@ -252,27 +262,37 @@ const Navbar = (props) => {
         {/* Language Toggle */}
         <div className="flex items-center gap-2 mt-4 lg:mt-0 mr-4">
           <button
-            onClick={() => changeLanguage('en')}
-            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${i18n.language === 'en'
-                ? isDark ? 'bg-gray-700 text-white' : 'bg-gray-200 text-gray-900'
-                : isDark ? 'text-gray-300 hover:text-white' : 'text-gray-700 hover:text-gray-900'
-              }`}
+            onClick={() => changeLanguage("en")}
+            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+              i18n.language === "en"
+                ? isDark
+                  ? "bg-gray-700 text-white"
+                  : "bg-gray-200 text-gray-900"
+                : isDark
+                ? "text-gray-300 hover:text-white"
+                : "text-gray-700 hover:text-gray-900"
+            }`}
           >
             EN
           </button>
           <span>|</span>
           <button
-            onClick={() => changeLanguage('hi')}
-            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${i18n.language === 'hi'
-                ? isDark ? 'bg-gray-700 text-white' : 'bg-gray-200 text-gray-900'
-                : isDark ? 'text-gray-300 hover:text-white' : 'text-gray-700 hover:text-gray-900'
-              }`}
+            onClick={() => changeLanguage("hi")}
+            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+              i18n.language === "hi"
+                ? isDark
+                  ? "bg-gray-700 text-white"
+                  : "bg-gray-200 text-gray-900"
+                : isDark
+                ? "text-gray-300 hover:text-white"
+                : "text-gray-700 hover:text-gray-900"
+            }`}
           >
             हिंदी
           </button>
         </div>
 
-        <div className="mt-4 lg:mt-0 flex flex-col lg:flex-row lg:items-center gap-4">
+        <div className={`mt-4 lg:mt-0 flex flex-col lg:flex-row lg:items-center gap-4 ${textAnimate ? 'animate-textChange' : '' } `}>
           {/* Hidden File Input */}
           <input
             type="file"
@@ -286,7 +306,7 @@ const Navbar = (props) => {
           <button
             onClick={handleUploadClick}
             className={`btn ${isDark ? "btn-dark" : "btn-light"
-              } transition-all duration-200 flex items-center`}
+              } transition-all duration-200 flex items-center cursor-pointer`}
           >
             {/* Icon only on desktop (lg:), hidden on smaller */}
             <Upload className="hidden lg:block" />
@@ -299,7 +319,7 @@ const Navbar = (props) => {
           <button
             onClick={props.onExport}
             className={`mr-5 btn ${isDark ? "btn-dark" : "btn-light"
-              } transition-all duration-200 flex items-center`}
+              } transition-all duration-200 flex items-center cursor-pointer`}
           >
             {/* Icon only on desktop (lg:), hidden on smaller */}
             <Download className="hidden lg:block" />
@@ -317,18 +337,22 @@ const Navbar = (props) => {
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 ${isDark
                   ? "bg-gray-800 hover:bg-gray-700 text-white"
                   : "bg-gray-100 hover:bg-gray-200 text-gray-800"
-                }`}
+                } cursor-pointer`}
               aria-label="Select theme"
             >
               <div className="flex items-center gap-2">
                 {isDark ? (
-                  <Moon className="w-5 h-5 text-blue-400" />
+                  <Moon className={`w-5 h-5 text-blue-400 ${textAnimate ? 'animate-textChange' : ''}`} />
                 ) : (
-                  <Sun className="w-5 h-5 text-amber-500" />
+                  <Sun className={`w-5 h-5 text-amber-500 ${textAnimate ? 'animate-textChange' : ''}`} />
                 )}
-                <span className="text-sm font-medium hidden sm:inline">
+                <span className={`text-sm font-medium hidden sm:inline transition-all duration-500 ${
+                    textAnimate ? 'translate-y-1 opacity-0 animate-textChange' : ''
+                  }`}
+                >
                   {currentTheme.name}
                 </span>
+
                 <span className="text-lg sm:hidden">{currentTheme.icon}</span>
               </div>
               <ChevronDown
@@ -343,7 +367,7 @@ const Navbar = (props) => {
                 className={`absolute right-0 mt-2 w-72 rounded-xl shadow-2xl overflow-hidden z-50 animate-fadeIn ${isDark
                     ? "bg-gray-800 border border-gray-700"
                     : "bg-white border border-gray-200"
-                  }`}
+                  } `}
               >
                 <div className="max-h-96 overflow-y-auto">
                   {/* Dark Themes Section */}
@@ -351,7 +375,7 @@ const Navbar = (props) => {
                     className={`px-3 py-2 text-xs font-semibold uppercase tracking-wider ${isDark
                         ? "text-gray-400 bg-gray-900"
                         : "text-gray-500 bg-gray-50"
-                      }`}
+                      } `}
                   >
                     <div className="flex items-center gap-2">
                       <Moon className="w-3 h-3" />

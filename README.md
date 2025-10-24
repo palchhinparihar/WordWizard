@@ -1,179 +1,131 @@
-# WordWizard 🧙‍♂️ [![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR-BADGE-ID/deploy-status)](https://wordwizard-texteditor.netlify.app) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+ 
+<!-- <div align="center">
 
-> A powerful text manipulation tool built with React and Vite for the modern web
+# WordWizard 🧙‍♂️
 
-[Live Demo](https://wordwizard-texteditor.netlify.app) | [Report Bug](https://github.com/adamstosho/WordWizard/issues) | [Request Feature](https://github.com/adamstosho/WordWizard/issues)
+**A powerful text manipulation tool built with React and Vite for the modern web.**
+
+<p>
+    <a href="https://wordwizard-texteditor.netlify.app"><img src="https://api.netlify.com/api/v1/badges/YOUR-BADGE-ID/deploy-status" alt="Netlify Status"></a>
+    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+    <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
+</p>
+
+**[Live Demo](https://wordwizard-texteditor.netlify.app) • [Report Bug](https://github.com/adamstosho/WordWizard/issues) • [Request Feature](https://github.com/adamstosho/WordWizard/issues)**
+
+</div>
+
+---
 
 ## 📋 Table of Contents
 
-- [About](#about)
-- [Key Features](#key-features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Usage Guide](#usage-guide)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
+- [About](#-about)
+- [Key Features](#-key-features)
+- [Tech Stack](#-tech-stack)
+- [Getting Started](#-getting-started)
+- [Project Structure](#-project-structure)
+- [Contributing](#-contributing)
 - [Deployment](#deployment)
 - [Performance](#performance)
-- [Roadmap](#roadmap)
-- [License](#license)
-- [Contact](#contact)
+- [Roadmap](#-roadmap)
+- [License](#-license)
+- [Contact](#-contact)
+
+---
 
 ## 🎯 About
 
-**WordWizard** is a modern, feature-rich text manipulation tool that empowers users to efficiently analyze and transform text content. Built with performance and user experience in mind, it provides a comprehensive suite of text processing features with an intuitive interface.
+> **WordWizard** is a modern, feature-rich text manipulation tool that empowers users to efficiently analyze and transform text content. Built with performance and user experience in mind, it provides a comprehensive suite of text processing features with an intuitive interface.
 
-### Why WordWizard?
+| Why WordWizard?                | Description                                                |
+| ------------------------------ | ---------------------------------------------------------- |
+| 🚀 **Lightning Fast** | Built with React + Vite for optimal performance.           |
+| 🎨 **Customizable** | Multiple themes and appearance options.                    |
+| 📱 **Responsive** | Works seamlessly across all devices.                       |
+| 🔐 **Privacy-Focused** | All text processing happens locally in your browser.       |
 
-- 🚀 **Lightning Fast**: Built with React + Vite for optimal performance
-- 🎨 **Customizable**: Multiple themes and appearance options
-- 📱 **Responsive**: Works seamlessly across all devices
-- 🔐 **Privacy-Focused**: All text processing happens locally in the browser
+---
 
 ## ⭐ Key Features
 
-### Text Manipulation
-- 🔠 Case conversion (UPPERCASE, lowercase, Title Case)
-- 🧹 Smart space management and formatting
-- 📝 Real-time text analysis
-- 📋 One-click copy to clipboard
+| Category                 | Feature                                              |
+| ------------------------ | ---------------------------------------------------- |
+| **✍️ Text Manipulation** | • Case conversion (UPPERCASE, lowercase)<br>• Smart space management<br>• Real-time text analysis<br>• One-click copy to clipboard |
+| **📊 Analysis Tools** | • Detailed word & character counts<br>• Character frequency analysis<br>• Reading time estimation<br>• Text complexity metrics |
+| **🎨 User Experience** | • Dark/Light mode with multiple themes<br>• Instant results with no page reloads<br>• Auto-save functionality<br>• Smooth transitions |
 
-### Analysis Tools
-- 📊 Detailed word count statistics
-- 🔍 Character frequency analysis
-- ⏱️ Reading time estimation
-- � Text complexity metrics
-
-### User Experience
-- 🌗 Dark/Light mode with smooth transitions
-- 🎨 Multiple theme options (Dark Green, Brown, Purple)
-- ⚡ Instant results with no page reloads
-- 💾 Auto-save functionality
+---
 
 ## 🛠️ Tech Stack
 
-### Core Technologies
-- **Frontend Framework**: React 18
-- **Build Tool**: Vite
-- **UI Components**: Bootstrap 5
-- **State Management**: React Context API
-- **Styling**: CSS Modules + Tailwind CSS
+| Category             | Technologies                               |
+| -------------------- | ------------------------------------------ |
+| **Core** | `React 18`, `Vite`, `Tailwind CSS`         |
+| **UI Components** | `Bootstrap 5`, `CSS Modules`               |
+| **State Management** | `React Context API`                        |
+| **Dev Tools** | `ESLint`, `Prettier`, `Husky`, `lint-staged` |
+| **Testing** | `Jest`, `React Testing Library`            |
 
-### Development Tools
-- **Package Manager**: npm
-- **Code Quality**: ESLint + Prettier
-- **Testing**: Jest + React Testing Library
-- **Git Hooks**: Husky + lint-staged
+---
 
-## � Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
+- **Node.js**: `v16` or higher
+- **npm**: `v7` or higher
 
-- Node.js (v16 or higher)
-- npm (v7 or higher)
+<details>
+<summary><strong>Click here for installation steps</strong></summary>
 
-### Installation
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/adamstosho/WordWizard.git](https://github.com/adamstosho/WordWizard.git)
+    cd WordWizard
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Set up environment variables:**
+    Create a `.env` file from the example:
+    ```bash
+    cp .env.example .env
+    ```
+    Add your LanguageTool API URL to the `.env` file:
+    ```env
+    VITE_LANUGAGETOOL_API_URL=[https://api.languagetool.org/v2/check](https://api.languagetool.org/v2/check)
+    ```
+    > **Note:** The LanguageTool API is rate-limited.
 
-1. Clone the repository
-```bash
-git clone https://github.com/adamstosho/WordWizard.git
-cd WordWizard
-```
-
-2. Install dependencies
-```bash
-npm install
-```
-
-3. Create environment variables
-```bash
-cp .env.example .env
-```
-
-Add the following to your `.env` file:
-```env
-VITE_LANUGAGETOOL_API_URL=https://api.languagetool.org/v2/check
-```
-> Note: The LanguageTool API is rate-limited to 20 requests per minute per IP address.
-
-4. Start the development server
-```bash
-npm run dev
-```
-
-5. Build for production
-```bash
-npm run build
-```
+4.  **Start the development server:**
+    ```bash
+    npm run dev
+    ```
+    
+</details>
 
 ### Available Scripts
+- `npm run dev`: Start development server.
+- `npm run build`: Create a production build.
+- `npm run test`: Run the test suite.
+- `npm run lint`: Lint the codebase.
 
-- `npm run dev` - Start development server
-- `npm run build` - Create production build
-- `npm run test` - Run test suite
-- `npm run lint` - Lint code
-- `npm run format` - Format code
-
-## 📖 Usage Guide
-
-### Basic Operations
-
-1. **Text Input**: Paste or type your text in the main editor
-2. **Case Conversion**: Use the toolbar buttons to transform text case
-3. **Space Management**: Click 'Remove Extra Spaces' for clean formatting
-4. **Copy Results**: Use the copy button to save results to clipboard
-
-### Advanced Features
-
-- **Theme Customization**: Access theme menu via settings icon
-- **Statistics Panel**: View detailed text analytics in the sidebar
-- **Keyboard Shortcuts**: Use Ctrl/Cmd + key combinations for quick actions
+---
 
 ## 📂 Project Structure
 
-```
-wordwizard/
-├── public/                # Static assets
-├── src/
-│   ├── assets/           # Images and other assets
-│   ├── components/       # React components
-│   │   ├── About.jsx
-│   │   ├── Alert.jsx
-│   │   ├── DialogBox.jsx
-│   │   ├── Navbar.jsx
-│   │   ├── TextForm.jsx
-│   │   └── Welcome.jsx
-│   ├── data/            # Static data and configurations
-│   │   ├── accordionItems.js
-│   │   └── textUtils.js
-│   ├── App.css          # App-specific styles
-│   ├── App.jsx          # Main App component
-│   ├── index.css        # Global styles
-│   ├── main.jsx         # Entry point
-│   └── utils.js         # Utility functions
-├── .env                 # Environment variables
-├── index.html           # HTML entry point
-├── package.json         # Project dependencies and scripts
-├── postcss.config.js    # PostCSS configuration
-├── tailwind.config.js   # Tailwind CSS configuration
-└── vite.config.js       # Vite configuration
-```
+Here is an overview of the project's file structure:
+wordwizard/ ├── 📁 public/ # Static assets ├── 📁 src/ │ ├── 📁 assets/ # Images, fonts, etc. │ ├── 📁 components/ # React components (Navbar, TextForm, etc.) │ ├── 📁 data/ # Static data (accordionItems.js) │ ├── 📄 App.jsx # Main App component │ ├── 📄 main.jsx # Entry point │ └── 📄 utils.js # Utility functions ├── 📄 .env # Environment variables ├── 📄 index.html # HTML entry point ├── 📄 package.json # Project dependencies and scripts └── 📄 vite.config.js # Vite configuration
+---
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! Please see our **[Contributing Guide](CONTRIBUTING.md)** for more details on how to get started.
 
-### Hacktoberfest 2025 🎃
+> ### 🎉 Hacktoberfest 2025
+> We are excited to participate in Hacktoberfest! Look for issues tagged with `hacktoberfest`, `good-first-issue`, or `help-wanted`.
 
-We're participating in Hacktoberfest 2025! Look for issues tagged with:
-- `good-first-issue`
-- `hacktoberfest`
-- `help-wanted`
-
-## 📦 Deployment
-
-WordWizard is deployed on Netlify with continuous deployment from the main branch.
-
+---
 ### Deployment Configuration
 
 ```yml
@@ -183,7 +135,7 @@ build:
   environment:
     NODE_VERSION: 16
 ```
-
+---
 ## 📊 Performance
 
 - Lighthouse Score: 98/100
@@ -191,23 +143,34 @@ build:
 - Time to Interactive: < 2s
 - Bundle Size: < 100KB (gzipped)
 
+---
 ## 🗺️ Roadmap
 
 - [ ] Multi-language support
 - [ ] Advanced text analysis features
 - [ ] Collaborative editing
-- [ ] PWA support
+- [ ] PWA support for offline use
 - [ ] Custom theme creator
-
-## � License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Contact
-
-- GitHub: [@palchhinparihar](https://github.com/palchhinparihar)
-- Project Link: [https://github.com/palchhinparihar/WordWizard](https://github.com/palchhinparihar/WordWizard)
 
 ---
 
-<p align="center">Made with ❤️ by the WordWizard Team</p>
+## ⚖️ License
+
+This project is licensed under the MIT License. See the **[LICENSE](LICENSE)** file for details.
+
+---
+
+<div align="center">
+
+### 📞 Contact
+
+**Palchhin Parihar**
+
+[GitHub](https://github.com/palchhinparihar) • [Project Link](https://github.com/palchhinparihar/WordWizard)
+
+<br>
+
+Made with ❤️ by the WordWizard Team
+
+</div> -->
+ 

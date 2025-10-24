@@ -108,16 +108,16 @@ export const getTextOperations = (
     props.showAlert("Duplicate lines removed.", "success");
   };
 
-  const handleGenerateLorem = async () => {
-    try {
-      const lorem = await generateLoremIpsum(loremParagraphs);
-      setText(lorem);
-      setPreviewText(lorem);
-      props.showAlert(`Generated ${loremParagraphs} paragraph(s) of Lorem Ipsum.`, "success");
-    } catch (err) {
-      props.showAlert("Failed to generate Lorem Ipsum.", "error");
-    }
-  };
+  const handleGenerateLorem = () => {
+  const lorem = Array(loremParagraphs)
+    .fill("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
+    .join("\n\n");
+  setText(lorem);
+  setPreviewText(lorem);
+  props.showAlert(`Generated ${loremParagraphs} paragraph(s) of Lorem Ipsum.`, "success");
+};
+
+
 
   const handleImportFile = () => {
     if (typeof triggerFileInput === "function") triggerFileInput();
@@ -181,6 +181,12 @@ export const getTextOperations = (
     { id: "italic", func: handleItalic, label: "Italic" },
     { id: "underline", func: handleUnderline, label: "Underline" },
     { id: "strike", func: handleStrike, label: "Strikethrough", allowEmpty: true },
+    { id: "strike", func: handleStrike, label: "Strikethrough", allowEmpty: false },
+    { id: "title-case", func: handleTitleCase, label: "Title Case" },
+    { id: "toggle-case", func: handleToggleCase, label: "Toggle Case" },
+    { id: "alternating-case", func: handleAlternatingCase, label: "Alternating Case" },
+    { id: "bulleted-list", func: handleBulletedList, label: "Bulleted List", allowEmpty: false },
+    { id: "numbered-list", func: handleNumberedList, label: "Numbered List", allowEmpty: false },
   ];
 
   return obj;

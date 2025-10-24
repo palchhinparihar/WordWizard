@@ -1,6 +1,6 @@
 export function capitalize(word) {
-    const lower = word.toLowerCase();
-    return lower.charAt(0).toUpperCase() + lower.slice(1);
+  const lower = word.toLowerCase();
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
 }
 
 export const checkGrammar = async (text) => {
@@ -9,28 +9,28 @@ export const checkGrammar = async (text) => {
   const API_URL = import.meta.env.VITE_LANUGAGETOOL_API_URL;
 
   const params = new URLSearchParams();
-  params.append('text', text);
-  params.append('language', 'en-US');
+  params.append("text", text);
+  params.append("language", "en-US");
 
   try {
     const response = await fetch(API_URL, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
       body: params,
     });
 
     if (!response.ok) {
       const text = await response.text(); // read plain text error
-      console.error('LanguageTool Error:', text);
+      console.error("LanguageTool Error:", text);
       throw new Error(text);
     }
 
     const data = await response.json();
     return data.matches || [];
   } catch (err) {
-    console.error('Grammar API Error:', err);
+    console.error("Grammar API Error:", err);
     throw err;
   }
 };

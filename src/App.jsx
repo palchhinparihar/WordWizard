@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
+
 // Components
 import Navbar from "./components/Navbar";
 import Alert from "./components/Alert";
@@ -177,12 +178,12 @@ function App() {
               background: colorTheme,
             }}
           >
-            <Welcome />
+            <Welcome theme={theme} />
           </div>
         ) : (
           // WRAP EVERYTHING IN A FLEX CONTAINER
           <div
-            key={currentThemeId}
+            // key={currentThemeId}. to do not reset animations on theme change
             className="min-h-screen flex flex-col"
             style={{
               background: colorTheme,
@@ -198,7 +199,9 @@ function App() {
               onFileImport={handleFileImport}
               onExport={handleExport}
             />
-            <Alert alert={alert} theme={theme} />
+
+            {/* This alert is not required */}
+            {/* <Alert alert={alert} theme={theme} /> */}
 
             {/* ADD flex-1 TO MAIN CONTENT */}
             <main className="flex-1">
