@@ -59,7 +59,6 @@ Example: This issue appeared after the recent code refactor.
 
 ---
 
-
 ## 🧩 Local Setup for Contributions
 
 0. **Forking the Repository:**
@@ -77,6 +76,18 @@ Example: This issue appeared after the recent code refactor.
    ```bash
    git clone https://github.com/palchhinparihar/WordWizard.git
    cd WordWizard
+   ```
+
+2. **Add the upstream remote (original repo)**
+
+   ```bash
+   git remote add upstream https://github.com/palchhinparihar/WordWizard.git
+   ```
+
+3. **Sync your fork with the main repo:**
+
+   ```bash
+   git pull upstream main
    ```
 
 2. **Install dependencies:**
@@ -102,7 +113,6 @@ Example: This issue appeared after the recent code refactor.
     git checkout -b <your-branch-name>
     ```
 
-
     Use a descriptive branch name, such as:
 
     -`fix/navbar-animation`
@@ -117,68 +127,56 @@ Example: This issue appeared after the recent code refactor.
     npm run dev
     ```
 
+### Available Scripts
+
+- `npm run dev`: Start development server.
+- `npm run build`: Create a production build.
+- `npm run test`: Run the test suite.
+- `npm run lint`: Lint the codebase.
+
 ---
 
-## ⚠️ Precautions Before Publishing a Pull Request
-Before submitting a Pull Request (PR), make sure your branch is up to date and conflict-free by following these steps:
+## ⚠️ Keep Your Branch Updated
 
-1. **Sync With the Upstream Repository:**
+Before submitting a Pull Request (PR), make sure your branch is up to date with the main repository:
 
-    Always ensure your fork has the latest changes from the main repository.
-
-    Using GitHub UI:
-        
-    Go to your fork on GitHub
-    Click the “Sync fork” button (next to the Contribute dropdown).
-    Select “Update branch” to bring in the latest commits from the main repository.
-    Now Open your code editor:
-        
-    Switch to your Main branch:
-
-    ```bash
+```bash
+    # Add upstream remote if not already added
+    git remote add upstream https://github.com/palchhinparihar/WordWizard.git
+    
+    # Fetch latest changes from upstream main
+    git fetch upstream
+    
+    # Update your local main branch
     git checkout main
-    git pull
-    ```
+    git merge upstream/main
+    
+    # Switch to your feature branch and merge main
+    git checkout <your-branch-name>
+    git merge main
+```
 
-    Merge the main branch into your feature branch
+### Resolve merge conflicts (if any)
+
+- Conflicts will appear in your editor with <<<<<<, ======, >>>>>> markers.
+- Decide which changes to keep:
+  - Current Change → your branch’s changes
+  - Incoming Change → main branch changes
+  - Accept Both if needed
+- Mark conflicts as resolved:
 
     ```bash
-    git checkout <feature-branch>
-    git merge main
+    git add .
+    git commit -m "Merged main into <your-branch-name> and resolved conflicts"
     ```
 
-2. **Check for conflicts:**
-        
-    - Conflicts will appear in VS Code’s Source Control panel or directly in the editor. 
-    - Conflicted files are marked with <<<<<<, ======, >>>>>> sections.
+- Push your updated branch:
 
-3. **Resolve conflicts manually**
-
-    - Decide which changes to keep:
-
-        - Current Change → your branch’s changes
-        - Incoming Change → main branch changes
-        - Or Accept Both Changes if needed.
-    - VS Code provides buttons to accept changes directly.
-
-4. **Mark conflicts as resolved**
-```bash
-    git add .
-```
-
-5. **Commit the merge**
-```bash
-    git commit -m "Merged main into <your-branch-name> and resolved conflicts"
-```
-
-6. **Push Your Changes**
-```bash
+    ```bash
     git push origin <your-branch-name>
-```
-Then go to the main repository, click on "Compare & Pull" to create a PR.
-Follow the template given below to create your PR.
+    ```
 
----
+Then go to the main repository and click **"Compare & Pull"** to create your PR.
 
 ## ⚡ Pull Request Template
 
