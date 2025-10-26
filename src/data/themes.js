@@ -83,6 +83,14 @@ export const allThemes = [
     category: "light",
     icon: "🍃",
   },
+  {
+    id: "pastel-pink",
+    name: "Pastel Pink",
+    gradient: "linear-gradient(135deg, #fce7f3 0%, #f9a8d4 50%, #f472b6 100%)",
+    preview: "from-pink-100 via-pink-200 to-pink-300",
+    category: "light",
+    icon: "🌸",
+  },
 
   // Vibrant Themes - MORE SUBTLE & PROFESSIONAL
   {
