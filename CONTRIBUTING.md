@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing! 🎉
 
-WordWizard is an open-source word and character counter built with React + Vite + Bootstrap. We welcome contributions of all sizes, from documentation improvements to new features or bug fixes.
+WordWizard is an open-source word and character counter built with React + Vite + TailwindCSS. We welcome contributions of all sizes, from documentation improvements to new features or bug fixes.
 
 ---
 
@@ -20,7 +20,7 @@ WordWizard is an open-source word and character counter built with React + Vite 
 
 ---
 
-## Issue Template
+## 📝 Issue Template
 
 ```
 ### 🐞 Issue Description
@@ -59,7 +59,128 @@ Example: This issue appeared after the recent code refactor.
 
 ---
 
-## Pull Request Template
+
+## 🧩 Local Setup for Contributions
+
+0. **Forking the Repository:**
+    
+    If you’d like to contribute to WordWizard, start by creating your own copy of the repository.
+    Go to the WordWizard GitHub repository:
+    https://github.com/palchhinparihar/WordWizard
+
+    Click on the “Fork” button (top-right corner of the page).
+    This creates a personal copy of the repository under your GitHub account.
+
+
+1. **Clone your forked repository:**
+
+   ```bash
+   git clone https://github.com/palchhinparihar/WordWizard.git
+   cd WordWizard
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Add .env file:**
+
+    Rename the provided .env-example file to .env and ensure it contains the following line:
+    ```env
+    VITE_LANUGAGETOOL_API_URL=https://api.languagetool.org/v2/check
+    ```
+
+    >Note: Never commit your personal .env file to GitHub. It should remain local for security reasons.
+
+
+4. **Create a New Branch**
+
+    Before making any changes, create a new branch for your contribution:
+    ```bash
+    git checkout -b <your-branch-name>
+    ```
+
+
+    Use a descriptive branch name, such as:
+
+    -`fix/navbar-animation`
+
+    -`feature/add-dark-mode-toggle`
+
+    -`docs/update-readme`
+
+5. **Start the development server:**
+
+    ```bash
+    npm run dev
+    ```
+
+---
+
+## ⚠️ Precautions Before Publishing a Pull Request
+Before submitting a Pull Request (PR), make sure your branch is up to date and conflict-free by following these steps:
+
+1. **Sync With the Upstream Repository:**
+
+    Always ensure your fork has the latest changes from the main repository.
+
+    Using GitHub UI:
+        
+    Go to your fork on GitHub
+    Click the “Sync fork” button (next to the Contribute dropdown).
+    Select “Update branch” to bring in the latest commits from the main repository.
+    Now Open your code editor:
+        
+    Switch to your Main branch:
+
+    ```bash
+    git checkout main
+    git pull
+    ```
+
+    Merge the main branch into your feature branch
+
+    ```bash
+    git checkout <feature-branch>
+    git merge main
+    ```
+
+2. **Check for conflicts:**
+        
+    - Conflicts will appear in VS Code’s Source Control panel or directly in the editor. 
+    - Conflicted files are marked with <<<<<<, ======, >>>>>> sections.
+
+3. **Resolve conflicts manually**
+
+    - Decide which changes to keep:
+
+        - Current Change → your branch’s changes
+        - Incoming Change → main branch changes
+        - Or Accept Both Changes if needed.
+    - VS Code provides buttons to accept changes directly.
+
+4. **Mark conflicts as resolved**
+```bash
+    git add .
+```
+
+5. **Commit the merge**
+```bash
+    git commit -m "Merged main into <your-branch-name> and resolved conflicts"
+```
+
+6. **Push Your Changes**
+```bash
+    git push origin <your-branch-name>
+```
+Then go to the main repository, click on "Compare & Pull" to create a PR.
+Follow the template given below to create your PR.
+
+---
+
+## ⚡ Pull Request Template
 
 ```
 ### 📝 Description
@@ -118,3 +239,15 @@ Steps:
 <!-- Add any other information for reviewers or maintainers. -->
 Example: This update prepares the base for future UI enhancements.
 ```
+---
+
+## 🎉 Thank You for Contributing!
+
+Thank you for taking the time to contribute to WordWizard! Your efforts help make this project better for everyone.
+
+- Every contribution, no matter how small, is appreciated.
+
+- If you have any questions or need help while contributing, join our discord comunity:
+[WordWizard](https://discord.com/channels/707751027973161132/1429359535218233466)
+
+- Stay respectful, have fun, and happy coding! 💻✨
