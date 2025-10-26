@@ -95,6 +95,18 @@
    cd WordWizard
    ```
 
+2. **Add the upstream remote (original repo)**
+
+   ```bash
+   git remote add upstream https://github.com/palchhinparihar/WordWizard.git
+   ```
+
+3. **Sync your fork with the main repo:**
+
+   ```bash
+   git pull upstream main
+   ```
+
 2. **Install dependencies:**
 
    ```bash
