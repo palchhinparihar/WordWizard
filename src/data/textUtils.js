@@ -171,16 +171,10 @@ export const getTextOperations = (
   const handleSummarize = (level) => {
     if (!text || !text.trim()) return;
     if (typeof setLoadingSummary === "function") setLoadingSummary(true);
-    try {
-      const summary = summarizeText(text, level);
-      setPreviewText(summary);
-      props.showAlert(`Generated ${level} summary.`, "success");
-    } catch (err) {
-      console.error(err);
-      props.showAlert("Failed to summarize.", "error");
-    } finally {
-      if (typeof setLoadingSummary === "function") setLoadingSummary(false);
-    }
+    const summary = summarizeText(text, level);
+    setPreviewText(summary);
+    props.showAlert(`Generated ${level} summary.`, "success");
+    if (typeof setLoadingSummary === "function") setLoadingSummary(false);
   };
 
   // Case Conversion Handlers
