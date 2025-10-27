@@ -3,6 +3,8 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { importFile, exportFile } from "./utils";
 import { allThemes } from "./data/themes";
 
+import { useUndoRedo } from "./hooks/useUndoRedo";
+
 // Components
 import Navbar from "./components/Navbar";
 import Alert from "./components/Alert";
@@ -22,13 +24,22 @@ function App() {
   );
   const [alert, setAlert] = useState(null);
   const [showWelcome, setShowWelcome] = useState(true);
-  const [text, setText] = useState("");
+
+  const {
+    currentValue: text,
+    addToHistory,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+    reset: resetHistory
+  } = useUndoRedo("", 50);
 
   const handleFileImport = (file) => {
     importFile(
       file,
       (content) => {
-        setText(content);
+        addToHistory(content);
         showAlert("File imported successfully!", "success");
       },
       () => {
@@ -137,9 +148,14 @@ function App() {
                       theme={theme}
                       colorTheme={colorTheme}
                       text={text}
-                      setText={setText}
+                      setText={addToHistory}
                       onFileImport={handleFileImport}
                       onExport={handleExport}
+                      undo={undo}
+                      redo={redo}
+                      canUndo={canUndo}
+                      canRedo={canRedo}
+                      resetHistory={resetHistory}
                     />
                   }
                 />
