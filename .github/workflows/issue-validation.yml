@@ -40,8 +40,8 @@ jobs:
 
             const featureSections = [
               { name: 'Feature Description', patterns: [/🚀\s*Feature Description/i, /Feature Description/i] },
-              { name: 'Problem Statement', patterns: [/❓\s*Problem Statement/i, /Problem Statement/i] },
-              { name: 'Proposed Solution', patterns: [/💡\s*Proposed Solution/i, /Proposed Solution/i] },
+              { name: 'Motivation / Use Case', patterns: [/🎯\s*Motivation \/ Use Case/i, /Motivation \/ Use Case/i] }
+              { name: 'Proposed Solution', patterns: [/💡\s*Proposed Solution/i, /⚙️\s*Proposed Implementation/i, /Proposed Solution/i] },
               { name: 'Additional Context', patterns: [/🧠\s*Additional Context/i, /Additional Context/i] }
             ];
 
@@ -125,7 +125,7 @@ jobs:
               if (issueType === 'bug') {
                 commentBody += `Ensure your bug report includes:\n- 🐞 Issue Description\n- ✅ Expected Behavior\n- ⚙️ Steps To Reproduce\n\n`;
               } else if (issueType === 'feature') {
-                commentBody += `Ensure your feature request includes:\n- 🚀 Feature Description\n- ❓ Problem Statement\n- 💡 Proposed Solution\n- 🧠 Additional Context\n\n`;
+                commentBody += `Ensure your feature request includes:\n- 📝 Feature Description\n- 🎯 Motivation / Use Case\n- ⚙️ Proposed Implementation\n- 🧠 Additional Context\n\n`;
               } else {
                 commentBody += `Use one of the provided templates when creating issues to help maintainers assist you effectively.\n\n`;
               }
