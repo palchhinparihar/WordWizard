@@ -233,14 +233,12 @@ export const getTextOperations = (
   const handleUndo = () => {
     if (undo && canUndo) {
       undo();
-      props.showAlert("Undo", "success");
     }
   };
 
   const handleRedo = () => {
     if (redo && canRedo) {
       redo();
-      props.showAlert("Redo", "success");
     }
   };
 
