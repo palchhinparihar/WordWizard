@@ -1,4 +1,4 @@
-import { checkGrammar } from "../utils";
+import { checkGrammar, summarizeText, summarizeTextAPI } from "../utils";
 
 export const getTextOperations = (
   text,
@@ -168,6 +168,44 @@ export const getTextOperations = (
     }
   };
 
+  // Summarization handlers - ALWAYS read from original `text` (not previewText)
+  const handleSummarize = async (level) => {
+    if (!text || !text.trim()) {
+      props.showAlert("No text to summarize.", "warning");
+      return;
+    }
+
+    // Show immediate feedback
+    setPreviewText("Summarizing...");
+    props.showAlert("Summarizing...", "info");
+
+    try {
+      // If configured, use abstractive API; otherwise fall back to local extractive summarizer
+      const useApi = import.meta.env.VITE_USE_ABSTRACT_API === "true";
+      let summary = "";
+      if (useApi) {
+        summary = await summarizeTextAPI(text, level);
+      } else {
+        summary = summarizeText(text, level);
+      }
+
+      setPreviewText(summary || "");
+      props.showAlert(`Summarized (${level}).`, "success");
+    } catch (err) {
+      console.error("Summarization error:", err);
+      // If abstractive API failed, fall back to local extractive summarizer
+      try {
+        const fallback = summarizeText(text, level);
+        setPreviewText(fallback || text);
+        props.showAlert("Abstractive API failed; used local fallback summarizer.", "warning");
+      } catch (fallbackErr) {
+        console.error("Fallback summarizer error:", fallbackErr);
+        props.showAlert("Failed to summarize text.", "error");
+        setPreviewText(text);
+      }
+    }
+  };
+
   // Case Conversion Handlers
   const handleTitleCase = () => {
     const minorWords = ['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'by', 'in', 'of'];
@@ -255,7 +293,10 @@ export const getTextOperations = (
     { id: "remove-extra-spaces", func: handleExtraSpaces, label: "Remove extra spaces" },
     { id: "copy", func: handleCopyClick, label: "Copy text" },
     { id: "clear", func: handleClearText, label: "Clear text" },
-    { id: "grammar-check", func: handleGrammarCheck, label: "Check Grammar" },
+  { id: "grammar-check", func: handleGrammarCheck, label: "Check Grammar" },
+  { id: "summarize-short", func: () => handleSummarize("short"), label: "Summarize - Short" },
+  { id: "summarize-medium", func: () => handleSummarize("medium"), label: "Summarize - Medium" },
+  { id: "summarize-long", func: () => handleSummarize("long"), label: "Summarize - Long" },
     { id: "remove-punctuation", func: handleRemovePunctuation, label: "Remove punctuation" },
     { id: "smart-capitalization", func: handleSmartCapitalization, label: "Smart Capitalization" },
     { id: "remove-duplicate-lines", func: handleRemoveDuplicateLines, label: "Remove duplicate lines", allowEmpty: false },

@@ -145,6 +145,35 @@
     npm run dev
     ```
 
+### Optional: Abstractive summarization server
+
+WordWizard includes an optional small server that proxies to the OpenAI API to produce abstractive summaries (summaries in the assistant's own words).
+
+1. Copy the example env and provide an OpenAI key:
+
+```bash
+cp server/.env.example server/.env
+# then edit server/.env and set OPENAI_API_KEY
+```
+
+2. Install and start the server (from the project root):
+
+```powershell
+cd server
+npm install
+npm start
+```
+
+3. Enable the client to use the abstractive API by creating or updating `.env` in the project root and adding:
+
+```env
+VITE_USE_ABSTRACT_API=true
+VITE_SUMMARIZER_API_URL=http://localhost:3001/summarize
+```
+
+When enabled, the Summarize buttons use the server to generate an abstractive summary in their own words. If not enabled, the app falls back to an in-browser extractive summarizer.
+
+
 ### Available Scripts
 
 - `npm run dev`: Start development server.
