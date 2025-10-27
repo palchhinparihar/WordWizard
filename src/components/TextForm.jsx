@@ -330,7 +330,7 @@ const TextForm = (props) => {
 
         {/* FUNCTION BUTTONS */}
         <div
-          className="flex flex-wrap gap-2 my-6"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 my-6"
           data-aos="fade-in"
           data-aos-delay="200"
           data-aos-duration="800"
@@ -351,7 +351,7 @@ const TextForm = (props) => {
                     transform:
                       activeOperation === op.id ? "scale(0.95)" : "scale(1)",
                   }}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer`}
+                  className={`w-full text-center px-4 py-2 rounded-lg font-medium transition-all duration-300 ...`}
                 >
                   {op.id === "grammar-check" && loadingGrammar
                     ? t("textForm.checking")
