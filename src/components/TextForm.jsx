@@ -6,9 +6,9 @@ import Aos from "aos";
 import { useTranslation } from "react-i18next";
 import SummaryCard from "./SummaryCard";
 import { importFile } from "../utils";
+import { useUndoRedo } from "../hooks/useUndoRedo";
 
 const TextForm = (props) => {
-  const [text, setText] = useState("");
   const [previewText, setPreviewText] = useState("");
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
   const [isBold, setIsBold] = useState(false);
@@ -24,20 +24,64 @@ const TextForm = (props) => {
 
   const { t } = useTranslation();
 
+  // Initialize undo/redo functionality
+  const {
+    currentValue: text,
+    addToHistory,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+    reset: resetHistory
+  } = useUndoRedo("", 50);
+
   useEffect(() => {
     Aos.refresh();
   }, [props.theme]);
 
+  useEffect(() => {
+    // Sync preview text when text changes
+    setPreviewText(text);
+  }, [text]);
+
+  // Keyboard shortcuts for undo/redo
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Check for Ctrl+Z (undo) or Ctrl+Y (redo)
+      if (e.ctrlKey || e.metaKey) {
+        if (e.key === 'z' && !e.shiftKey) {
+          e.preventDefault();
+          if (canUndo) {
+            undo();
+            props.showAlert("Undo", "success");
+          }
+        } else if (e.key === 'y' || (e.key === 'z' && e.shiftKey)) {
+          e.preventDefault();
+          if (canRedo) {
+            redo();
+            props.showAlert("Redo", "success");
+          }
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [undo, redo, canUndo, canRedo, props]);
+
   const handleChange = (e) => {
-    setText(e.target.value);
-    setPreviewText(e.target.value);
+    const newValue = e.target.value;
+    addToHistory(newValue);
+    setPreviewText(newValue);
   };
 
   const handleFileImport = (file) => {
     importFile(
       file,
       (content) => {
-        setText(content);
+        addToHistory(content);
         setPreviewText(content);
         props.showAlert(t("alerts.fileImported"), "success");
       },
@@ -53,7 +97,7 @@ const TextForm = (props) => {
 
   const textOperations = getTextOperations(
     text,
-    setText,
+    addToHistory,
     previewText,
     setPreviewText,
     setDialogBoxOpen,
@@ -198,7 +242,7 @@ const TextForm = (props) => {
               accept=".txt"
               className="hidden"
               onChange={(e) =>
-                handleFileImport(e.target.files && e.target.files[0])
+                onFileImport(e.target.files && e.target.files[0])
               }
             />
 

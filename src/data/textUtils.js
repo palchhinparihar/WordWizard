@@ -15,6 +15,7 @@ export const getTextOperations = (
   setActiveOperation
 ) => {
   const { isBold, setIsBold, isItalic, setIsItalic, isUnderline, setIsUnderline, isStrike, setIsStrike } = styles;
+  const { undo, redo, canUndo, canRedo, resetHistory } = undoRedoActions || {};
 
   const handleUpClick = () => {
     setPreviewText(text.toUpperCase());
@@ -238,7 +239,25 @@ export const getTextOperations = (
     props.showAlert("Converted to numbered list.", "success");
   };
 
+  // Undo/Redo handlers
+  const handleUndo = () => {
+    if (undo && canUndo) {
+      undo();
+    }
+  };
+
+  const handleRedo = () => {
+    if (redo && canRedo) {
+      redo();
+    }
+  };
+
   const obj = [
+    // Undo/Redo operations (at the beginning for easy access)
+    ...(undoRedoActions ? [
+      { id: "undo", func: handleUndo, label: "Undo", allowEmpty: true, disabled: !canUndo },
+      { id: "redo", func: handleRedo, label: "Redo", allowEmpty: true, disabled: !canRedo },
+    ] : []),
     { id: "uppercase", func: handleUpClick, label: "Convert to uppercase" },
     { id: "lowercase", func: handleLoClick, label: "Convert to lowercase" },
     { id: "remove-line-breaks", func: handleRemoveLineBreaks, label: "Remove line breaks", allowEmpty: false },

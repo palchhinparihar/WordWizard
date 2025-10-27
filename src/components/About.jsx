@@ -43,6 +43,8 @@ const About = ({ theme }) => {
                       : "bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white"
                   }`}
                   onClick={() => toggleAccordion(item.id)}
+                  aria-expanded={isOpen}
+                  aria-controls={`accordion-content-${item.id}`}
                 >
                   <span>{titleText}</span>
                   <svg
@@ -63,6 +65,7 @@ const About = ({ theme }) => {
                 </button>
 
                 <div
+                  id={`accordion-content-${item.id}`}
                   className={`transition-all duration-300 ease-in-out ${
                     isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                   } overflow-hidden`}
