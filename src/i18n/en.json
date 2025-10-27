@@ -31,7 +31,9 @@
     "minutes": "minutes",
     "preview": "Preview",
     "noPreview": "Nothing to preview yet!",
-    "checking": "Checking..."
+    "checking": "Checking...",
+    "upload": "Upload",
+    "download": "Download"
   },
   "alerts": {
     "fileImported": "File imported successfully!",
@@ -63,6 +65,7 @@
     }
   },
   "tooltip":{
-    "downloadFile": "Download the file"
+    "downloadFile": "Download the file",
+    "uploadFile": "Upload a file"
   }
 }

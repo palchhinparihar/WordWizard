@@ -178,12 +178,12 @@ const Navbar = (props) => {
               onChange={handleFileChange}
             />
             <button
-              title={"Upload a file"}
+              title={t("tooltip.uploadFile")}
               onClick={handleUploadClick}
               className={`btn ${isDark ? "btn-dark" : "btn-light"} flex items-center cursor-pointer`}
             >
               <Upload className="w-5 h-5 mr-1" />
-              Upload
+              {t("textForm.upload")}
             </button>
 
             <button
@@ -192,7 +192,7 @@ const Navbar = (props) => {
               className={`btn ${isDark ? "btn-dark" : "btn-light"} flex items-center cursor-pointer`}
             >
               <Download className="w-5 h-5 mr-1" />
-              Download
+              {t("textForm.download")}
             </button>
           </div>
         </div>
