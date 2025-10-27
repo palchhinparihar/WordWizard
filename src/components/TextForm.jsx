@@ -8,7 +8,9 @@ import SummaryCard from "./SummaryCard";
 import { importFile } from "../utils";
 
 const TextForm = (props) => {
-  const [text, setText] = useState("");
+  const { text, setText, onFileImport} = props;
+  // const [text, setText] = useState("");  --declaring new state here was an issue
+  //we should use state defind in app.jsx by passing it trhough props and extracting it here
   const [previewText, setPreviewText] = useState("");
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
   const [isBold, setIsBold] = useState(false);
@@ -27,23 +29,13 @@ const TextForm = (props) => {
     Aos.refresh();
   }, [props.theme]);
 
+  useEffect(()=>{   //it was required, as the text changes, preview text also changes
+    setPreviewText(text);
+  },[text])
+
   const handleChange = (e) => {
     setText(e.target.value);
     setPreviewText(e.target.value);
-  };
-
-  const handleFileImport = (file) => {
-    importFile(
-      file,
-      (content) => {
-        setText(content);
-        setPreviewText(content);
-        props.showAlert(t("alerts.fileImported"), "success");
-      },
-      () => {
-        props.showAlert(t("alerts.fileError"), "error");
-      }
-    );
   };
 
   const handleFileInputClick = () => {
@@ -196,7 +188,7 @@ const TextForm = (props) => {
               accept=".txt"
               className="hidden"
               onChange={(e) =>
-                handleFileImport(e.target.files && e.target.files[0])
+                onFileImport(e.target.files && e.target.files[0])
               }
             />
 
