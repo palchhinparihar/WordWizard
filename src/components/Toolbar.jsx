@@ -19,9 +19,13 @@ import {
   FileText,
   AlignJustify,
   Slash,
+  Undo,
+  Redo,
 } from "lucide-react";
 
 const ICON_MAP = {
+  Undo,
+  Redo,
   Bold,
   Italic,
   Underline,
@@ -43,6 +47,8 @@ const ICON_MAP = {
 };
 
 const ALT_TEXT = {
+  Undo: "Undo last action",
+  Redo: "Redo last undone action",
   Bold: "Bold Text",
   Italic: "Italic Text",
   Underline: "Underline Text",
