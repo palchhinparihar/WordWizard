@@ -330,7 +330,7 @@ const TextForm = (props) => {
 
         {/* FUNCTION BUTTONS */}
         <div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 my-6"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 my-6"
           data-aos="fade-in"
           data-aos-delay="200"
           data-aos-duration="800"
