@@ -8,12 +8,8 @@ const SummaryCard = ({ theme, t, text = "", topWords = [] }) => {
 
   const cards = [
     { id: "words", label: t("textForm.words"), value: words },
-    { id: "chars", label: "Characters", value: charCount },
-    {
-      id: "reading",
-      label: "Reading Time",
-      value: `${readingTime} ${t("textForm.minutes")}`,
-    },
+    { id: "chars", label: t("textForm.characters"), value: charCount },
+    { id: "reading", label: t("textForm.readingTime"), value: `${readingTime} ${t("textForm.minutes")}` },
   ];
 
   return (

@@ -35,7 +35,8 @@
   },
   "alerts": {
     "fileImported": "File imported successfully!",
-    "fileError": "Error reading file!"
+    "fileError": "Error reading file!",
+    "textExported":"Text exported successfully!"
   },
 
   "aboutPage": {
@@ -60,5 +61,8 @@
       "title": "Built for Everyone — and Always Evolving",
       "content": "WordWizard is free, open-source, and community-driven. We're constantly adding new features — from advanced text statistics and theme customization to creative formatting options — to make writing simpler, faster, and more enjoyable."
     }
+  },
+  "tooltip":{
+    "downloadFile": "Download the file"
   }
 }

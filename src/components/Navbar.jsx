@@ -187,7 +187,7 @@ const Navbar = (props) => {
             </button>
 
             <button
-              title={"Download the file"}
+              title={t("tooltip.downloadFile")}
               onClick={props.onExport}
               className={`btn ${isDark ? "btn-dark" : "btn-light"} flex items-center cursor-pointer`}
             >
