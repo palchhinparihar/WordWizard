@@ -62,8 +62,8 @@ const Toolbar = ({
   const { t } = useTranslation();
 
   const ALT_TEXT = {
-    Undo: "Undo last action",
-    Redo: "Redo last undone action",
+    Undo: t("tooltip.Undo"),
+    Redo: t("tooltip.Redo"),
     Bold: t("tooltip.Bold"),
     Italic: t("tooltip.Italic"),
     Underline: t("tooltip.Underline"),
