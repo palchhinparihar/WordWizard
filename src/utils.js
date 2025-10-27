@@ -74,7 +74,11 @@ export const summarizeText = (text = "", level = "medium") => {
 
   // Small stopword list to ignore common words when scoring
   const stopwords = new Set([
-    "the","and","is","in","it","of","to","a","an","that","this","with","for","on","as","are","was","were","be","by","or","from","at","which","but","not","have","has","had","they","you","i","he","she","we","us","our","his","her",
+    "the", "and", "is", "in", "it", "of", "to", "a", "an",
+    "that", "this", "with", "for", "on", "as", "are", "was", "were",
+    "be", "by", "or", "from", "at", "which", "but", "not", "have",
+    "has", "had", "they", "you", "i", "he", "she", "we", "us",
+    "our", "his", "her",
   ]);
 
   // Build word frequency map (lowercased, punctuation removed)
