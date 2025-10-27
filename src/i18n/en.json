@@ -31,11 +31,14 @@
     "minutes": "minutes",
     "preview": "Preview",
     "noPreview": "Nothing to preview yet!",
-    "checking": "Checking..."
+    "checking": "Checking...",
+    "upload": "Upload",
+    "download": "Download"
   },
   "alerts": {
     "fileImported": "File imported successfully!",
-    "fileError": "Error reading file!"
+    "fileError": "Error reading file!",
+    "textExported": "Text exported successfully!"
   },
 
   "aboutPage": {
@@ -60,5 +63,29 @@
       "title": "Built for Everyone — and Always Evolving",
       "content": "WordWizard is free, open-source, and community-driven. We're constantly adding new features — from advanced text statistics and theme customization to creative formatting options — to make writing simpler, faster, and more enjoyable."
     }
+  },
+  "tooltip": {
+    "downloadFile": "Download the file",
+    "uploadFile": "Upload a file",
+    "Undo":"Undo last action",
+    "Redo":"Redo last undone action",
+    "Bold": "Bold Text",
+    "Italic": "Italic Text",
+    "Underline": "Underline Text",
+    "Strikethrough": "Strikethrough Text",
+    "ImportFile": "Upload a text file",
+    "ExportText": "Download the current text",
+    "SpellCheck": "Check the grammar of your text",
+    "Trash2": "Clear all text",
+    "Copy": "Copy text to clipboard",
+    "ArrowUp": "Uppercase",
+    "ArrowDown": "Lowercase",
+    "CornerUpLeft": "Remove line breaks",
+    "MoveHorizontal": "Trim spaces",
+    "AlignJustify": "Remove extra spaces",
+    "Slash": "Remove punctuation",
+    "Type": "Automatically capitalize sentences properly",
+    "Repeat": "Remove duplicate lines",
+    "FileText": "Generate Lorem Ipsum"
   }
 }

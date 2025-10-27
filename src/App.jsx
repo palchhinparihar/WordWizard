@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { importFile, exportFile } from "./utils";
 import { allThemes } from "./data/themes";
 
@@ -15,6 +16,7 @@ import Footer from "./components/Footer";
 import BackToTopButton from "./components/BackToTopButton";
 
 function App() {
+  const { t } = useTranslation();
   const [currentThemeId, setCurrentThemeId] = useState(
     localStorage.getItem("theme") || "dark"
   );
@@ -40,10 +42,10 @@ function App() {
       file,
       (content) => {
         addToHistory(content);
-        showAlert("File imported successfully!", "success");
+        showAlert(t("alerts.fileImported"), "success");
       },
       () => {
-        showAlert("Failed to import file.", "error");
+        showAlert(t("alerts.fileError"), "error");
       }
     );
   };
@@ -51,7 +53,7 @@ function App() {
   // Export handler
   const handleExport = () => {
     exportFile(text, "exported_text.txt");
-    showAlert("Text exported successfully!", "success");
+    showAlert(t("alerts.textExported"), "success");
   };
 
   const currentTheme =

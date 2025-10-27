@@ -178,7 +178,7 @@ const Navbar = (props) => {
               onChange={handleFileChange}
             />
             <button
-              title={"Upload a file"}
+              title={t("tooltip.uploadFile")}
               onClick={handleUploadClick}
               className={`btn ${isDark ? "btn-dark" : "btn-light"} flex items-center cursor-pointer`}
             >
@@ -187,7 +187,7 @@ const Navbar = (props) => {
             </button>
 
             <button
-              title={"Download the file"}
+              title={t("tooltip.downloadFile")}
               onClick={props.onExport}
               className={`btn ${isDark ? "btn-dark" : "btn-light"} flex items-center cursor-pointer`}
             >
