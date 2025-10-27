@@ -5,10 +5,22 @@ import Toolbar from "./Toolbar";
 import Aos from "aos";
 import { useTranslation } from "react-i18next";
 import SummaryCard from "./SummaryCard";
-import { importFile } from "../utils";
-import { useUndoRedo } from "../hooks/useUndoRedo";
 
 const TextForm = (props) => {
+  const {
+    text, // This is the 'currentValue' from the hook in App.js
+    setText: addToHistory, // 'setText' prop is 'addToHistory' from App.js
+    showAlert,
+    theme,
+    colorTheme,
+    onFileImport, // This is the 'handleFileImport' from App.js
+    onExport,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+    resetHistory
+  } = props;
   const [previewText, setPreviewText] = useState("");
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
   const [isBold, setIsBold] = useState(false);
@@ -22,17 +34,6 @@ const TextForm = (props) => {
   const fileInputRef = React.useRef();
 
   const { t } = useTranslation();
-
-  // Initialize undo/redo functionality
-  const {
-    currentValue: text,
-    addToHistory,
-    undo,
-    redo,
-    canUndo,
-    canRedo,
-    reset: resetHistory
-  } = useUndoRedo("", 50);
 
   useEffect(() => {
     Aos.refresh();
@@ -74,20 +75,6 @@ const TextForm = (props) => {
     const newValue = e.target.value;
     addToHistory(newValue);
     setPreviewText(newValue);
-  };
-
-  const handleFileImport = (file) => {
-    importFile(
-      file,
-      (content) => {
-        addToHistory(content);
-        setPreviewText(content);
-        props.showAlert(t("alerts.fileImported"), "success");
-      },
-      () => {
-        props.showAlert(t("alerts.fileError"), "error");
-      }
-    );
   };
 
   const handleFileInputClick = () => {
