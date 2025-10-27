@@ -161,10 +161,8 @@ export const summarizeText = (text, level = "medium") => {
   }
 
   // Debugging aid
-  try {
-    // eslint-disable-next-line no-console
-    console.debug("summarizeText: level=", level, "origLen=", normalized.length, "summaryLen=", summary.length);
-  } catch (e) {}
+  // eslint-disable-next-line no-console
+  console.debug("summarizeText: level=", level, "origLen=", normalized.length, "summaryLen=", summary.length);
 
   return summary;
 };
