@@ -1,0 +1,245 @@
+name: PR Template Validation
+
+on:
+  pull_request:
+    types: [opened, edited, reopened]
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  validate-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate PR Description
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prBody = context.payload.pull_request.body || '';
+            const prNumber = context.payload.pull_request.number;
+            const prAuthor = context.payload.pull_request.user.login;
+            
+            // Define required sections from the PR template
+            const requiredSections = [
+              { 
+                name: 'Description', 
+                patterns: [
+                  /##?\s*📝\s*Description/i,
+                  /##?\s*Description/i,
+                  /📝\s*Description/i,
+                  /Description\s*:/i,
+                  /Description\s*-/i
+                ]
+              },
+              { 
+                name: 'Type of Change', 
+                patterns: [
+                  /##?\s*🔍\s*Type of Change/i,
+                  /##?\s*Type of Change/i,
+                  /🔍\s*Type of Change/i,
+                  /Type of Change\s*:/i,
+                  /Type of Change\s*-/i
+                ]
+              },
+              { 
+                name: 'How Has This Been Tested', 
+                patterns: [
+                  /##?\s*🧪\s*How Has This Been Tested/i,
+                  /##?\s*How Has This Been Tested/i,
+                  /🧪\s*How Has This Been Tested/i,
+                  /How Has This Been Tested\s*:/i,
+                  /How Has This Been Tested\s*-/i,
+                  /Testing\s*:/i,
+                  /Tests?\s*:/i
+                ]
+              },
+              { 
+                name: 'Checklist', 
+                patterns: [
+                  /##?\s*🧠\s*Checklist/i,
+                  /##?\s*Checklist/i,
+                  /🧠\s*Checklist/i,
+                  /Checklist\s*:/i,
+                  /Checklist\s*-/i
+                ]
+              }
+            ];
+            
+            const missingOrEmpty = [];
+            const warnings = [];
+            
+            // Check for required sections
+            for (const section of requiredSections) {
+              const found = section.patterns.some(pattern => pattern.test(prBody));
+              
+              if (!found) {
+                missingOrEmpty.push(section.name);
+              } else {
+                // Check if section has content (not just comments or placeholders)
+                let sectionMatch = null;
+                for (const pattern of section.patterns) {
+                  sectionMatch = prBody.match(new RegExp(`${pattern.source}[\\s\\S]*?(?=##|$)`, 'i'));
+                  if (sectionMatch) break;
+                }
+                
+                if (sectionMatch) {
+                  const sectionContent = sectionMatch[0]
+                    .replace(/<!--[\s\S]*?-->/g, '') // Remove HTML comments
+                    .replace(/##?\s*[🔍📝🧪🧠]\s*\w+.*$/m, '') // Remove the header itself
+                    .replace(/Example:.*$/gm, '') // Remove examples
+                    .replace(/^\s*[-*]\s*\[\s*\]\s*.*/gm, '') // Remove unchecked checkboxes
+                    .trim();
+                  
+                  if (sectionContent.length < 10) {
+                    warnings.push(section.name);
+                  }
+                }
+              }
+            }
+            
+            // Check if at least one "Type of Change" checkbox is checked
+            const typeOfChangePatterns = [
+              /##?\s*🔍\s*Type of Change[\s\S]*?(?=##|$)/i,
+              /##?\s*Type of Change[\s\S]*?(?=##|$)/i,
+              /🔍\s*Type of Change[\s\S]*?(?=##|$)/i,
+              /Type of Change\s*:[\s\S]*?(?=##|\n\n|$)/i
+            ];
+            
+            let typeOfChangeSection = null;
+            for (const pattern of typeOfChangePatterns) {
+              typeOfChangeSection = prBody.match(pattern);
+              if (typeOfChangeSection) break;
+            }
+            
+            if (typeOfChangeSection) {
+              const hasCheckedBox = /- \[x\]/i.test(typeOfChangeSection[0]);
+              if (!hasCheckedBox) {
+                warnings.push('Type of Change (no option selected)');
+              }
+            }
+            
+            // Check if at least one checklist item is checked
+            const checklistPatterns = [
+              /##?\s*🧠\s*Checklist[\s\S]*?(?=##|$)/i,
+              /##?\s*Checklist[\s\S]*?(?=##|$)/i,
+              /🧠\s*Checklist[\s\S]*?(?=##|$)/i,
+              /Checklist\s*:[\s\S]*?(?=##|\n\n|$)/i
+            ];
+            
+            let checklistSection = null;
+            for (const pattern of checklistPatterns) {
+              checklistSection = prBody.match(pattern);
+              if (checklistSection) break;
+            }
+            
+            if (checklistSection) {
+              const hasCheckedBox = /- \[x\]/i.test(checklistSection[0]);
+              if (!hasCheckedBox) {
+                warnings.push('Checklist (no items checked)');
+              }
+            }
+            
+            // Check PR title quality
+            const prTitle = context.payload.pull_request.title;
+            if (prTitle.length < 10) {
+              warnings.push('PR title is too short (should be descriptive)');
+            }
+            
+            // Build validation result
+            const hasErrors = missingOrEmpty.length > 0;
+            const hasWarnings = warnings.length > 0;
+            
+            if (hasErrors || hasWarnings) {
+              let commentBody = `## ⚠️ PR Template Validation\n\n`;
+              commentBody += `Hi @${prAuthor}, thank you for your contribution! However, there are some issues with your PR that need to be addressed:\n\n`;
+              
+              if (hasErrors) {
+                commentBody += `### ❌ Missing Required Sections\n\n`;
+                commentBody += `The following required sections are missing from your PR description:\n\n`;
+                missingOrEmpty.forEach(section => {
+                  commentBody += `- **${section}**\n`;
+                });
+                commentBody += `\n`;
+              }
+              
+              if (hasWarnings) {
+                commentBody += `### ⚠️ Incomplete or Empty Sections\n\n`;
+                commentBody += `The following sections appear to be incomplete or empty:\n\n`;
+                warnings.forEach(warning => {
+                  commentBody += `- **${warning}**\n`;
+                });
+                commentBody += `\n`;
+              }
+              
+              commentBody += `### 📋 How to Fix\n\n`;
+              commentBody += `Please update your PR description to include all required sections from our [PR template in CONTRIBUTING.md](https://github.com/${context.repo.owner}/${context.repo.repo}/blob/main/CONTRIBUTING.md#pull-request-template).\n\n`;
+              commentBody += `**Required sections:**\n`;
+              commentBody += `- 📝 Description (with clear explanation of changes)\n`;
+              commentBody += `- 🔍 Type of Change (select at least one option)\n`;
+              commentBody += `- 🧪 How Has This Been Tested (describe your testing)\n`;
+              commentBody += `- 🧠 Checklist (check applicable items)\n\n`;
+              commentBody += `Once you've updated the PR description, this check will run again automatically.\n\n`;
+              commentBody += `---\n`;
+              commentBody += `*This is an automated message. If you believe this is an error, please contact a maintainer.*`;
+              
+              // Post comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: commentBody
+              });
+              
+              // Add label for invalid PRs
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                labels: ['needs-template-fix']
+              });
+              
+              // Request changes (this doesn't block merging but signals review needed)
+              if (hasErrors) {
+                core.setFailed('PR description is missing required sections from the template.');
+              } else {
+                core.warning('PR description has incomplete sections.');
+              }
+            } else {
+              // PR is valid - remove the label if it exists and add success comment
+              try {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber,
+                  name: 'needs-template-fix'
+                });
+              } catch (error) {
+                // Label might not exist, that's okay
+              }
+              
+              // Check if we previously commented, and if so, add a success comment
+              const comments = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber
+              });
+              
+              const botComments = comments.data.filter(
+                comment => comment.user.type === 'Bot' && comment.body.includes('PR Template Validation')
+              );
+              
+              if (botComments.length > 0) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber,
+                  body: `## ✅ PR Template Validation Passed\n\nThank you @${prAuthor}! Your PR description now includes all required sections. 🎉`
+                });
+              }
+              
+              core.info('PR description is valid!');
+            }

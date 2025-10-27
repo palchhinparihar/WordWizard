@@ -6,9 +6,11 @@ const DialogBox = ({
   setText,
   showAlert,
   theme,
+  setPreviewText,
 }) => {
   const handleClear = () => {
     setText("");
+    setPreviewText("");
     setDialogBoxOpen(false);
     if (showAlert) {
       showAlert("Cleared the text.", "success");
@@ -21,22 +23,19 @@ const DialogBox = ({
 
   return (
     <div
-      className="fixed flex justify-center items-start z-[9999]"
+      className="fixed flex justify-center items-center z-[9999]"
       style={{
-        top: -135,
+        top: 0,
         left: 0,
         right: 0,
         bottom: 0,
         width: "100vw",
-        minHeight: "130vh",
-        height: "fit-content",
-        overflow: "visible",
         backgroundColor:
           theme === "light" ? "rgba(0, 0, 0, 0.5)" : "rgba(0, 0, 0, 0.7)",
       }}
     >
       <div
-        className="w-[90%] max-w-[400px] p-5 rounded-lg shadow-md mt-[200px]"
+        className="w-[90%] max-w-[400px] p-5 rounded-lg shadow-md"
         style={{
           backgroundColor: theme === "light" ? "white" : "#313131",
           color: theme === "light" ? "black" : "white",

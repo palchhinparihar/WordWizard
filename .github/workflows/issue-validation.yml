@@ -1,0 +1,192 @@
+name: Issue Template Validation
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+
+permissions:
+  issues: write
+
+jobs:
+  validate-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate Issue Template
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueBody = context.payload.issue.body || '';
+            const issueNumber = context.payload.issue.number;
+            const issueAuthor = context.payload.issue.user.login;
+            const issueTitle = context.payload.issue.title;
+
+            // Determine issue type based on key patterns
+            const isBug = /🐞|Bug Report|Issue Description/i.test(issueBody);
+            const isFeature = /🚀|Feature Request|New Feature/i.test(issueBody);
+
+            let issueType = 'unknown';
+            if (isBug) issueType = 'bug';
+            else if (isFeature) issueType = 'feature';
+
+            // Define required sections based on issue type
+            const bugSections = [
+              { name: 'Issue Description', patterns: [/🐞\s*Issue Description/i, /Issue Description/i] },
+              { name: 'Expected Behavior', patterns: [/✅\s*Expected Behavior/i, /Expected Behavior/i] },
+              { name: 'Steps To Reproduce', patterns: [/⚙️\s*Steps To Reproduce/i, /Steps To Reproduce/i] }
+            ];
+
+            const featureSections = [
+              { name: 'Feature Description', patterns: [/🚀\s*Feature Description/i, /Feature Description/i] },
+              { name: 'Motivation / Use Case', patterns: [/🎯\s*Motivation \/ Use Case/i, /Motivation \/ Use Case/i] },
+              { name: 'Proposed Solution', patterns: [/💡\s*Proposed Solution/i, /⚙️\s*Proposed Implementation/i, /Proposed Solution/i] },
+              { name: 'Additional Context', patterns: [/🧠\s*Additional Context/i, /Additional Context/i] }
+            ];
+
+            const requiredSections = issueType === 'feature' ? featureSections : bugSections;
+
+            const missingOrEmpty = [];
+            const warnings = [];
+
+            // Section validation
+            for (const section of requiredSections) {
+              const found = section.patterns.some(pattern => pattern.test(issueBody));
+
+              if (!found) {
+                missingOrEmpty.push(section.name);
+              } else {
+                let sectionMatch = null;
+                for (const pattern of section.patterns) {
+                  sectionMatch = issueBody.match(new RegExp(`${pattern.source}[\\s\\S]*?(?=##|$)`, 'i'));
+                  if (sectionMatch) break;
+                }
+
+                if (sectionMatch) {
+                  const sectionContent = sectionMatch[0]
+                    .replace(/<!--[\s\S]*?-->/g, '')  // remove comments
+                    .replace(/##?\s*[🐞✅⚙️🚀❓💡🧠]\s*\w+.*$/m, '') // remove headers
+                    .replace(/Example:.*$/gm, '') // remove example lines
+                    .trim();
+
+                  if (sectionContent.length < 10) {
+                    warnings.push(section.name);
+                  }
+                }
+              }
+            }
+
+            // Extra validation for "Steps To Reproduce"
+            if (issueType === 'bug') {
+              const stepsMatch = issueBody.match(/Steps To Reproduce[\s\S]*?(?=##|$)/i);
+              if (stepsMatch) {
+                const hasNumberedSteps = /^\s*\d+\.\s+.+/m.test(stepsMatch[0]);
+                if (!hasNumberedSteps) {
+                  warnings.push('Steps To Reproduce (should contain numbered steps)');
+                }
+              }
+            }
+
+            // Title validation
+            if (issueTitle.length < 10) {
+              warnings.push('Issue title is too short (should be descriptive)');
+            }
+
+            const genericTitles = ['bug', 'issue', 'problem', 'help', 'error', 'feature', 'test'];
+            if (genericTitles.includes(issueTitle.toLowerCase().trim())) {
+              warnings.push('Issue title is too generic (please be more specific)');
+            }
+
+            // Result
+            const hasErrors = missingOrEmpty.length > 0;
+            const hasWarnings = warnings.length > 0;
+
+            // Build response comment
+            if (hasErrors || hasWarnings) {
+              let commentBody = `## ⚠️ Issue Template Validation\n\n`;
+              commentBody += `Hi @${issueAuthor}, thank you for opening this ${issueType !== 'unknown' ? issueType : 'general'} issue! However, there are some issues with your submission:\n\n`;
+
+              if (hasErrors) {
+                commentBody += `### ❌ Missing Required Sections\n\n`;
+                commentBody += `Please include the following sections:\n`;
+                missingOrEmpty.forEach(section => commentBody += `- **${section}**\n`);
+                commentBody += `\n`;
+              }
+
+              if (hasWarnings) {
+                commentBody += `### ⚠️ Incomplete or Weak Sections\n\n`;
+                warnings.forEach(w => commentBody += `- **${w}**\n`);
+                commentBody += `\n`;
+              }
+
+              commentBody += `### 📋 How to Fix\n\n`;
+
+              if (issueType === 'bug') {
+                commentBody += `Ensure your bug report includes:\n- 🐞 Issue Description\n- ✅ Expected Behavior\n- ⚙️ Steps To Reproduce\n\n`;
+              } else if (issueType === 'feature') {
+                commentBody += `Ensure your feature request includes:\n- 📝 Feature Description\n- 🎯 Motivation / Use Case\n- ⚙️ Proposed Implementation\n- 🧠 Additional Context\n\n`;
+              } else {
+                commentBody += `Use one of the provided templates when creating issues to help maintainers assist you effectively.\n\n`;
+              }
+
+              commentBody += `Once updated, this check will rerun automatically.\n\n---\n*This is an automated message. If you believe this is an error, please mention a maintainer.*`;
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: commentBody
+              });
+
+              // Apply proper labels
+              const labels = [];
+              if (issueType === 'bug') labels.push('needs-template-fix');
+              else if (issueType === 'feature') labels.push('needs-feature-info');
+              if (hasErrors) labels.push('invalid');
+
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                labels
+              });
+
+              if (hasErrors) core.setFailed('Issue missing required template sections.');
+              else core.warning('Some issue sections appear incomplete.');
+
+            } else {
+              // Remove previous labels & comment success
+              const labelsToRemove = ['needs-template-fix', 'needs-feature-info', 'invalid'];
+              for (const label of labelsToRemove) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issueNumber,
+                    name: label
+                  });
+                } catch (_) {}
+              }
+
+              const comments = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber
+              });
+
+              const botComments = comments.data.filter(
+                c => c.user.type === 'Bot' && c.body.includes('Issue Template Validation')
+              );
+
+              if (botComments.length > 0) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  body: `## ✅ Issue Template Validation Passed\n\nThank you @${issueAuthor}! Your ${issueType !== 'unknown' ? issueType : 'issue'} description now includes all required sections. 🎉`
+                });
+              }
+
+              core.info('✅ Issue description is valid!');
+            }
