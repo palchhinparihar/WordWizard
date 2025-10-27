@@ -181,7 +181,7 @@ export const getTextOperations = (
 
     try {
       // If configured, use abstractive API; otherwise fall back to local extractive summarizer
-      const useApi = import.meta.env.VITE_USE_ABSTRACT_API === "true";
+      const useApi = import.meta.env.VITE_USE_ABSTRACT_API?.toLowerCase() === "true";
       let summary = "";
       if (useApi) {
         summary = await summarizeTextAPI(text, level);
