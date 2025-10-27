@@ -1,4 +1,4 @@
-import { checkGrammar } from "../utils";
+import { checkGrammar, summarizeText } from "../utils";
 
 export const getTextOperations = (
   text,
@@ -11,6 +11,7 @@ export const getTextOperations = (
   setLoadingGrammar,
   styles,
   triggerFileInput,
+  setLoadingSummary,
   setActiveOperation
 ) => {
   const { isBold, setIsBold, isItalic, setIsItalic, isUnderline, setIsUnderline, isStrike, setIsStrike } = styles;
@@ -166,6 +167,22 @@ export const getTextOperations = (
     }
   };
 
+  // Offline summarizer handlers (read from original `text` always)
+  const handleSummarize = (level) => {
+    if (!text || !text.trim()) return;
+    if (typeof setLoadingSummary === "function") setLoadingSummary(true);
+    try {
+      const summary = summarizeText(text, level);
+      setPreviewText(summary);
+      props.showAlert(`Generated ${level} summary.`, "success");
+    } catch (err) {
+      console.error(err);
+      props.showAlert("Failed to summarize.", "error");
+    } finally {
+      if (typeof setLoadingSummary === "function") setLoadingSummary(false);
+    }
+  };
+
   // Case Conversion Handlers
   const handleTitleCase = () => {
     const minorWords = ['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'by', 'in', 'of'];
@@ -239,9 +256,12 @@ export const getTextOperations = (
     { id: "remove-punctuation", func: handleRemovePunctuation, label: "Remove punctuation" },
     { id: "smart-capitalization", func: handleSmartCapitalization, label: "Smart Capitalization" },
     { id: "remove-duplicate-lines", func: handleRemoveDuplicateLines, label: "Remove duplicate lines", allowEmpty: false },
-    { id: "generate-lorem", func: handleGenerateLorem, label: "Generate lorem ipsum", allowEmpty: true },
+  { id: "generate-lorem", func: handleGenerateLorem, label: "Generate lorem ipsum", allowEmpty: true },
     { id: "import-file", func: handleImportFile, label: "Import file", allowEmpty: true },
     { id: "export-text", func: handleExportText, label: "Export text" },
+  { id: "summarize-short", func: () => handleSummarize('short'), label: "Summarize (Short)" },
+  { id: "summarize-medium", func: () => handleSummarize('medium'), label: "Summarize (Medium)" },
+  { id: "summarize-detailed", func: () => handleSummarize('detailed'), label: "Summarize (Detailed)" },
     { id: "bold", func: handleBold, label: "Bold" },
     { id: "italic", func: handleItalic, label: "Italic" },
     { id: "underline", func: handleUnderline, label: "Underline" },

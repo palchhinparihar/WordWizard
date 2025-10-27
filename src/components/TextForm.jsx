@@ -17,6 +17,7 @@ const TextForm = (props) => {
   const [isStrike, setIsStrike] = useState(false);
   const [grammarResults, setGrammarResults] = useState([]);
   const [loadingGrammar, setLoadingGrammar] = useState(false);
+  const [loadingSummary, setLoadingSummary] = useState(false);
   const [activeOperation, setActiveOperation] = useState(null);
 
   const fileInputRef = React.useRef();
@@ -70,6 +71,7 @@ const TextForm = (props) => {
       setIsStrike,
     },
     handleFileInputClick,
+    setLoadingSummary,
     setActiveOperation
   );
 
@@ -351,9 +353,11 @@ const TextForm = (props) => {
                     : "hover:scale-105 active:scale-95"
                 }`}
               >
-                {op.id === "grammar-check" && loadingGrammar
-                  ? "Checking..."
-                  : op.label}
+                  {op.id === "grammar-check" && loadingGrammar
+                    ? "Checking..."
+                    : (op.id && op.id.startsWith("summarize") && loadingSummary)
+                    ? "Summarizing..."
+                    : op.label}
               </button>
             )
           )}
