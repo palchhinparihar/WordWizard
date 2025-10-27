@@ -183,7 +183,7 @@ const Navbar = (props) => {
               className={`btn ${isDark ? "btn-dark" : "btn-light"} flex items-center cursor-pointer`}
             >
               <Upload className="w-5 h-5 mr-1" />
-              {t("textForm.upload")}
+              Upload
             </button>
 
             <button
@@ -192,7 +192,7 @@ const Navbar = (props) => {
               className={`btn ${isDark ? "btn-dark" : "btn-light"} flex items-center cursor-pointer`}
             >
               <Download className="w-5 h-5 mr-1" />
-              {t("textForm.download")}
+              Download
             </button>
           </div>
         </div>
