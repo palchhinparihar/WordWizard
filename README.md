@@ -78,26 +78,68 @@
 
 ### Installation Steps
 
-1. **Clone the repository:**
+0. **Forking the Repository:**
+    
+    If you’d like to contribute to WordWizard, start by creating your own copy of the repository.
+    Go to the WordWizard GitHub repository:
+    https://github.com/palchhinparihar/WordWizard
+
+    Click on the “Fork” button (top-right corner of the page).
+    This creates a personal copy of the repository under your GitHub account.
+
+
+1. **Clone your forked repository:**
 
    ```bash
    git clone https://github.com/palchhinparihar/WordWizard.git
    cd WordWizard
    ```
 
-1. **Install dependencies:**
+2. **Add the upstream remote (original repo)**
+
+   ```bash
+   git remote add upstream https://github.com/palchhinparihar/WordWizard.git
+   ```
+
+3. **Sync your fork with the main repo:**
+
+   ```bash
+   git pull upstream main
+   ```
+
+2. **Install dependencies:**
 
    ```bash
    npm install
    ```
 
-1. **Add .env file:**
+3. **Add .env file:**
 
-  ```env
-  VITE_LANUGAGETOOL_API_URL=https://api.languagetool.org/v2/check
-  ```
+    Rename the provided .env-example file to .env and ensure it contains the following line:
+    ```env
+    VITE_LANUGAGETOOL_API_URL=https://api.languagetool.org/v2/check
+    ```
 
-1. **Start the development server:**
+    >Note: Never commit your personal .env file to GitHub. It should remain local for security reasons.
+
+
+4. **Create a New Branch**
+
+    Before making any changes, create a new branch for your contribution:
+    ```bash
+    git checkout -b <your-branch-name>
+    ```
+
+
+    Use a descriptive branch name, such as:
+
+    -`fix/navbar-animation`
+
+    -`feature/add-dark-mode-toggle`
+
+    -`docs/update-readme`
+
+5. **Start the development server:**
 
     ```bash
     npm run dev
@@ -110,38 +152,45 @@
 - `npm run test`: Run the test suite.
 - `npm run lint`: Lint the codebase.
 
+
 ---
 
 ## 📂 Project Structure
 
 ```text
 wordwizard/
-├── public/                # Static assets
+├── public/                  # Static assets
 ├── src/
-│   ├── assets/           # Images, fonts, etc.
-│   ├── components/       # React components
+│   ├── assets/              # Images, fonts, etc.
+│   ├── components/          # React components
 │   │   ├── About.jsx
 │   │   ├── Alert.jsx
+│   │   ├── BackToTopButton.jsx
 │   │   ├── DialogBox.jsx
 │   │   ├── Footer.jsx
 │   │   ├── Navbar.jsx
+│   │   ├── SummaryCard.jsx
 │   │   ├── TextForm.jsx
 │   │   ├── Toolbar.jsx
 │   │   └── Welcome.jsx
-│   ├── data/            # Static data
+│   ├── data/                # Static data
 │   │   ├── accordionItems.js
-│   │   └── textUtils.js
-│   ├── i18n/            # Internationalization
+│   │   ├── navbarContent.js
+│   │   ├── textUtils.js
+│   │   └── themes.js
+│   ├── i18n/               # Internationalization
 │   │   ├── en.json
 │   │   ├── hi.json
 │   │   └── index.jsx
-│   ├── App.jsx          # Main App component
-│   ├── main.jsx         # Entry point
-│   └── utils.js         # Utility functions
-├── .env                 # Environment variables
-├── index.html          # HTML entry point
-├── package.json        # Dependencies and scripts
-└── vite.config.js      # Vite configuration
+│   ├── App.jsx             # Main App component
+│   ├── index.css           # Main App style
+│   ├── main.jsx            # Entry point
+│   └── utils.js            # Utility functions
+├── .env-example            # Environment variables
+├── index.html              # HTML entry point
+├── package.json            # Dependencies and scripts
+├── tailwind.config.js      # Tailwind configuration
+└── vite.config.js          # Vite configuration
 ````
 
 ---

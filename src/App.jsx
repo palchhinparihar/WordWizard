@@ -3,7 +3,6 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { importFile, exportFile } from "./utils";
 import { allThemes } from "./data/themes";
 
-
 // Components
 import Navbar from "./components/Navbar";
 import Alert from "./components/Alert";
