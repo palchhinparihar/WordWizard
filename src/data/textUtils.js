@@ -197,7 +197,7 @@ export const getTextOperations = (
       try {
         const fallback = summarizeText(text, level);
         setPreviewText(fallback || text);
-        props.showAlert("Abstractive API failed; used local fallback summarizer.", "warning");
+        props.showAlert(`Abstractive API failed (${err?.name || "Error"}: ${err?.message || err}). Used local fallback summarizer.`, "warning");
       } catch (fallbackErr) {
         console.error("Fallback summarizer error:", fallbackErr);
         props.showAlert("Failed to summarize text.", "error");
