@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <!-- Complex 3D gradient -->
+    <radialGradient id="bg3D" cx="30%" cy="20%" r="80%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#f8fafc;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#e2e8f0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#cbd5e1;stop-opacity:1" />
+    </radialGradient>
+    
+    <!-- Neon gradient for W -->
+    <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff0080;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#ff4081;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#e91e63;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#c2185b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ad1457;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Electric blue gradient -->
+    <linearGradient id="electricBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00bcd4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0097a7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#006064;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow effect -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- 3D shadow -->
+    <filter id="shadow3D" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  
+  <!-- 3D Background -->
+  <rect width="32" height="32" fill="url(#bg3D)" rx="6"/>
+  
+  <!-- 3D Border -->
+  <rect width="32" height="32" fill="none" stroke="url(#electricBlue)" stroke-width="2" rx="6"/>
+  
+  <!-- 3D W Shadow -->
+  <text x="17" y="22" font-family="Arial Black, sans-serif" font-size="18" font-weight="900" text-anchor="middle" fill="#000000" opacity="0.3">W</text>
+  
+  <!-- Main 3D W -->
+  <text x="16" y="21" font-family="Arial Black, sans-serif" font-size="18" font-weight="900" text-anchor="middle" fill="url(#neonGradient)" filter="url(#glow)">W</text>
+  
+  <!-- Overlapping W with different angle -->
+  <text x="16" y="21" font-family="Impact, sans-serif" font-size="16" font-weight="900" text-anchor="middle" fill="url(#electricBlue)" opacity="0.7" transform="translate(1, -1) rotate(-5)">W</text>
+  
+  <!-- Geometric patterns -->
+  <polygon points="4,4 8,4 6,8" fill="url(#neonGradient)" opacity="0.6"/>
+  <polygon points="28,4 24,4 26,8" fill="url(#electricBlue)" opacity="0.6"/>
+  <polygon points="4,28 8,28 6,24" fill="url(#electricBlue)" opacity="0.6"/>
+  <polygon points="28,28 24,28 26,24" fill="url(#neonGradient)" opacity="0.6"/>
+  
+  <!-- Central geometric star -->
+  <polygon points="16,8 18,12 22,12 19,15 20,19 16,17 12,19 13,15 10,12 14,12" fill="url(#neonGradient)" opacity="0.8"/>
+  
+  <!-- Corner lightning bolts -->
+  <path d="M2,6 L4,8 L2,10 L3,8 L2,6" fill="url(#electricBlue)" opacity="0.7"/>
+  <path d="M30,6 L28,8 L30,10 L29,8 L30,6" fill="url(#neonGradient)" opacity="0.7"/>
+  <path d="M2,26 L4,24 L2,22 L3,24 L2,26" fill="url(#neonGradient)" opacity="0.7"/>
+  <path d="M30,26 L28,24 L30,22 L29,24 L30,26" fill="url(#electricBlue)" opacity="0.7"/>
+  
+  <!-- Animated elements -->
+  <circle cx="8" cy="8" r="1" fill="url(#neonGradient)" opacity="0.9">
+    <animate attributeName="r" values="1;2;1" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="24" cy="8" r="1.2" fill="url(#electricBlue)" opacity="0.8">
+    <animate attributeName="r" values="1.2;2.2;1.2" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="8" cy="24" r="0.8" fill="url(#electricBlue)" opacity="0.7">
+    <animate attributeName="r" values="0.8;1.8;0.8" dur="1.8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="24" cy="24" r="1.1" fill="url(#neonGradient)" opacity="0.9">
+    <animate attributeName="r" values="1.1;2.1;1.1" dur="2.2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Central pulsing element -->
+  <rect x="14" y="14" width="4" height="4" fill="url(#neonGradient)" opacity="0.6" rx="1">
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="1s" repeatCount="indefinite"/>
+  </rect>
+</svg>

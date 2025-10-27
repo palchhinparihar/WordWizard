@@ -5,12 +5,22 @@ import Toolbar from "./Toolbar";
 import Aos from "aos";
 import { useTranslation } from "react-i18next";
 import SummaryCard from "./SummaryCard";
-import { importFile } from "../utils";
 
 const TextForm = (props) => {
-  const { text, setText, onFileImport} = props;
-  // const [text, setText] = useState("");  --declaring new state here was an issue
-  //we should use state defind in app.jsx by passing it trhough props and extracting it here
+  const {
+    text, // This is the 'currentValue' from the hook in App.js
+    setText: addToHistory, // 'setText' prop is 'addToHistory' from App.js
+    showAlert,
+    theme,
+    colorTheme,
+    onFileImport, // This is the 'handleFileImport' from App.js
+    onExport,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+    resetHistory
+  } = props;
   const [previewText, setPreviewText] = useState("");
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
   const [isBold, setIsBold] = useState(false);
@@ -29,13 +39,42 @@ const TextForm = (props) => {
     Aos.refresh();
   }, [props.theme]);
 
-  useEffect(()=>{   //it was required, as the text changes, preview text also changes
+  useEffect(() => {
+    // Sync preview text when text changes
     setPreviewText(text);
-  },[text])
+  }, [text]);
+
+  // Keyboard shortcuts for undo/redo
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Check for Ctrl+Z (undo) or Ctrl+Y (redo)
+      if (e.ctrlKey || e.metaKey) {
+        if (e.key === 'z' && !e.shiftKey) {
+          e.preventDefault();
+          if (canUndo) {
+            undo();
+            props.showAlert("Undo", "success");
+          }
+        } else if (e.key === 'y' || (e.key === 'z' && e.shiftKey)) {
+          e.preventDefault();
+          if (canRedo) {
+            redo();
+            props.showAlert("Redo", "success");
+          }
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [undo, redo, canUndo, canRedo, props]);
 
   const handleChange = (e) => {
-    setText(e.target.value);
-    setPreviewText(e.target.value);
+    const newValue = e.target.value;
+    addToHistory(newValue);
+    setPreviewText(newValue);
   };
 
   const handleFileInputClick = () => {
@@ -44,7 +83,7 @@ const TextForm = (props) => {
 
   const textOperations = getTextOperations(
     text,
-    setText,
+    addToHistory,
     previewText,
     setPreviewText,
     setDialogBoxOpen,
@@ -62,7 +101,8 @@ const TextForm = (props) => {
       setIsStrike,
     },
     handleFileInputClick,
-    setActiveOperation
+    setActiveOperation,
+    { undo, redo, canUndo, canRedo, resetHistory }
   );
 
   useEffect(() => {

@@ -19,10 +19,14 @@ import {
   FileText,
   AlignJustify,
   Slash,
+  Undo,
+  Redo,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const ICON_MAP = {
+  Undo,
+  Redo,
   Bold,
   Italic,
   Underline,
@@ -58,6 +62,8 @@ const Toolbar = ({
   const { t } = useTranslation();
 
   const ALT_TEXT = {
+    Undo: "Undo last action",
+    Redo: "Redo last undone action",
     Bold: t("tooltip.Bold"),
     Italic: t("tooltip.Italic"),
     Underline: t("tooltip.Underline"),
@@ -99,6 +105,9 @@ const Toolbar = ({
   const isDisabled = (label) => {
     const op = textOperations.find((o) => o.label === label);
     if (!op) return true;
+
+    if (op.disabled !== undefined) return op.disabled;
+
     return (
       (!(text && text.trim().length > 0) && !op.allowEmpty) ||
       (label === "Check Grammar" && loadingGrammar)
