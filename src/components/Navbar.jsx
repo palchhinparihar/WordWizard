@@ -1,16 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Sun, Moon, ChevronDown, Upload, Download } from "lucide-react";
+import { Upload, Download } from "lucide-react";
+import Dropdown from "./DropDown";
 import { allThemes } from "../data/themes";
-import { languages, getThemeSections } from "../data/navbarContent";
+import { languages } from "../data/navbarContent";
 
 const Navbar = (props) => {
   const [animate, setAnimate] = useState(false);
   const [textAnimate, setTextAnimate] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
   const { t, i18n } = useTranslation();
 
   const changeLanguage = (lng) => {
@@ -31,36 +30,11 @@ const Navbar = (props) => {
     return () => clearTimeout(timer);
   }, [props.currentThemeId]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   const currentTheme =
-    allThemes.find((t) => t.id === props.currentThemeId) || allThemes[0];
+  allThemes.find((t) => t.id === props.currentThemeId) || allThemes[0];
   const isDark =
-    currentTheme.category === "dark" || currentTheme.category === "vibrant";
-
-  const handleThemeSelect = (themeId) => {
-    const selectedTheme = allThemes.find((t) => t.id === themeId);
-    if (selectedTheme) {
-      props.onThemeSelect(themeId, selectedTheme.gradient);
-      setIsDropdownOpen(false);
-    }
-  };
-
-  const groupedThemes = {
-    dark: allThemes.filter((t) => t.category === "dark"),
-    light: allThemes.filter((t) => t.category === "light"),
-    vibrant: allThemes.filter((t) => t.category === "vibrant"),
-  };
-
-  const themeSections = getThemeSections(groupedThemes);
+  currentTheme.category === "dark" || currentTheme.category === "vibrant";
 
   const handleUploadClick = () => {
     if (fileInputRef.current) {
@@ -85,7 +59,7 @@ const Navbar = (props) => {
       }`}
     >
       {/* Logo */}
-      <div className="flex items-center flex-shrink-0 mr-6">
+      <div className={`flex items-center flex-shrink-0 mr-6 ${textAnimate ? 'animate-textChange' : ''}`}>
         <Link
           title={props.title || "Go to Home"}
           className={`font-bold text-2xl tracking-tight hover:text-blue-500 transition-colors ${
@@ -199,7 +173,7 @@ const Navbar = (props) => {
 
         {/* Language + Theme */}
         <div
-          className="flex items-center mt-4 lg:mt-0 ml-auto gap-4"
+          className={`flex items-center mt-4 lg:mt-0 ml-auto gap-4 ${textAnimate ? 'animate-textChange' : ''}`}
           style={{
             flexWrap: "wrap",
             gap: "clamp(12px, 3vw, 32px)",
@@ -230,39 +204,13 @@ const Navbar = (props) => {
                 </button>
               );
             })}
-          </div>
+         </div>
 
           {/* Theme Selector */}
-          <div className="relative" ref={dropdownRef}>
-            <button
-              title={currentTheme.name || "Select theme"}
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 ${
-                isDark
-                  ? "bg-gray-800 hover:bg-gray-700 text-white"
-                  : "bg-gray-100 hover:bg-gray-200 text-gray-800"
-              } cursor-pointer`}
-              aria-label="Select theme"
-              style={{ fontSize: "clamp(0.875rem, 1vw, 1rem)" }}
-            >
-              <div className="flex items-center gap-2">
-                {isDark ? (
-                  <Moon className="w-5 h-5 text-blue-400" />
-                ) : (
-                  <Sun className="w-5 h-5 text-amber-500" />
-                )}
-                <span className="hidden sm:inline">{currentTheme.name}</span>
-                <span className="sm:hidden" title={currentTheme.name}>
-                  {currentTheme.icon}
-                </span>
-              </div>
-              <ChevronDown
-                className={`w-4 h-4 transition-transform duration-200 ${
-                  isDropdownOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-          </div>
+          <Dropdown
+            currentThemeId={props.currentThemeId}
+            onThemeSelect={props.onThemeSelect}
+          />
         </div>
       </div>
     </nav>
