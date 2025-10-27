@@ -20,6 +20,7 @@ import {
   AlignJustify,
   Slash,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const ICON_MAP = {
   Bold,
@@ -42,27 +43,6 @@ const ICON_MAP = {
   "Generate lorem ipsum": FileText,
 };
 
-const ALT_TEXT = {
-  Bold: "Bold Text",
-  Italic: "Italic Text",
-  Underline: "Underline Text",
-  Strikethrough: "Strikethrough Text",
-  // "Import file": "Upload a text file",
-  // "Export text": "Download the current text",
-  "Check Grammar": "Check the grammar of your text",
-  "Clear text": "Clear all text",
-  "Copy text": "Copy text to clipboard",
-  "Convert to uppercase": "Uppercase",
-  "Convert to lowercase": "Lowercase",
-  "Remove line breaks": "Remove line breaks",
-  "Trim start/end spaces": "Trim spaces",
-  "Remove extra spaces": "Remove extra spaces",
-  "Remove punctuation": "Remove punctuation",
-  "Smart Capitalization": "Automatically capitalize sentences properly",
-  "Remove duplicate lines": "Remove duplicate lines",
-  "Generate lorem ipsum": "Generate Lorem Ipsum",
-};
-
 const BUTTONS = Object.keys(ICON_MAP);
 
 // Note: simplified - using native title attribute for accessibility/tooltips
@@ -75,6 +55,30 @@ const Toolbar = ({
   text,
   activeStyles,
 }) => {
+  const { t } = useTranslation();
+
+  const ALT_TEXT = {
+    Bold: t("tooltip.Bold"),
+    Italic: t("tooltip.Italic"),
+    Underline: t("tooltip.Underline"),
+    Strikethrough: t("tooltip.Strikethrough"),
+
+    "Import file": t("tooltip.ImportFile"),
+    "Export text": t("tooltip.ExportText"),
+    "Check Grammar": t("tooltip.SpellCheck"),
+    "Clear text": t("tooltip.Trash2"),
+    "Copy text": t("tooltip.Copy"),
+    "Convert to uppercase": t("tooltip.ArrowUp"),
+    "Convert to lowercase": t("tooltip.ArrowDown"),
+    "Remove line breaks": t("tooltip.CornerUpLeft"),
+    "Trim start/end spaces": t("tooltip.MoveHorizontal"),
+    "Remove extra spaces": t("tooltip.AlignJustify"),
+    "Remove punctuation": t("tooltip.Slash"),
+    "Smart Capitalization": t("tooltip.Type"),
+    "Remove duplicate lines": t("tooltip.Repeat"),
+    "Generate lorem ipsum": t("tooltip.FileText"),
+  };
+
   const iconSize = 20;
   const iconColor = theme === "light" ? "#040451ff" : "#fff";
 
@@ -155,7 +159,7 @@ const Toolbar = ({
                     : "hover:scale-105 cursor-pointer"
                 }
                 ${isActive ? "ring-2 ring-yellow-400 shadow" : ""}`}
-                style={{
+              style={{
                 ...buttonStyle,
                 background: bg,
                 border: borderStyle,
@@ -174,6 +178,6 @@ const Toolbar = ({
 };
 
 export default Toolbar;
- 
+
 // Provide an empty propTypes object to satisfy prop validation lint rule where configured
 Toolbar.propTypes = {};
