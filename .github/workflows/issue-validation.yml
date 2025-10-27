@@ -40,7 +40,7 @@ jobs:
 
             const featureSections = [
               { name: 'Feature Description', patterns: [/🚀\s*Feature Description/i, /Feature Description/i] },
-              { name: 'Motivation / Use Case', patterns: [/🎯\s*Motivation \/ Use Case/i, /Motivation \/ Use Case/i] }
+              { name: 'Motivation / Use Case', patterns: [/🎯\s*Motivation \/ Use Case/i, /Motivation \/ Use Case/i] },
               { name: 'Proposed Solution', patterns: [/💡\s*Proposed Solution/i, /⚙️\s*Proposed Implementation/i, /Proposed Solution/i] },
               { name: 'Additional Context', patterns: [/🧠\s*Additional Context/i, /Additional Context/i] }
             ];
