@@ -101,6 +101,9 @@ const Toolbar = ({
   const isDisabled = (label) => {
     const op = textOperations.find((o) => o.label === label);
     if (!op) return true;
+
+    if (op.disabled !== undefined) return op.disabled;
+
     return (
       (!(text && text.trim().length > 0) && !op.allowEmpty) ||
       (label === "Check Grammar" && loadingGrammar)
