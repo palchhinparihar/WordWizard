@@ -59,6 +59,28 @@ const Footer = ({ theme }) => {
                   {t("footer.about")}
                 </a>
               </li>
+              {/* ✅ Added Terms of Use link */}
+              <li>
+                <a
+                  href="#/terms"
+                  className={`transition-colors hover:underline ${
+                    isDark ? "hover:text-blue-400" : "hover:text-blue-600"
+                  }`}
+                >
+                  Terms of Use
+                </a>
+              </li>
+              {/* ✅ Added Privacy Policy link */}
+              <li>
+                <a
+                  href="#/privacy-policy"
+                  className={`transition-colors hover:underline ${
+                    isDark ? "hover:text-blue-400" : "hover:text-blue-600"
+                  }`}
+                >
+                  Privacy Policy
+                </a>
+              </li>
             </ul>
           </div>
 
