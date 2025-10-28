@@ -14,6 +14,7 @@ import Welcome from "./components/Welcome";
 import Footer from "./components/Footer";
 import BackToTopButton from "./components/BackToTopButton";
 import TermsOfUse from "./components/TermsOfUse";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 
 function App() {
   const { t } = useTranslation();
@@ -50,7 +51,6 @@ function App() {
     );
   };
 
-  // Export handler
   const handleExport = () => {
     exportFile(text, "exported_text.txt");
     showAlert(t("alerts.textExported"), "success");
@@ -61,13 +61,8 @@ function App() {
   const theme = currentTheme.category === "light" ? "light" : "dark";
 
   const showAlert = (message, type) => {
-    setAlert({
-      msg: message,
-      type: type,
-    });
-    setTimeout(() => {
-      setAlert(null);
-    }, 1500);
+    setAlert({ msg: message, type });
+    setTimeout(() => setAlert(null), 1500);
   };
 
   const handleThemeSelect = (themeId, gradient) => {
@@ -82,20 +77,14 @@ function App() {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowWelcome(false);
-    }, 2500);
+    const timer = setTimeout(() => setShowWelcome(false), 2500);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <Router>
       {showWelcome ? (
-        <div
-          style={{
-            background: colorTheme,
-          }}
-        >
+        <div style={{ background: colorTheme }}>
           <Welcome theme={theme} />
         </div>
       ) : (
@@ -145,8 +134,9 @@ function App() {
                 path="/about"
                 element={<About showAlert={showAlert} theme={theme} />}
               />
-              {/* ✅ NEW TERMS OF USE PAGE */}
               <Route path="/terms" element={<TermsOfUse />} />
+              {/* ✅ Added Privacy Policy Route inside Routes */}
+              <Route path="/privacy-policy" element={<PrivacyPolicy theme={theme} />} />
             </Routes>
           </main>
 
