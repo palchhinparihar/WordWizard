@@ -10,6 +10,13 @@ const About = ({ theme }) => {
     setOpenAccordion(openAccordion === id ? null : id);
   };
 
+  const techStack = [
+    { name: "React", icon: "⚛️", description: "UI Library" },
+    { name: "Tailwind CSS", icon: "🎨", description: "Styling Framework" },
+    { name: "Contentful", icon: "📝", description: "Content API" },
+    { name: "Vite", icon: "⚡", description: "Build Tool" }
+  ];
+
   return (
     <section
       data-aos="fade-up"
@@ -22,6 +29,38 @@ const About = ({ theme }) => {
           {t("aboutPage.heading", "About Us")}
         </h2>
 
+        {/* Tech Stack Section */}
+        <div className={`mb-8 p-6 rounded-lg ${
+          theme === "light" 
+            ? "bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200" 
+            : "bg-gradient-to-br from-gray-800 to-gray-700 border border-gray-600"
+        }`}>
+          <h3 className="text-xl font-semibold mb-4">
+            {t("aboutPage.techStack", "Built With")}
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {techStack.map((tech) => (
+              <div
+                key={tech.name}
+                className={`p-4 rounded-lg text-center transition-transform hover:scale-105 ${
+                  theme === "light"
+                    ? "bg-white shadow-sm hover:shadow-md"
+                    : "bg-gray-900 hover:bg-gray-850"
+                }`}
+              >
+                <div className="text-3xl mb-2">{tech.icon}</div>
+                <div className="font-semibold text-sm">{tech.name}</div>
+                <div className={`text-xs mt-1 ${
+                  theme === "light" ? "text-gray-600" : "text-gray-400"
+                }`}>
+                  {tech.description}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Accordion Section */}
         <div className="space-y-4">
           {accordionItems.map((item) => {
             const isOpen = openAccordion === item.id;
