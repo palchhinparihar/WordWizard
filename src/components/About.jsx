@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Code2, Palette, Database, Zap } from "lucide-react";
 import { accordionItems } from "../data/accordionItems";
 
 const About = ({ theme }) => {
@@ -9,6 +10,33 @@ const About = ({ theme }) => {
   const toggleAccordion = (id) => {
     setOpenAccordion(openAccordion === id ? null : id);
   };
+
+  const techStack = [
+    { 
+      name: "React", 
+      icon: Code2, 
+      description: "UI Library",
+      color: "text-blue-500"
+    },
+    { 
+      name: "Tailwind CSS", 
+      icon: Palette, 
+      description: "Styling Framework",
+      color: "text-cyan-500"
+    },
+    { 
+      name: "Contentful", 
+      icon: Database, 
+      description: "Content API",
+      color: "text-purple-500"
+    },
+    { 
+      name: "Vite", 
+      icon: Zap, 
+      description: "Build Tool",
+      color: "text-yellow-500"
+    }
+  ];
 
   return (
     <section
@@ -22,6 +50,46 @@ const About = ({ theme }) => {
           {t("aboutPage.heading", "About Us")}
         </h2>
 
+        {/* Tech Stack Section */}
+        <div className={`mb-8 p-6 rounded-lg ${
+          theme === "light" 
+            ? "bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200" 
+            : "bg-gradient-to-br from-gray-800 to-gray-700 border border-gray-600"
+        }`}>
+          <h3 className="text-xl font-semibold mb-4">
+            {t("aboutPage.techStack", "Built With")}
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {techStack.map((tech) => {
+              const IconComponent = tech.icon;
+              return (
+                <div
+                  key={tech.name}
+                  className={`p-4 rounded-lg text-center transition-all duration-300 hover:scale-105 hover:-translate-y-1 ${
+                    theme === "light"
+                      ? "bg-white shadow-sm hover:shadow-md"
+                      : "bg-gray-900 hover:bg-gray-850"
+                  }`}
+                >
+                  <div className="flex justify-center mb-3">
+                    <IconComponent 
+                      className={`w-10 h-10 ${tech.color}`}
+                      strokeWidth={1.5}
+                    />
+                  </div>
+                  <div className="font-semibold text-sm">{tech.name}</div>
+                  <div className={`text-xs mt-1 ${
+                    theme === "light" ? "text-gray-600" : "text-gray-400"
+                  }`}>
+                    {tech.description}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Accordion Section */}
         <div className="space-y-4">
           {accordionItems.map((item) => {
             const isOpen = openAccordion === item.id;
