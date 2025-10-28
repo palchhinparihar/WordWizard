@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Code2, Palette, Database, Zap } from "lucide-react";
 import { accordionItems } from "../data/accordionItems";
 
 const About = ({ theme }) => {
@@ -11,10 +12,30 @@ const About = ({ theme }) => {
   };
 
   const techStack = [
-    { name: "React", icon: "⚛️", description: "UI Library" },
-    { name: "Tailwind CSS", icon: "🎨", description: "Styling Framework" },
-    { name: "Contentful", icon: "📝", description: "Content API" },
-    { name: "Vite", icon: "⚡", description: "Build Tool" }
+    { 
+      name: "React", 
+      icon: Code2, 
+      description: "UI Library",
+      color: "text-blue-500"
+    },
+    { 
+      name: "Tailwind CSS", 
+      icon: Palette, 
+      description: "Styling Framework",
+      color: "text-cyan-500"
+    },
+    { 
+      name: "Contentful", 
+      icon: Database, 
+      description: "Content API",
+      color: "text-purple-500"
+    },
+    { 
+      name: "Vite", 
+      icon: Zap, 
+      description: "Build Tool",
+      color: "text-yellow-500"
+    }
   ];
 
   return (
@@ -39,24 +60,32 @@ const About = ({ theme }) => {
             {t("aboutPage.techStack", "Built With")}
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {techStack.map((tech) => (
-              <div
-                key={tech.name}
-                className={`p-4 rounded-lg text-center transition-transform hover:scale-105 ${
-                  theme === "light"
-                    ? "bg-white shadow-sm hover:shadow-md"
-                    : "bg-gray-900 hover:bg-gray-850"
-                }`}
-              >
-                <div className="text-3xl mb-2">{tech.icon}</div>
-                <div className="font-semibold text-sm">{tech.name}</div>
-                <div className={`text-xs mt-1 ${
-                  theme === "light" ? "text-gray-600" : "text-gray-400"
-                }`}>
-                  {tech.description}
+            {techStack.map((tech) => {
+              const IconComponent = tech.icon;
+              return (
+                <div
+                  key={tech.name}
+                  className={`p-4 rounded-lg text-center transition-all duration-300 hover:scale-105 hover:-translate-y-1 ${
+                    theme === "light"
+                      ? "bg-white shadow-sm hover:shadow-md"
+                      : "bg-gray-900 hover:bg-gray-850"
+                  }`}
+                >
+                  <div className="flex justify-center mb-3">
+                    <IconComponent 
+                      className={`w-10 h-10 ${tech.color}`}
+                      strokeWidth={1.5}
+                    />
+                  </div>
+                  <div className="font-semibold text-sm">{tech.name}</div>
+                  <div className={`text-xs mt-1 ${
+                    theme === "light" ? "text-gray-600" : "text-gray-400"
+                  }`}>
+                    {tech.description}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
