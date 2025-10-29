@@ -58,14 +58,14 @@ const DialogBox = ({
                 <div className="flex justify-end gap-2">
                     <button
                         type="button"
-                        className="px-3 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+                        className="px-3 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 cursor-pointer"
                         onClick={handleCancel}
                     >
                         Cancel
                     </button>
                     <button
                         type="button"
-                        className="px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50"
+                        className="px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50 cursor-pointer"
                         onClick={handleClear}
                     >
                         Clear
