@@ -66,14 +66,20 @@ const Dropdown = ({ currentThemeId, onThemeSelect }) => {
         </button>
 
         {/* Dropdown Menu */}
-        {isDropdownOpen && (
-          <div
-            className={`absolute right-0 mt-2 w-72 rounded-xl shadow-2xl overflow-hidden z-50 animate-fadeIn ${
-              isDark
-                ? "bg-gray-800 border border-gray-700"
-                : "bg-white border border-gray-200"
-            } `}
-          >
+        {isDropdownOpen && ( 
+        <div
+        className={`absolute mt-2 rounded-xl shadow-2xl overflow-hidden z-50 animate-fadeIn
+            ${isDark ? "bg-gray-800 border border-gray-700" : "bg-white border border-gray-200"}
+            max-h-[70vh] overflow-y-auto
+            w-60 sm:w-56 md:w-64     
+            right-0 sm:right-0 sm:left-auto
+            left-0 sm:left-auto
+            translate-x-0 sm:translate-x-0
+            top-[3.5rem] sm:top-full
+            max-w-[92vw]         
+        `}
+        >
+
             <div className="max-h-96 overflow-y-auto">
               {/* Reusable Section Renderer */}
               {Object.entries(groupedThemes).map(([key, themes]) => {

@@ -49,6 +49,13 @@ const Navbar = (props) => {
     }
   };
 
+  const handleMenuAction = () => {
+  setMenuOpen(false); 
+  setTextAnimate(true);
+  setTimeout(() => setTextAnimate(false), 600);
+};
+
+
   return (
     <nav
       {...(animate ? { "data-aos": "fade-up" } : {})}
@@ -113,6 +120,7 @@ const Navbar = (props) => {
             }}
           >
             <Link
+              onClick={handleMenuAction}
               title={t("home")}
               className={`block transition-colors ${
                 isDark ? "hover:text-blue-400" : "hover:text-blue-600"
@@ -123,6 +131,7 @@ const Navbar = (props) => {
             </Link>
 
             <Link
+              onClick={handleMenuAction}
               title={t("about")}
               className={`block transition-colors ${
                 isDark ? "hover:text-blue-400" : "hover:text-blue-600"
@@ -135,6 +144,7 @@ const Navbar = (props) => {
 
           {/* Upload + Download Buttons */}
           <div
+            onClick={handleMenuAction}
             className="flex gap-4 mt-4 lg:mt-0 lg:ml-8"
             style={{
               flexDirection: "row",
@@ -173,15 +183,16 @@ const Navbar = (props) => {
 
         {/* Language + Theme */}
         <div
-          className={`flex items-center mt-4 lg:mt-0 ml-auto gap-4 ${textAnimate ? 'animate-textChange' : ''}`}
-          style={{
-            flexWrap: "wrap",
-            gap: "clamp(12px, 3vw, 32px)",
-            fontSize: "clamp(0.875rem, 1vw, 1rem)",
-          }}
-        >
+        className={`flex flex-col lg:flex-row items-start lg:items-center mt-4 lg:mt-0 ml-auto gap-4 ${textAnimate ? 'animate-textChange' : ''}`}
+        style={{
+          flexWrap: "wrap",
+          gap: "clamp(12px, 3vw, 32px)",
+          fontSize: "clamp(0.875rem, 1vw, 1rem)",
+        }}
+      >
+
           {/* Language Buttons */}
-          <div className="flex gap-3">
+          <div onClick={handleMenuAction} className="flex gap-3">
             {languages.map((ln) => {
               const selected = i18n.language === ln.code;
               return (
