@@ -15,6 +15,7 @@ import Footer from "./components/Footer";
 import BackToTopButton from "./components/BackToTopButton";
 import TermsOfUse from "./components/TermsOfUse";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import Contributors from './components/Contributors';
 
 function App() {
   const { t } = useTranslation();
@@ -135,6 +136,7 @@ function App() {
                 element={<About showAlert={showAlert} theme={theme} />}
               />
               <Route path="/terms" element={<TermsOfUse />} />
+              <Route path="/contributors" element={<Contributors />} />
               {/* ✅ Added Privacy Policy Route inside Routes */}
               <Route path="/privacy-policy" element={<PrivacyPolicy theme={theme} />} />
             </Routes>
