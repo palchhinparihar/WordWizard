@@ -67,8 +67,8 @@
   "tooltip": {
     "downloadFile": "Download the file",
     "uploadFile": "Upload a file",
-    "Undo":"Undo last action",
-    "Redo":"Redo last undone action",
+    "Undo": "Undo last action",
+    "Redo": "Redo last undone action",
     "Bold": "Bold Text",
     "Italic": "Italic Text",
     "Underline": "Underline Text",
@@ -87,5 +87,33 @@
     "Type": "Automatically capitalize sentences properly",
     "Repeat": "Remove duplicate lines",
     "FileText": "Generate Lorem Ipsum"
+  },
+  "termsPage": {
+    "title": "Terms of Use",
+    "intro": {
+      "part1": "Welcome to ",
+      "highlight": "WordWizard",
+      "part2": ". By accessing or using this website, you agree to comply with and be bound by the following terms and conditions."
+    },
+    "useOfWebsite": {
+      "title": "Use of the Website",
+      "content": "You may use this website for personal and non-commercial purposes only. Any misuse or attempt to disrupt the functionality of the site is strictly prohibited."
+    },
+    "intellectualProperty": {
+      "title": "Intellectual Property",
+      "content": "All content, design, and code within WordWizard are protected by copyright. Unauthorized copying or redistribution is prohibited."
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "content": "The information provided on this site is for general purposes only. We do not guarantee the accuracy or reliability of any content."
+    },
+    "changesToTerms": {
+      "title": "Changes to Terms",
+      "content": "We reserve the right to update these terms at any time. Please review this page periodically for changes."
+    },
+    "contact": {
+      "title": "Get in Touch",
+      "content": "If you have any questions about these Terms, please contact us at"
+    }
   }
 }
