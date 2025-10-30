@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const Welcome = () => {
+const Welcome = ({ theme}) => {
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -13,7 +13,8 @@ const Welcome = () => {
   return (
     <h1
       data-aos="zoom-in-down"
-      className="welcome font-bold text-center text-white flex justify-center items-center"
+      className={`welcome font-bold text-center flex justify-center items-center 
+        ${theme === "light" ? "text-black" : "text-white"}`}
     >
       Welcome to WordWizard!
     </h1>

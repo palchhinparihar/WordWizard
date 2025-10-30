@@ -196,6 +196,7 @@ wordwizard/
 │   │   ├── Alert.jsx
 │   │   ├── BackToTopButton.jsx
 │   │   ├── DialogBox.jsx
+│   │   ├── Dropdown.jsx
 │   │   ├── Footer.jsx
 │   │   ├── Navbar.jsx
 │   │   ├── SummaryCard.jsx

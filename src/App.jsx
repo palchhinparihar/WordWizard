@@ -119,6 +119,7 @@ function App() {
                     heading="Enter Your Text to Analyse"
                     showAlert={showAlert}
                     theme={theme}
+                    currentTheme={currentTheme}
                     colorTheme={colorTheme}
                     text={text}
                     setText={addToHistory}

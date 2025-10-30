@@ -1,7 +1,7 @@
 import React from "react";
 import { wordCount } from "../utils";
 
-const SummaryCard = ({ theme, t, text = "", topWords = [] }) => {
+const SummaryCard = ({ theme, currentTheme, t, text = "", topWords = [] }) => {
   const words = wordCount(text);
   const charCount = (text || "").length;
   const readingTime = (0.008 * words).toFixed(2);
@@ -11,6 +11,11 @@ const SummaryCard = ({ theme, t, text = "", topWords = [] }) => {
     { id: "chars", label: t("textForm.characters"), value: charCount },
     { id: "reading", label: t("textForm.readingTime"), value: `${readingTime} ${t("textForm.minutes")}` },
   ];
+
+  // Use theme specific colors if available, otherwise fallback to defaults
+  const cardBg = currentTheme?.cardBg || (theme === "light" ? "from-yellow-200 to-yellow-300" : "from-gray-800 to-gray-700");
+  const cardBorder = currentTheme?.cardBorder || (theme === "light" ? "border-yellow-400" : "border-gray-700");
+  const cardHover = currentTheme?.cardHover || (theme === "light" ? "hover:shadow-yellow-400" : "hover:shadow-gray-600");
 
   return (
     <section
@@ -27,15 +32,10 @@ const SummaryCard = ({ theme, t, text = "", topWords = [] }) => {
       </h2>
 
       <div className=" sm:grid-cols-3 gap-6 mb-8 text-center place-items-center">
-        {cards.map((c, idx) => (
+        {cards.map((c) => (
           <div
             key={c.id}
-            className={`w-[95%] lg:h-20 p-4 mb-6 rounded-xl border shadow-sm transition duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-700
-              ${
-                theme === "light"
-                  ? "bg-gradient-to-r from-yellow-200 to-yellow-300 border-yellow-400"
-                  : "bg-gradient-to-r from-gray-800 to-gray-700 border-gray-700"
-              }`}
+            className={`w-[95%] lg:h-20 p-4 mb-6 rounded-xl border shadow-sm transition duration-300 hover:scale-105 hover:shadow-lg bg-gradient-to-r ${cardBg} ${cardBorder} ${cardHover}`}
           >
             <p
               className={`text-sm font-medium ${
