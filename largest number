@@ -1,0 +1,14 @@
+N = int(input())
+
+# Initialize largest digit to 0 (minimum possible digit)
+largest = 0
+
+n = N
+while n > 0:
+    digit = n % 10
+    if digit > largest:
+        largest = digit
+    n //= 10
+
+# Print the largest digit
+print(largest)
