@@ -1,0 +1,18 @@
+last_digit = N % 10
+n = N
+
+# Flag to check uniformity
+all_same = True
+
+while n > 0:
+    digit = n % 10
+    if digit != last_digit:
+        all_same = False
+        break
+    n //= 10
+
+# Print result
+if all_same:
+    print("Yes")
+else:
+    print("No")
