@@ -31,6 +31,17 @@
   }
 }
 
+@keyframes textChange {
+  0% { transform: translateY(-10px); opacity: 0; }
+  50% { transform: translateY(5px); opacity: 0.5; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-textChange {
+  animation: textChange 1.5s ease-in-out;
+}
+
+
 /* Global scrollbar styling for this component */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px; /* Thin scrollbar */
