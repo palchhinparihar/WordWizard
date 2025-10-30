@@ -59,6 +59,17 @@ const Footer = ({ theme }) => {
                   {t("footer.about")}
                 </a>
               </li>
+              {/* ✅ Added FAQ link */}
+              <li>
+                <a
+                  href="#/faq"
+                  className={`transition-colors hover:underline ${
+                    isDark ? "hover:text-blue-400" : "hover:text-blue-600"
+                  }`}
+                >
+                  FAQ
+                </a>
+              </li>
               {/* ✅ Added Contributors link */}
               <li>
                 <a
