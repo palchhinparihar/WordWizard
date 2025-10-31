@@ -360,6 +360,7 @@ const TextForm = (props) => {
                     <div className="lg:w-30/100" data-aos="fade-left">
                         <SummaryCard
                             theme={props.theme}
+                            currentTheme={props.currentTheme}
                             t={t}
                             text={text}
                             topWords={topWords}
