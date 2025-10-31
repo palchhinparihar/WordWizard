@@ -66,9 +66,8 @@ const Navbar = (props) => {
       {/* Logo + Mobile Toggle */}
       <div className="flex items-center justify-between w-full px-10">
         <div
-          className={`flex items-center flex-shrink-0 ${
-            textAnimate ? "animate-textChange" : ""
-          }`}
+          className={`flex items-center flex-shrink-0 ${textAnimate ? "animate-textChange" : ""
+            }`}
         >
           <Link
             title={props.title || "Go to Home"}
@@ -134,21 +133,19 @@ const Navbar = (props) => {
           <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-md overflow-hidden">
             <button
               onClick={() => changeLanguage("en")}
-              className={`px-3 py-1 text-sm font-semibold cursor-pointer ${
-                i18n.language === "en"
+              className={`px-3 py-1 text-sm font-semibold cursor-pointer ${i18n.language === "en"
                   ? "bg-gray-300 dark:bg-gray-600"
                   : "hover:bg-gray-200 dark:hover:bg-gray-600"
-              }`}
+                }`}
             >
               EN
             </button>
             <button
               onClick={() => changeLanguage("hi")}
-              className={`px-3 py-1 text-sm font-semibold cursor-pointer ${
-                i18n.language === "hi"
+              className={`px-3 py-1 text-sm font-semibold cursor-pointer ${i18n.language === "hi"
                   ? "bg-gray-300 dark:bg-gray-600"
                   : "hover:bg-gray-200 dark:hover:bg-gray-600"
-              }`}
+                }`}
             >
               हिंदी
             </button>

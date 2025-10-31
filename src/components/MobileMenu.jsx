@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Upload, Download, X } from "lucide-react";
 import Dropdown from "./DropDown";
@@ -139,8 +138,8 @@ const MobileMenu = ({
                         ? "bg-blue-600 text-white"
                         : "bg-blue-500 text-white"
                       : isDark
-                      ? "bg-gray-800 text-gray-300 hover:text-white"
-                      : "bg-gray-100 text-gray-700 hover:text-gray-900"
+                        ? "bg-gray-800 text-gray-300 hover:text-white"
+                        : "bg-gray-100 text-gray-700 hover:text-gray-900"
                     }
                   `}
                 >
