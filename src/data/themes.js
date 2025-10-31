@@ -8,6 +8,9 @@ export const allThemes = [
     preview: "from-indigo-950 via-blue-900 to-slate-900",
     category: "dark",
     icon: "🌙",
+    cardBg: "from-indigo-900 to-indigo-800",
+    cardBorder: "border-indigo-700",
+    cardHover: "hover:shadow-indigo-600",
   },
   {
     id: "ocean",
@@ -17,6 +20,9 @@ export const allThemes = [
     preview: "from-slate-950 via-cyan-900 to-blue-800",
     category: "dark",
     icon: "🌊",
+    cardBg: "from-cyan-900 to-blue-800",
+    cardBorder: "border-cyan-800",
+    cardHover: "hover:shadow-cyan-600",
   },
   {
     id: "forest",
@@ -26,6 +32,9 @@ export const allThemes = [
     preview: "from-green-950 via-green-900 to-emerald-800",
     category: "dark",
     icon: "🌲",
+    cardBg: "from-green-900 to-emerald-800",
+    cardBorder: "border-green-800",
+    cardHover: "hover:shadow-green-600",
   },
   {
     id: "royal",
@@ -35,6 +44,9 @@ export const allThemes = [
     preview: "from-purple-950 via-purple-900 to-fuchsia-900",
     category: "dark",
     icon: "👑",
+    cardBg: "from-purple-900 to-fuchsia-800",
+    cardBorder: "border-purple-800",
+    cardHover: "hover:shadow-purple-600",
   },
   {
     id: "crimson",
@@ -44,6 +56,9 @@ export const allThemes = [
     preview: "from-red-950 via-red-900 to-red-800",
     category: "dark",
     icon: "🌅",
+    cardBg: "from-red-900 to-red-800",
+    cardBorder: "border-red-800",
+    cardHover: "hover:shadow-red-600",
   },
   {
     id: "noir",
@@ -53,6 +68,9 @@ export const allThemes = [
     preview: "from-black via-gray-900 to-gray-800",
     category: "dark",
     icon: "🎬",
+    cardBg: "from-gray-900 to-gray-800",
+    cardBorder: "border-gray-700",
+    cardHover: "hover:shadow-gray-600",
   },
 
   // Light Themes
@@ -64,6 +82,9 @@ export const allThemes = [
     preview: "from-white via-gray-50 to-gray-100",
     category: "light",
     icon: "☁️",
+    cardBg: "from-gray-100 to-gray-200",
+    cardBorder: "border-gray-300",
+    cardHover: "hover:shadow-gray-400",
   },
   {
     id: "sunrise",
@@ -73,6 +94,9 @@ export const allThemes = [
     preview: "from-amber-100 via-amber-200 to-amber-300",
     category: "light",
     icon: "🌄",
+    cardBg: "from-amber-200 to-amber-300",
+    cardBorder: "border-amber-400",
+    cardHover: "hover:shadow-amber-400",
   },
   {
     id: "mint",
@@ -82,6 +106,9 @@ export const allThemes = [
     preview: "from-emerald-100 via-emerald-200 to-emerald-300",
     category: "light",
     icon: "🍃",
+    cardBg: "from-emerald-200 to-emerald-300",
+    cardBorder: "border-emerald-400",
+    cardHover: "hover:shadow-emerald-400",
   },
   {
     id: "pastel-pink",
@@ -90,6 +117,9 @@ export const allThemes = [
     preview: "from-pink-100 via-pink-200 to-pink-300",
     category: "light",
     icon: "🌸",
+    cardBg: "from-pink-200 to-pink-300",
+    cardBorder: "border-pink-400",
+    cardHover: "hover:shadow-pink-400",
   },
 
   // Vibrant Themes - MORE SUBTLE & PROFESSIONAL
@@ -101,6 +131,9 @@ export const allThemes = [
     preview: "from-indigo-950 via-indigo-800 to-blue-900",
     category: "vibrant",
     icon: "✨",
+    cardBg: "from-indigo-800 to-blue-800",
+    cardBorder: "border-indigo-700",
+    cardHover: "hover:shadow-indigo-500",
   },
   {
     id: "cyberpunk",
@@ -110,6 +143,9 @@ export const allThemes = [
     preview: "from-slate-950 via-slate-800 to-slate-600",
     category: "vibrant",
     icon: "🤖",
+    cardBg: "from-slate-800 to-slate-700",
+    cardBorder: "border-slate-600",
+    cardHover: "hover:shadow-slate-500",
   },
   {
     id: "sunset-blaze",
@@ -119,6 +155,9 @@ export const allThemes = [
     preview: "from-orange-950 via-orange-800 to-orange-600",
     category: "vibrant",
     icon: "🔥",
+    cardBg: "from-orange-800 to-orange-700",
+    cardBorder: "border-orange-600",
+    cardHover: "hover:shadow-orange-500",
   },
   {
     id: "neon-cyber",
@@ -128,5 +167,8 @@ export const allThemes = [
     preview: "from-gray-800 via-purple-900 to-blue-600",
     category: "vibrant",
     icon: "⚡",
+    cardBg: "from-purple-800 to-blue-700",
+    cardBorder: "border-purple-700",
+    cardHover: "hover:shadow-blue-500",
   },
 ];
