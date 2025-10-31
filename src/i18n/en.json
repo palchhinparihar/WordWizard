@@ -115,5 +115,48 @@
       "title": "Get in Touch",
       "content": "If you have any questions about these Terms, please contact us at"
     }
+  },
+  "privacyPage": {
+  "title": "Privacy Policy",
+  "intro": {
+    "part1": "Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your personal information when you use ",
+    "highlight": "WordWizard",
+    "part2": "."
+  },
+  "informationWeCollect": {
+    "title": "Information We Collect",
+    "content": "We may collect limited data like text input and preferences for improving user experience. No personal data is shared or sold."
+  },
+  "dataProtection": {
+    "title": "How We Protect Your Data",
+    "content": "We implement industry-standard security measures to protect your information. Your data is encrypted and stored securely."
+  },
+  "userConsent": {
+    "title": "Your Consent",
+    "content": "By using this app, you consent to this Privacy Policy. You have the right to access, modify, or delete your data at any time."
+  },
+  "rights": {
+    "title": "Your Rights",
+    "access": {
+      "title": "Access Your Data",
+      "content": "Request a copy of your personal information at any time."
+    },
+    "deletion": {
+      "title": "Data Deletion",
+      "content": "Request deletion of your data from our systems."
+    },
+    "noSharing": {
+      "title": "No Third-Party Sharing",
+      "content": "We never sell or share your data with third parties."
+    },
+    "transparency": {
+      "title": "Transparent Practices",
+      "content": "Clear communication about how we handle your information."
+    }
+  },
+  "footer": {
+    "lastUpdated": "Last updated",
+    "contact": "Contact Us"
   }
+}
 }
