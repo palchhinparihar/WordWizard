@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Menu, X } from "lucide-react";
+import { Download, Menu, Upload, X } from "lucide-react";
 import { allThemes } from "../data/themes";
 import MobileMenu from "./MobileMenu";
 
@@ -108,18 +108,22 @@ const Navbar = (props) => {
           <Link to="/about" className="hover:text-blue-500 transition-colors cursor-pointer">
             {t("about") || "About"}
           </Link>
-          <button
-            onClick={handleUploadClick}
-            className="hover:text-blue-500 transition-colors cursor-pointer"
-          >
-            {t("upload") || "Upload"}
-          </button>
-          <button
-            onClick={props.onExport}
-            className="hover:text-blue-500 transition-colors cursor-pointer"
-          >
-            {t("download") || "Download"}
-          </button>
+          <div className="flex gap-1 cursor-pointer hover:text-blue-500 transition-colors" onClick={handleUploadClick}>
+            <Upload className="w-5 h-5"/>
+            <button
+              className="cursor-pointer"
+            >
+              {t("upload") || "Upload"}
+            </button>
+          </div>
+          <div className="flex gap-1 cursor-pointer hover:text-blue-500 transition-colors" onClick={props.onExport}>
+            <Download className="w-5 h-5 cursor-pointer"/>
+            <button
+              className="cursor-pointer"
+            >
+              {t("download") || "Download"}
+            </button>
+          </div>
           <input
             type="file"
             ref={fileInputRef}
@@ -134,8 +138,8 @@ const Navbar = (props) => {
             <button
               onClick={() => changeLanguage("en")}
               className={`px-3 py-1 text-sm font-semibold cursor-pointer ${i18n.language === "en"
-                  ? "bg-gray-300 dark:bg-gray-600"
-                  : "hover:bg-gray-200 dark:hover:bg-gray-600"
+                ? "bg-gray-300 dark:bg-gray-600"
+                : "hover:bg-gray-200 dark:hover:bg-gray-600"
                 }`}
             >
               EN
@@ -143,28 +147,47 @@ const Navbar = (props) => {
             <button
               onClick={() => changeLanguage("hi")}
               className={`px-3 py-1 text-sm font-semibold cursor-pointer ${i18n.language === "hi"
-                  ? "bg-gray-300 dark:bg-gray-600"
-                  : "hover:bg-gray-200 dark:hover:bg-gray-600"
+                ? "bg-gray-300 dark:bg-gray-600"
+                : "hover:bg-gray-200 dark:hover:bg-gray-600"
                 }`}
             >
               हिंदी
             </button>
           </div>
 
-          <div className="bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-md flex items-center space-x-2 cursor-pointer">
-            <span className="text-yellow-500">Sun</span>
-            <select
-              value={props.currentThemeId}
-              onChange={(e) => props.onThemeSelect(e.target.value)}
-              className="bg-transparent focus:outline-none text-sm cursor-pointer"
-            >
-              {allThemes.map((theme) => (
-                <option key={theme.id} value={theme.id}>
-                  {theme.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <div className="relative flex items-center space-x-2 bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-md transition-colors duration-200">
+  <span className="text-yellow-500 text-sm md:text-base">Sun</span>
+
+  <div className="relative flex items-center">
+    <select
+      value={props.currentThemeId}
+      onChange={(e) => props.onThemeSelect(e.target.value)}
+      className="appearance-none bg-transparent text-gray-800 dark:text-gray-200 text-sm md:text-base focus:outline-none cursor-pointer pr-6"
+    >
+      {allThemes.map((theme) => (
+        <option
+          key={theme.id}
+          value={theme.id}
+          className="bg-white dark:bg-gray-700 text-gray-800 cursor-pointer dark:text-gray-200"
+        >
+          {theme.name}
+        </option>
+      ))}
+    </select>
+
+    {/* Dropdown Icon */}
+    <svg
+      className="absolute right-1 w-4 h-4 text-gray-600 dark:text-gray-300 pointer-events-none"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+    </svg>
+  </div>
+</div>
+
         </div>
       </div>
 
