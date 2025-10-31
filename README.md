@@ -199,6 +199,7 @@ wordwizard/
 │   │   ├── Dropdown.jsx
 │   │   ├── Footer.jsx
 │   │   ├── Navbar.jsx
+│   │   ├── MobileMenu.jsx
 │   │   ├── SummaryCard.jsx
 │   │   ├── TextForm.jsx
 │   │   ├── Toolbar.jsx
