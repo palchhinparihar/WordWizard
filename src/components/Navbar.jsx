@@ -5,7 +5,7 @@ import { Upload, Download, X, Menu } from "lucide-react";
 import Dropdown from "./DropDown";
 import MobileMenu from "./MobileMenu";
 import { allThemes } from "../data/themes";
-import MobileMenu from "./MobileMenu";
+import { languages } from "../data/navbarContent";
 
 const Navbar = (props) => {
   const [animate, setAnimate] = useState(false);
@@ -43,7 +43,7 @@ const Navbar = (props) => {
       props.onFileImport(e.target.files[0]);
       e.target.value = null;
     }
-  };
+  }; 
 
   const handleMenuAction = () => {
     setMenuOpen(false);
@@ -58,7 +58,7 @@ const Navbar = (props) => {
         isDark
           ? "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white border-b border-gray-700"
           : "bg-gradient-to-r from-white via-gray-50 to-white text-gray-800 border-b border-gray-200"
-        }`}
+      }`}
     >
       <div className="flex items-center justify-between p-4 px-8 w-full">
         {/* LOGO */}
@@ -112,6 +112,7 @@ const Navbar = (props) => {
               <Upload className="h-4 w-4" />
               Upload
             </button>
+
             <button
               onClick={props.onExport}
               className={`flex items-center gap-1 cursor-pointer ${

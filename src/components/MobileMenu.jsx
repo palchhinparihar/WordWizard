@@ -17,7 +17,7 @@ const MobileMenu = ({
   languages,
   i18n,
 }) => {
-  if (!menuOpen) return null;
+  if (!menuOpen) return null; 
 
   return (
     <div
