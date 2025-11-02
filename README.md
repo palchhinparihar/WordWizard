@@ -61,8 +61,8 @@
 
 | Category             | Technologies                                 |
 | -------------------- | -------------------------------------------- |
-| **Core**             | `React 18`, `Vite`, `Tailwind CSS`           |
-| **UI Components**    | `Bootstrap 5`, `CSS Modules`                 |
+| **Core**             | `React 18`, `Vite`                           |
+| **UI Components**    | `Tailwind CSS`, `CSS Modules`                |
 | **State Management** | `React Context API`                          |
 | **Dev Tools**        | `ESLint`, `Prettier`, `Husky`, `lint-staged` |
 | **Testing**          | `Jest`, `React Testing Library`              |
