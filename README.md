@@ -2,7 +2,7 @@
 
 **A powerful text manipulation tool built with React and Vite for the modern web.**
 
-### **🎉 WOCS**: We are excited to be a part of in Code Social!
+### **🎉 WOCS**: We are excited to be a part of Code Social!
 
 ---
 
