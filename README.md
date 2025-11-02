@@ -2,6 +2,10 @@
 
 **A powerful text manipulation tool built with React and Vite for the modern web.**
 
+### **🎉 WOCS**: We are excited to be a part of in Code Social!
+
+---
+
 [![Live Demo](https://img.shields.io/website?url=https%3A%2F%2Fwordwizard-texteditor.netlify.app&up_color=brightgreen&up_message=online&down_message=offline&label=Live%20Demo)](https://wordwizard-texteditor.netlify.app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -15,7 +19,7 @@
 
 ## 📋 Table of Contents
 
-- [WordWizard 🧙‍♂️](#wordwizard-️)
+- [WordWizard 🧙‍♂️](#wordwizard)
   - [📋 Table of Contents](#-table-of-contents)
   - [🎯 About](#-about)
   - [⭐ Key Features](#-key-features)
@@ -145,42 +149,12 @@
     npm run dev
     ```
 
-### Optional: Abstractive summarization server
-
-WordWizard includes an optional small server that proxies to the OpenAI API to produce abstractive summaries (summaries in the assistant's own words).
-
-1. Copy the example env and provide an OpenAI key:
-
-```bash
-cp server/.env.example server/.env
-# then edit server/.env and set OPENAI_API_KEY
-```
-
-2. Install and start the server (from the project root):
-
-```powershell
-cd server
-npm install
-npm start
-```
-
-3. Enable the client to use the abstractive API by creating or updating `.env` in the project root and adding:
-
-```env
-VITE_USE_ABSTRACT_API=true
-VITE_SUMMARIZER_API_URL=http://localhost:3001/summarize
-```
-
-When enabled, the Summarize buttons use the server to generate an abstractive summary in their own words. If not enabled, the app falls back to an in-browser extractive summarizer.
-
-
 ### Available Scripts
 
 - `npm run dev`: Start development server.
 - `npm run build`: Create a production build.
 - `npm run test`: Run the test suite.
 - `npm run lint`: Lint the codebase.
-
 
 ---
 
@@ -230,8 +204,6 @@ wordwizard/
 
 We welcome contributions! Please see our **[Contributing Guide](CONTRIBUTING.md)** for more details on how to get started.
 
-> **🎉 Hacktoberfest 2025**: We are excited to participate in Hacktoberfest! Look for issues tagged with `hacktoberfest`, `good-first-issue`, or `help-wanted`.
-
 ---
 
 ## 👥 Contributors
@@ -250,9 +222,11 @@ This project is licensed under the MIT License. See the **[LICENSE](LICENSE)** f
 
 ## 📞 Contact
 
+Any doubt? Send [here](palchhinparihar@gmail.com)
+
 ### Project Lead
 
-Palchhin Parihar  
+Palchhin 
 [![GitHub](https://img.shields.io/badge/GitHub-%40palchhinparihar-blue?logo=github)](https://github.com/palchhinparihar)
 
 ### Project Links
