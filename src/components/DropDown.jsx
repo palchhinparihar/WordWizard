@@ -36,7 +36,7 @@ const Dropdown = ({ currentThemeId, onThemeSelect }) => {
   }, []);
 
   return (
-    <div className="mt-4 lg:mt-0">
+    <div className="mt-4 lg:mt-0 ml-20 w-fit">
       <div className="relative" ref={dropdownRef}>
         <button
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -72,7 +72,7 @@ const Dropdown = ({ currentThemeId, onThemeSelect }) => {
             ${isDark ? "bg-gray-800 border border-gray-700" : "bg-white border border-gray-200"}
             max-h-[70vh] overflow-y-auto
             w-60 sm:w-56 md:w-64     
-            right-0 sm:right-0 sm:left-auto
+            right-0 sm:right-0
             left-0 sm:left-auto
             translate-x-0 sm:translate-x-0
             top-[3.5rem] sm:top-full
