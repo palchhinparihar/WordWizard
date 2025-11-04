@@ -2,7 +2,7 @@
 
 **A powerful text manipulation tool built with React and Vite for the modern web.**
 
-### **🎉 WOCS**: We are excited to be a part of in Code Social!
+### **🎉 WOCS**: We are excited to be a part of Code Social!
 
 ---
 
@@ -19,7 +19,7 @@
 
 ## 📋 Table of Contents
 
-- [WordWizard 🧙‍♂️](#wordwizard)
+- [WordWizard 🧙‍♂️](#-wordwizard)
   - [📋 Table of Contents](#-table-of-contents)
   - [🎯 About](#-about)
   - [⭐ Key Features](#-key-features)
@@ -138,9 +138,7 @@
     Use a descriptive branch name, such as:
 
     -`fix/navbar-animation`
-
     -`feature/add-dark-mode-toggle`
-
     -`docs/update-readme`
 
 5. **Start the development server:**
@@ -237,4 +235,4 @@ Palchhin
 
 ---
 
-Made with ❤️ by the WordWizard Team
+Made with ❤️ by the WordWizard Team.
