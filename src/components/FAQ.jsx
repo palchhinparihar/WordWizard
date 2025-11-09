@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { ChevronDown, HelpCircle, Search, Sparkles } from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 
-const FAQ = () => {
+const FAQ = ({theme}) => {
   const [openIndex, setOpenIndex] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  
 
   const faqs = [
     {
@@ -24,108 +24,142 @@ const FAQ = () => {
     }
   ];
 
-  const filteredFAQs = faqs.filter(faq =>
-    faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
+    <div className="min-h-screen p-6 bg-transparent">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 animate-fadeIn">
-          <div className="inline-flex p-4 bg-slate-800 bg-opacity-50 backdrop-blur-sm rounded-full mb-6 text-purple-400 border border-slate-700">
+          <div
+            className={`inline-flex p-4 rounded-full mb-6 border backdrop-blur-sm transition-all duration-300 ${
+              theme === 'dark'
+                ? 'bg-slate-800 text-white border-slate-700'
+                : 'bg-blue-100 text-blue-600 border-blue-300'
+            }`}
+          >
             <HelpCircle className="w-12 h-12" />
           </div>
-          <h1 className="text-5xl font-bold mb-4 text-white">
+          <h1 className={`text-5xl font-bold mb-4 transition-colors duration-300 ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}
+          >
             Frequently Asked Questions
           </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className={`text-lg max-w-2xl mx-auto transition-colors duration-300 ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            }`}
+          >
             Quick answers about WordWizard
           </p>
         </div>
 
-        {/* Search */}
-        <div 
-          className="mb-8"
-          style={{ animation: 'slideUp 0.5s ease-out 0.2s both' }}
-        >
-          <div className="relative group">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-purple-400" />
-            <input
-              type="text"
-              placeholder="Search questions..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 bg-slate-800 bg-opacity-50 backdrop-blur-sm border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-white placeholder-gray-400"
-            />
-          </div>
-        </div>
-
         {/* FAQ List */}
-        {filteredFAQs.length === 0 ? (
-          <div 
-            className="text-center py-12 bg-slate-800 bg-opacity-50 backdrop-blur-sm rounded-xl border border-slate-700"
-            style={{ animation: 'slideUp 0.5s ease-out 0.3s both' }}
-          >
-            <Sparkles className="w-12 h-12 mx-auto mb-4 text-purple-400 opacity-50" />
-            <p className="text-gray-400">No questions found matching your search.</p>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {filteredFAQs.map((faq, index) => {
-              const isOpen = openIndex === index;
-              return (
+        <div className="space-y-4">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+            return (
+              <div
+                key={index}
+                className={`rounded-xl border overflow-hidden transition-all duration-300 backdrop-blur-sm ${
+                  theme === "dark"
+                    ? "bg-slate-800 bg-opacity-50 border-slate-700"
+                    : "bg-white border-gray-300"
+                }`}
+                style={{
+                  animation: `slideUp 0.5s ease-out ${0.3 + index * 0.1}s both`,
+                  borderColor: isOpen
+                    ? theme === "dark"
+                      ? "#ebeff6ff"
+                      : "#60a5fa"
+                    : theme === "dark"
+                    ? "#334155"
+                    : "#6298eaff",
+                  boxShadow: isOpen
+                    ? theme === "dark"
+                      ? "0 0 20px rgba(167, 139, 250, 0.15)"
+                      : "0 0 20px rgba(96, 165, 250, 0.15)"
+                    : "none",
+                }}
+              >
+                <button
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  className="w-full px-6 py-5 flex items-center justify-between text-left transition-all duration-200 cursor-pointer"
+                >
+                  <span
+                    className={`font-semibold pr-4 transition-colors ${
+                      theme === "dark" ? "text-white" : "text-gray-900"
+                    }`}
+                  >
+                    {faq.question}
+                  </span>
+
+                  <div
+                    className={`flex-shrink-0 p-2 rounded-lg transition-all duration-300 ${
+                      isOpen
+                        ? theme === "dark"
+                          ? "bg-white bg-opacity-20 rotate-180"
+                          : "bg-blue-400 rotate-180"
+                        : theme === "dark"
+                        ? "bg-slate-700"
+                        : "bg-blue-200"
+                    }`}
+                  >
+                    <ChevronDown
+                      className={`w-5 h-5 transition-colors ${
+                        isOpen
+                          ? theme === "dark"
+                            ? "text-black"
+                            : "text-white"
+                          : theme === "dark"
+                          ? "text-gray-200"
+                          : "text-gray-600"
+                      } cursor-pointer`}
+                    />
+                  </div>
+                </button>
+
                 <div
-                  key={index}
-                  className="bg-slate-800 bg-opacity-50 backdrop-blur-sm rounded-xl border overflow-hidden transition-all duration-300"
+                  className="overflow-hidden transition-all duration-300"
                   style={{
-                    animation: `slideUp 0.5s ease-out ${0.3 + index * 0.1}s both`,
-                    borderColor: isOpen ? '#a78bfa' : '#334155',
-                    boxShadow: isOpen ? '0 0 20px rgba(167, 139, 250, 0.15)' : 'none'
+                    maxHeight: isOpen ? "500px" : "0",
+                    opacity: isOpen ? 1 : 0,
                   }}
                 >
-                  <button
-                    onClick={() => setOpenIndex(isOpen ? null : index)}
-                    className="w-full px-6 py-5 flex items-center justify-between text-left transition-all duration-200"
+                  <div
+                    className={`px-6 pb-5 pt-0 border-t ${
+                      theme === "dark" ? "border-slate-700" : "border-gray-200"
+                    }`}
                   >
-                    <span className="font-semibold text-white pr-4">
-                      {faq.question}
-                    </span>
-                    <div className={`flex-shrink-0 p-2 rounded-lg transition-all duration-300 ${
-                      isOpen ? 'bg-purple-500 bg-opacity-20 rotate-180' : 'bg-slate-700'
-                    }`}>
-                      <ChevronDown className={`w-5 h-5 transition-colors ${
-                        isOpen ? 'text-purple-400' : 'text-gray-400'
-                      }`} />
-                    </div>
-                  </button>
-                  <div 
-                    className="overflow-hidden transition-all duration-300"
-                    style={{
-                      maxHeight: isOpen ? '500px' : '0',
-                      opacity: isOpen ? 1 : 0
-                    }}
-                  >
-                    <div className="px-6 pb-5 pt-0 border-t border-slate-700">
-                      <p className="text-gray-300 leading-relaxed pt-4">
-                        {faq.answer}
-                      </p>
-                    </div>
+                    <p
+                      className={`leading-relaxed pt-4 transition-colors ${
+                        theme === "dark" ? "text-gray-300" : "text-gray-700"
+                      }`}
+                    >
+                      {faq.answer}
+                    </p>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        )}
+              </div>
+            );
+          })}
+        </div>
+
 
         {/* CTA */}
         <div 
-          className="mt-12 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-8 text-center text-white"
+          className={`mt-12 rounded-2xl p-8 text-center transition-all duration-300 ${
+            theme === 'dark'
+              ? 'bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white'
+              : 'bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300 text-gray-900'
+          }`}
           style={{ animation: 'slideUp 0.5s ease-out 0.8s both' }}
         >
-          <h2 className="text-3xl font-bold mb-3">Still have questions?</h2>
-          <p className="mb-6 text-purple-100">
+          <h2 className="text-3xl font-bold mb-3">
+            Still have questions?
+          </h2>
+          <p className={`mb-6 ${
+            theme === 'dark' ? 'text-blue-100' : 'text-gray-600'
+          }`}>
             Join our community or open an issue on GitHub
           </p>
           <div className="flex flex-wrap justify-center gap-4">
@@ -133,7 +167,11 @@ const FAQ = () => {
               href="https://github.com/palchhinparihar/WordWizard/issues"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-white text-purple-600 font-semibold py-3 px-8 rounded-lg transition-all duration-300"
+              className={`inline-block font-semibold py-3 px-8 rounded-lg transition-all duration-300 ${
+                theme === 'dark'
+                   ? 'bg-gradient-to-r from-gray-300 to-gray-400 text-black'
+                   : 'bg-gradient-to-r from-indigo-500 to-blue-400 text-white'
+              }`}
             >
               Ask on GitHub
             </a>
@@ -141,7 +179,11 @@ const FAQ = () => {
               href="https://github.com/palchhinparihar/WordWizard"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-purple-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 border border-purple-500"
+              className={`inline-block font-semibold py-3 px-8 rounded-lg transition-all duration-300 border ${
+                theme === 'dark'
+                  ? 'bg-gray-700 text-white border-gray-500'
+                  : 'bg-white text-blue-700 border-blue-400'
+              }`}
             >
               View Repository
             </a>

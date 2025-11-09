@@ -137,8 +137,8 @@ function App() {
                 path="/about"
                 element={<About showAlert={showAlert} theme={theme} />}
               />
-              <Route path="/terms" element={<TermsOfUse />} />
-              <Route path="/contributors" element={<Contributors />} />
+              <Route path="/terms" element={<TermsOfUse theme={theme} />} />
+              <Route path="/contributors" element={<Contributors theme={theme} />} />
               <Route path="/faq" element={<FAQ theme={theme} />} />
               {/* ✅ Added Privacy Policy Route inside Routes */}
               <Route path="/privacy-policy" element={<PrivacyPolicy theme={theme} />} />
