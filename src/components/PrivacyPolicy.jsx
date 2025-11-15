@@ -2,7 +2,7 @@ import React from "react";
 import { Lock, Eye, Shield, CheckCircle, Calendar } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-const PrivacyPolicy = () => {
+const PrivacyPolicy = ({theme}) => {
   const { t } = useTranslation();
 
   const privacyCards = [
@@ -25,22 +25,42 @@ const PrivacyPolicy = () => {
       icon: <CheckCircle className="w-8 h-8" />,
       title: t("privacyPage.userConsent.title"),
       content: t("privacyPage.userConsent.content"),
-      iconColor: "text-green-400",
+      iconColor: "text-green-600",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
+    <div className="min-h-screen p-6 bg-transparent">
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12 animate-fadeIn">
-          <div className="inline-flex p-4 bg-slate-800 bg-opacity-50 backdrop-blur-sm rounded-full mb-6 text-purple-400 border border-slate-700">
+          <div
+            className={`inline-flex p-4 rounded-full mb-6 border backdrop-blur-sm transition-all duration-300 ${
+              theme === 'dark'
+                ? 'bg-slate-800 bg-opacity-50 text-blue-400 border-slate-700'
+                : 'bg-blue-100 text-blue-600 border-blue-300'
+            }`}
+          >
             <Lock className="w-12 h-12" />
           </div>
-          <h1 className="text-5xl font-bold mb-4 text-white">{t("privacyPage.title")}</h1>
-           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <h1
+            className={`text-5xl font-bold mb-4 transition-colors duration-300 ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}
+          >
+            {t("privacyPage.title")}
+          </h1>
+           <p
+            className={`text-lg max-w-2xl mx-auto transition-colors duration-300 ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            }`}
+          >
             {t("privacyPage.intro.part1")}
-            <span className="font-semibold text-white">
+            <span
+              className={`font-semibold transition-colors duration-300 ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}
+            >
               {t("privacyPage.intro.highlight")}
             </span>
             {t("privacyPage.intro.part2")}
@@ -52,7 +72,11 @@ const PrivacyPolicy = () => {
           {privacyCards.map((card, index) => (
             <div
               key={card.id}
-              className="group relative bg-slate-800 bg-opacity-50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700 hover:border-slate-600 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20"
+              className={`group relative rounded-2xl p-6 backdrop-blur-sm transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl ${
+                theme === 'dark'
+                  ? 'bg-slate-800 bg-opacity-50 border border-slate-700 hover:border-slate-600 hover:shadow-gray-500/20'
+                  : 'bg-blue-50 border border-blue-600 hover:border-blue-300 hover:shadow-blue-200'
+              }`}
               style={{
                 animation: `slideUp 0.5s ease-out ${index * 0.1}s both`,
               }}
@@ -65,13 +89,20 @@ const PrivacyPolicy = () => {
                   {card.icon}
                 </div>
 
-                <h2 className="text-xl font-bold mb-3 text-white">
+                <h2
+                  className={`text-xl font-bold mb-3 transition-colors duration-300 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}
+                >
                   {card.title}
                 </h2>
-
-                <p className="text-gray-300 leading-relaxed text-sm">
-                  {card.content}
-                </p>
+                <p
+                className={`leading-relaxed text-sm transition-colors duration-300 ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                }`}
+              >
+                {card.content}
+              </p>
               </div>
             </div>
           ))}
@@ -79,51 +110,92 @@ const PrivacyPolicy = () => {
 
         {/* Additional Information Card */}
         <div
-          className="bg-slate-800 bg-opacity-50 backdrop-blur-sm border border-slate-700 rounded-2xl p-8 mb-8 transform hover:scale-[1.02] hover:border-slate-600 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20"
+          className={`rounded-2xl p-8 mb-8 backdrop-blur-sm transform hover:scale-[1.02] transition-all duration-300 hover:shadow-2xl ${
+            theme === 'dark'
+              ? 'bg-slate-800 bg-opacity-50 border border-slate-700 hover:border-slate-600 hover:shadow-gray-500/20'
+              : 'bg-blue-50 border border-blue-600 hover:border-blue-300 hover:shadow-blue-200'
+          }`}
           style={{
-            animation: "slideUp 0.5s ease-out 0.3s both",
+            animation: 'slideUp 0.5s ease-out 0.3s both',
           }}
         >
-<h2>{t("privacyPage.rights.title")}</h2>
+          <h2
+            className={`text-xl font-bold mb-3 transition-colors duration-300 ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}
+          >
+            {t("privacyPage.rights.title")}
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+              <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-white mb-1">
+                <h3 
+                  className={`font-semibold mb-1 transition-colors duration-300 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}
+                >
                   {t("privacyPage.rights.access.title")}
                 </h3>
-                <p className="text-gray-300 text-sm">
+                <p  
+                  className={`text-sm transition-colors duration-300 ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                  }`}
+                >
                   {t("privacyPage.rights.access.content")}
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+              <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-white mb-1">{t("privacyPage.rights.deletion.title")}</h3>
-                <p className="text-gray-300 text-sm">
+                <h3 className={`font-semibold mb-1 transition-colors duration-300 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}
+                >
+                  {t("privacyPage.rights.deletion.title")}
+                </h3>
+                <p 
+                  className={`text-sm transition-colors duration-300 ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                  }`}
+                >
                   {t("privacyPage.rights.deletion.content")}
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+              <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-white mb-1">
+                <h3 className={`font-semibold mb-1 transition-colors duration-300 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}
+                >
                   {t("privacyPage.rights.noSharing.title")}
                 </h3>
-                <p className="text-gray-300 text-sm">
+                <p 
+                  className={`text-sm transition-colors duration-300 ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                  }`}
+                >
                   {t("privacyPage.rights.noSharing.content")}
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+              <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-white mb-1">
+                <h3 className={`font-semibold mb-1 transition-colors duration-300 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}
+                >
                   {t("privacyPage.rights.transparency.title")}
                 </h3>
-                <p className="text-gray-300 text-sm">
+                <p 
+                  className={`text-sm transition-colors duration-300 ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                  }`}
+                >
                   {t("privacyPage.rights.transparency.content")}
                 </p>
               </div>
@@ -133,16 +205,31 @@ const PrivacyPolicy = () => {
 
         {/* Footer Card */}
         <div
-          className="bg-slate-800 bg-opacity-50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6 flex items-center justify-between flex-wrap gap-4"
+          className={`rounded-2xl p-6 flex items-center justify-between flex-wrap gap-4 backdrop-blur-sm border transition-all duration-300 ${
+            theme === 'dark'
+              ? 'bg-slate-800 bg-opacity-50 border-slate-700 hover:border-slate-600 hover:shadow-gray-500/20'
+              : 'bg-blue-50 border border-blue-600 hover:border-blue-300 hover:shadow-blue-200'
+          }`}
           style={{
             animation: "slideUp 0.5s ease-out 0.4s both",
           }}
         >
+
           <div className="flex items-center gap-3">
-            <Calendar className="w-6 h-6 text-purple-400" />
+            <Calendar className="w-6 h-6 text-blue-600" />
             <div>
-              <p className="text-sm text-gray-400"> {t("privacyPage.rights.footer.lastUpdated")}</p>
-              <p className="text-white font-semibold">
+              <p 
+                className={`text-sm transition-colors duration-300 ${
+                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                }`}
+              > 
+                {t("privacyPage.rights.footer.lastUpdated")}
+              </p>
+              <p 
+                className={`font-semibold transition-colors duration-300 ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}
+              >
                 {new Date().toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -153,7 +240,11 @@ const PrivacyPolicy = () => {
           </div>
           <a
             href="mailto:support@wordwizard.com"
-            className="bg-slate-700 text-white font-semibold px-6 py-2 rounded-lg hover:bg-slate-600 transition-all duration-300 text-sm"
+            className={`font-semibold px-6 py-2 rounded-lg transition-all duration-300 text-sm ${
+              theme === 'dark'
+                ? 'bg-white text-slate-800 hover:bg-gray-200'
+                : 'bg-slate-800 text-white hover:bg-slate-600'
+            }`}
           >
             {t("privacyPage.rights.footer.contact")}
           </a>
