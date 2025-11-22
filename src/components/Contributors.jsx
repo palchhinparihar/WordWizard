@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from "react-i18next";
 
 const Contributors = ({ theme }) => {
   const [contributors, setContributors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetch('https://api.github.com/repos/palchhinparihar/WordWizard/contributors')
@@ -34,7 +36,7 @@ const Contributors = ({ theme }) => {
               theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
             }`}
           >
-            Loading contributors...
+            {t("contri.loadingText")}
           </p>
         </div>
       </div>
@@ -45,7 +47,7 @@ const Contributors = ({ theme }) => {
     return (
       <div className="min-h-screen flex items-center justify-center" bg-transparent>
         <div className="text-center p-8 rounded-lg shadow-lg" style={{ backgroundColor: '#1a1a1a' }}>
-          <p className="text-lg mb-4" style={{ color: '#e5e7eb' }}>Failed to load contributors</p>
+          <p className="text-lg mb-4" style={{ color: '#e5e7eb' }}>{t("contri.errorText")}</p>
           <button 
             onClick={() => window.location.reload()}
             className="px-6 py-2 rounded-lg transition-colors"
@@ -53,7 +55,7 @@ const Contributors = ({ theme }) => {
             onMouseEnter={(e) => e.target.style.backgroundColor = '#4f46e5'}
             onMouseLeave={(e) => e.target.style.backgroundColor = '#6366f1'}
           >
-            Try Again
+            {t("contri.tryAgain")}
           </button>
         </div>
       </div>
@@ -70,15 +72,14 @@ const Contributors = ({ theme }) => {
              theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}
           >
-            Our Amazing Contributors
+            {t("contri.title")}
           </h1>
           <p 
             className={`text-lg md:text-xl max-w-2xl mx-auto transition-colors duration-300 ${
               theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
             }`}
           >
-            Thank you to all the wonderful people who have contributed to WordWizard! 
-            Your contributions make this project better every day.
+            {t("contri.subtitle")}
           </p>
           <div className="mt-6 flex justify-center items-center space-x-2 transition-colors duration-300">
             <span
@@ -93,7 +94,7 @@ const Contributors = ({ theme }) => {
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
               }`}
             >
-              Contributors
+              {t("contri.contributions")}
             </span>
           </div>
         </div>
@@ -165,7 +166,7 @@ const Contributors = ({ theme }) => {
                       onMouseEnter={(e) => e.target.style.backgroundColor = '#3a3a3a'}
                       onMouseLeave={(e) => e.target.style.backgroundColor = '#2a2a2a'}
                     >
-                      GitHub
+                      {t("contri.githubButton")}
                     </a>
                     <a
                       href={`${contributor.html_url}?tab=repositories`}
@@ -179,7 +180,7 @@ const Contributors = ({ theme }) => {
                       onMouseEnter={(e) => e.target.style.backgroundColor = '#171179ff'}
                       onMouseLeave={(e) => e.target.style.backgroundColor = '#2641d8ff'}
                     >
-                      Profile
+                      {t("contri.profileButton")}
                     </a>
                   </div>
                 </div>
@@ -201,15 +202,14 @@ const Contributors = ({ theme }) => {
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}
           >
-            Want to contribute?
+            {t("contri.ctaTitle")}
           </h2>
           <p 
             className={`mb-6 max-w-2xl mx-auto transition-colors duration-300 ${
               theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
             }`}
           >
-            We welcome contributions from everyone! Check out our GitHub repository
-            to get started and become part of our amazing community.
+            {t("contri.ctaSubtitle")}
           </p>
           <a
             href="https://github.com/palchhinparihar/WordWizard"
@@ -221,7 +221,7 @@ const Contributors = ({ theme }) => {
                 : 'bg-gradient-to-r from-indigo-500 to-blue-400 text-white'
             }`}
           >
-            View on GitHub
+            {t("contri.viewOnGithub")}
           </a>
         </div>
       </div>

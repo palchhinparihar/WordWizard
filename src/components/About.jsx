@@ -109,7 +109,7 @@ const About = ({ theme }) => {
                     theme === "light"
                       ? "bg-gradient-to-r from-white to-gray-50 hover:from-gray-50 hover:to-gray-100 text-gray-900"
                       : "bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white"
-                  }`}
+                  } cursor-pointer`}
                   onClick={() => toggleAccordion(item.id)}
                   aria-expanded={isOpen}
                   aria-controls={`accordion-content-${item.id}`}

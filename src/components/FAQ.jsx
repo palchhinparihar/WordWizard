@@ -1,26 +1,27 @@
 import { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
+import { useTranslation } from "react-i18next";
 
 const FAQ = ({theme}) => {
   const [openIndex, setOpenIndex] = useState(null);
-  
+  const { t } = useTranslation();
 
   const faqs = [
     {
-      question: "What is WordWizard?",
-      answer: "WordWizard is a free, open-source text analysis tool that helps you count words, characters, sentences, and transform text case instantly in your browser."
+      question: t("faq.q1"),
+      answer: t("faq.a1")
     },
     {
-      question: "Is my text data private?",
-      answer: "Yes! All text processing happens locally in your browser. Your data never leaves your device and isn't stored anywhere."
+      question: t("faq.q2"),
+      answer: t("faq.a2")
     },
     {
-      question: "What features are available?",
-      answer: "Word/character/sentence counting, reading time estimation, case transformation (uppercase, lowercase, title case), and text export to .txt files."
+      question: t("faq.q3"),
+      answer: t("faq.a3")
     },
     {
-      question: "Can I contribute to the project?",
-      answer: "Absolutely! WordWizard is open-source and welcomes contributions. Visit our GitHub repository to get started."
+      question: t("faq.q4"),
+      answer: t("faq.a4")
     }
   ];
 
@@ -43,13 +44,13 @@ const FAQ = ({theme}) => {
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}
           >
-            Frequently Asked Questions
+            {t("faq.title")}
           </h1>
           <p className={`text-lg max-w-2xl mx-auto transition-colors duration-300 ${
               theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}
           >
-            Quick answers about WordWizard
+            {t("faq.subtitle")}
           </p>
         </div>
 
@@ -155,12 +156,12 @@ const FAQ = ({theme}) => {
           style={{ animation: 'slideUp 0.5s ease-out 0.8s both' }}
         >
           <h2 className="text-3xl font-bold mb-3">
-            Still have questions?
+            {t("faq.ctaTitle")}
           </h2>
           <p className={`mb-6 ${
             theme === 'dark' ? 'text-blue-100' : 'text-gray-600'
           }`}>
-            Join our community or open an issue on GitHub
+            {t("faq.ctaSubtitle")}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
@@ -173,7 +174,7 @@ const FAQ = ({theme}) => {
                    : 'bg-gradient-to-r from-indigo-500 to-blue-400 text-white'
               }`}
             >
-              Ask on GitHub
+              {t("faq.askGithub")}
             </a>
             <a
               href="https://github.com/palchhinparihar/WordWizard"
@@ -185,7 +186,7 @@ const FAQ = ({theme}) => {
                   : 'bg-white text-blue-700 border-blue-400'
               }`}
             >
-              View Repository
+              {t("faq.viewRepo")}
             </a>
           </div>
         </div>

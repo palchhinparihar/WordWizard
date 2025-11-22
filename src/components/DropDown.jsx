@@ -1,10 +1,14 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Sun, Moon, Palette, ChevronDown } from "lucide-react";
 import { allThemes } from "../data/themes";
+import { useTranslation } from "react-i18next";
+
 
 const Dropdown = ({ currentThemeId, onThemeSelect }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const { t } = useTranslation();
+
 
   const currentTheme =
     allThemes.find((t) => t.id === currentThemeId) || allThemes[0];
@@ -54,7 +58,7 @@ const Dropdown = ({ currentThemeId, onThemeSelect }) => {
               <Sun className="w-5 h-5 text-amber-500" />
             )}
             <span className="text-sm font-medium hidden sm:inline">
-              {currentTheme.name}
+              {t(currentTheme.nameKey)}
             </span>
             <span className="text-lg sm:hidden">{currentTheme.icon}</span>
           </div>
@@ -85,10 +89,10 @@ const Dropdown = ({ currentThemeId, onThemeSelect }) => {
               {Object.entries(groupedThemes).map(([key, themes]) => {
                 const sectionTitle =
                   key === "dark"
-                    ? "Dark Themes"
+                    ? t("themes.dark")
                     : key === "light"
-                    ? "Light Themes"
-                    : "Accent Themes";
+                    ? t("themes.light")
+                    : t("themes.vibrant");
                 const sectionIcon =
                   key === "dark"
                     ? <Moon className="w-3 h-3" />
@@ -140,7 +144,7 @@ const Dropdown = ({ currentThemeId, onThemeSelect }) => {
                           <div className="flex-1 text-left">
                             <div className="text-sm font-medium flex items-center gap-2">
                               <span>{theme.icon}</span>
-                              <span>{theme.name}</span>
+                              <span>{t(theme.nameKey)}</span>
                             </div>
                           </div>
                           {isSelected && (
