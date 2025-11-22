@@ -79,7 +79,7 @@ const Navbar = (props) => {
               isDark ? "hover:text-blue-400" : "hover:text-blue-600"
             }`}
           >
-            Home
+            {t("navbar.home")}
           </Link>
 
           <Link
@@ -88,7 +88,7 @@ const Navbar = (props) => {
               isDark ? "hover:text-blue-400" : "hover:text-blue-600"
             }`}
           >
-            About
+            {t("navbar.about")}
           </Link>
 
           {/* Upload & Download */}
@@ -110,7 +110,7 @@ const Navbar = (props) => {
               }`}
             >
               <Upload className="h-4 w-4" />
-              Upload
+              {t("navbar.upload")}
             </button>
 
             <button
@@ -122,7 +122,7 @@ const Navbar = (props) => {
               }`}
             >
               <Download className="h-4 w-4" />
-              Download
+              {t("navbar.download")}
             </button>
           </div>
 
@@ -158,7 +158,7 @@ const Navbar = (props) => {
         {/* HAMBURGER (MOBILE ONLY) */}
         <div className="block lg:hidden">
           <button
-            title={t("toggleMenu")}
+            title={t("navbar.menu")}
             onClick={() => setMenuOpen(!menuOpen)}
             className={`flex items-center px-3 py-2 border rounded transition-colors ${
               isDark
@@ -167,9 +167,9 @@ const Navbar = (props) => {
             } cursor-pointer`}
           >
             {menuOpen ? (
-              <X className="h-4 w-4" aria-label={t("close")} />
+              <X className="h-4 w-4" aria-label={t("navbar.close")} />
             ) : (
-              <Menu className="h-4 w-4" aria-label={t("menu")} />
+              <Menu className="h-4 w-4" aria-label={t("navbar.menu")} />
             )}
           </button>
         </div>

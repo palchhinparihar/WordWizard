@@ -67,7 +67,7 @@ const Footer = ({ theme }) => {
                     isDark ? "hover:text-blue-400" : "hover:text-blue-600"
                   }`}
                 >
-                  FAQ
+                  {t("footer.faq")}
                 </a>
               </li>
               {/* ✅ Added Contributors link */}
@@ -78,7 +78,7 @@ const Footer = ({ theme }) => {
                     isDark ? "hover:text-blue-400" : "hover:text-blue-600"
                   }`}
                 >
-                  Contributors
+                  {t("footer.contributors")}
                 </a>
               </li>
               {/* ✅ Added Terms of Use link */}
@@ -89,7 +89,7 @@ const Footer = ({ theme }) => {
                     isDark ? "hover:text-blue-400" : "hover:text-blue-600"
                   }`}
                 >
-                  Terms of Use
+                  {t("footer.terms")}
                 </a>
               </li>
               {/* ✅ Added Privacy Policy link */}
@@ -100,7 +100,7 @@ const Footer = ({ theme }) => {
                     isDark ? "hover:text-blue-400" : "hover:text-blue-600"
                   }`}
                 >
-                  Privacy Policy
+                  {t("footer.privacy")}
                 </a>
               </li>
             </ul>

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Upload, Download } from "lucide-react";
 import Dropdown from "./DropDown";
+import { useTranslation } from "react-i18next";
 
 const MobileMenu = ({
   isDark,
@@ -17,6 +18,7 @@ const MobileMenu = ({
   languages,
   i18n,
 }) => {
+  const { t } = useTranslation();
   if (!menuOpen) return null; 
 
   return (
@@ -32,7 +34,7 @@ const MobileMenu = ({
           isDark ? "hover:text-blue-400" : "hover:text-blue-600"
         }`}
       >
-        Home
+        {t("navbar.home")}
       </Link>
 
       <Link
@@ -42,7 +44,7 @@ const MobileMenu = ({
           isDark ? "hover:text-blue-400" : "hover:text-blue-600"
         }`}
       >
-        About
+        {t("navbar.about")}
       </Link>
 
       <input
@@ -62,7 +64,7 @@ const MobileMenu = ({
         }`}
       >
         <Upload className="w-4 h-4" />
-        Upload
+        {t("navbar.upload")}
       </button>
 
       <button
@@ -74,7 +76,7 @@ const MobileMenu = ({
         }`}
       >
         <Download className="w-4 h-4" />
-        Download
+        {t("navbar.download")}
       </button>
 
       <div className="flex flex-wrap items-center gap-3 mt-2">

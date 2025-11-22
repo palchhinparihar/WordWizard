@@ -9,6 +9,15 @@
   "lightMode": "Light Mode",
   "home": "Home",
   "about": "About",
+
+  "navbar": {
+  "home": "Home",
+  "about": "About",
+  "upload": "Upload",
+  "download": "Download",
+  "menu": "Menu",
+  "close": "Close"
+  },
   "footer": {
     "title": "WordWizard ✨",
     "description": "A powerful text manipulation tool built with React. Transform, analyze, and enhance your text with ease. Multiple themes, real-time stats, and more.",
@@ -19,7 +28,11 @@
     "connect": "Connect",
     "madeWith": "Made with",
     "by": "by",
-    "copyright": "WordWizard. All rights reserved."
+    "copyright": "WordWizard. All rights reserved.",
+    "faq": "FAQ",
+    "contributors": "Contributors",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy"  
   },
   "textForm": {
     "title": "Enter your text below",
@@ -158,5 +171,63 @@
     "lastUpdated": "Last updated",
     "contact": "Contact Us"
   }
+},
+
+"faq": {
+  "title": "Frequently Asked Questions",
+  "subtitle": "Quick answers about WordWizard",
+
+  "q1": "What is WordWizard?",
+  "a1": "WordWizard is a free, open-source text analysis tool that helps you count words, characters, sentences, and transform text case instantly in your browser.",
+
+  "q2": "Is my text data private?",
+  "a2": "Yes! All text processing happens locally in your browser. Your data never leaves your device and isn't stored anywhere.",
+
+  "q3": "What features are available?",
+  "a3": "Word/character/sentence counting, reading time estimation, case transformation (uppercase, lowercase, title case), and text export to .txt files.",
+
+  "q4": "Can I contribute to the project?",
+  "a4": "Absolutely! WordWizard is open-source and welcomes contributions. Visit our GitHub repository to get started.",
+
+  "ctaTitle": "Still have questions?",
+  "ctaSubtitle": "Join our community or open an issue on GitHub",
+  "askGithub": "Ask on GitHub",
+  "viewRepo": "View Repository"
+},
+
+"contri": {
+  "title": "Our Amazing Contributors",
+  "subtitle": "Thank you to all the wonderful people who have contributed to WordWizard! Your contributions make this project better every day.",
+  "contributorsCount": "Contributors",
+  "contributions": "contributions",
+  "loadingText": "Loading contributors...",
+  "errorText": "Failed to load contributors",
+  "tryAgain": "Try Again",
+  "githubButton": "GitHub",
+  "profileButton": "Profile",
+  "ctaTitle": "Want to contribute?",
+  "ctaSubtitle": "We welcome contributions from everyone! Check out our GitHub repository to get started and become part of our amazing community.",
+  "viewOnGithub": "View on GitHub"
+},
+"themes": {
+  "blue": "Midnight Blue",
+  "ocean": "Deep Ocean",
+  "forest": "Forest Night",
+  "royal": "Royal Purple",
+  "crimson": "Sunset Crimson",
+  "noir": "Noir",
+  "white": "Cloud White",
+  "sunrise": "Sunrise",
+  "mint": "Mint Fresh",
+  "pastel-pink": "Pastel Pink",
+  "aurora": "Aurora",
+  "cyberpunk": "Cyberpunk",
+  "sunset-blaze": "Sunset Blaze",
+  "neon-cyber": "Neon Cyber",
+  
+  "dark": "Dark Themes",
+  "light": "Light Themes",
+  "vibrant": "Vibrant Themes"
 }
 }
+
