@@ -116,16 +116,28 @@ const TextForm = (props) => {
         }
     }, [text]);
 
-    const buttonStyle = {
-        color: props.theme === "light" ? "black" : "white",
-        backgroundImage:
-            props.theme === "light"
-                ? "linear-gradient(135deg, #faffa3 0%, #f0f0a8 100%)"
-                : `${props.colorTheme}`,
-        filter: props.theme === "light" ? "none" : "brightness(140%)",
-        fontWeight: props.theme === "light" ? 400 : 300,
-        boxShadow: "2px 2px 8px rgba(0, 0, 0, 0.15)",
-    };
+   const buttonStyle = {
+    color: props.theme === "light" ? "black" : "white",
+    
+   backgroundImage:
+        props.theme === "light"
+            ? "linear-gradient(135deg, #faffa3 0%, #f0f0a8 100%)"
+            : `${props.colorTheme}`,
+  
+    filter: props.theme === "light" ? "none" : "brightness(140%)",
+    fontWeight: props.theme === "light" ? 400 : 300,
+    boxShadow: "2px 2px 8px rgba(0, 0, 0, 0.15)",
+
+    // ➜ Equal sizing
+    width: "100px",
+    height: "70px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "8px",
+    cursor: "pointer",
+};
+
 
     const getTopWords = (text) => {
         const words = text
@@ -370,7 +382,7 @@ const TextForm = (props) => {
 
                 {/* FUNCTION BUTTONS */}
                 <div
-                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 my-6"
+                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 my-6 justify-center justify-items-center "
                     data-aos="fade-in"
                     data-aos-delay="200"
                     data-aos-duration="800"
