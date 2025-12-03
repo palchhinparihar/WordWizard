@@ -15,6 +15,14 @@ const Navbar = (props) => {
 
   const fileInputRef = useRef(null);
 
+  
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => setAnimate(false), 1000);
     return () => clearTimeout(timer);
@@ -43,7 +51,7 @@ const Navbar = (props) => {
       props.onFileImport(e.target.files[0]);
       e.target.value = null;
     }
-  }; 
+  };
 
   const handleMenuAction = () => {
     setMenuOpen(false);
@@ -61,9 +69,11 @@ const Navbar = (props) => {
       }`}
     >
       <div className="flex items-center justify-between p-4 px-8 w-full">
-        {/* LOGO */}
+        
+        {}
         <Link
           to="/"
+          onClick={scrollToTop}
           className={`font-bold text-2xl tracking-tight hover:text-blue-500 transition-colors ${
             textAnimate ? "animate-textChange" : ""
           }`}
@@ -71,7 +81,7 @@ const Navbar = (props) => {
           <strong>{props.title || "WordWizard"}</strong>
         </Link>
 
-        {/* DESKTOP NAV LINKS */}
+        {}
         <div className="hidden lg:flex items-center space-x-6">
           <Link
             to="/"
@@ -91,7 +101,7 @@ const Navbar = (props) => {
             {t("navbar.about")}
           </Link>
 
-          {/* Upload & Download */}
+          {}
           <div className="flex items-center space-x-6">
             <input
               type="file"
@@ -126,7 +136,7 @@ const Navbar = (props) => {
             </button>
           </div>
 
-          {/* Language & Theme */}
+          {}
           <div className="flex items-center space-x-2">
             {languages.map((ln) => {
               const selected = i18n.language === ln.code;
@@ -155,7 +165,7 @@ const Navbar = (props) => {
           </div>
         </div>
 
-        {/* HAMBURGER (MOBILE ONLY) */}
+        {}
         <div className="block lg:hidden">
           <button
             title={t("navbar.menu")}
@@ -175,7 +185,7 @@ const Navbar = (props) => {
         </div>
       </div>
 
-      {/* MOBILE MENU */}
+      {}
       <MobileMenu
         isDark={isDark}
         textAnimate={textAnimate}
