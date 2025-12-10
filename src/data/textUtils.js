@@ -14,8 +14,17 @@ export const getTextOperations = (
   setActiveOperation,
   undoRedoActions = null
 ) => {
-  const { isBold, setIsBold, isItalic, setIsItalic, isUnderline, setIsUnderline, isStrike, setIsStrike } = styles;
-  const { undo, redo, canUndo, canRedo, resetHistory } = undoRedoActions || {};
+  const {
+    isBold,
+    setIsBold,
+    isItalic,
+    setIsItalic,
+    isUnderline,
+    setIsUnderline,
+    isStrike,
+    setIsStrike,
+  } = styles;
+  const { undo, redo, canUndo, canRedo } = undoRedoActions || {};
 
   const handleUpClick = () => {
     setPreviewText(text.toUpperCase());
@@ -57,7 +66,10 @@ export const getTextOperations = (
   };
 
   const handleRemovePunctuation = () => {
-    const newText = (previewText || text).replace(/[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/g, "");
+    const newText = (previewText || text).replace(
+      /[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/g,
+      ""
+    );
     setPreviewText(newText);
     props.showAlert("Punctuation removed.", "success");
   };
@@ -83,7 +95,9 @@ export const getTextOperations = (
   };
 
   const handleExportText = () => {
-    const blob = new Blob([previewText || text], { type: "text/plain;charset=utf-8" });
+    const blob = new Blob([previewText || text], {
+      type: "text/plain;charset=utf-8",
+    });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -120,10 +134,11 @@ export const getTextOperations = (
       .join("\n\n");
     setText(lorem);
     setPreviewText(lorem);
-    props.showAlert(`Generated ${paragraphs} paragraph(s) of Lorem Ipsum.`, "success");
+    props.showAlert(
+      `Generated ${paragraphs} paragraph(s) of Lorem Ipsum.`,
+      "success"
+    );
   };
-
-
 
   const handleImportFile = () => {
     if (typeof triggerFileInput === "function") triggerFileInput();
@@ -136,17 +151,26 @@ export const getTextOperations = (
 
   const handleItalic = () => {
     setIsItalic(!isItalic);
-    props.showAlert(isItalic ? "Italic removed." : "Italic applied.", "success");
+    props.showAlert(
+      isItalic ? "Italic removed." : "Italic applied.",
+      "success"
+    );
   };
 
   const handleUnderline = () => {
     setIsUnderline(!isUnderline);
-    props.showAlert(isUnderline ? "Underline removed." : "Underline applied.", "success");
+    props.showAlert(
+      isUnderline ? "Underline removed." : "Underline applied.",
+      "success"
+    );
   };
 
   const handleStrike = () => {
     setIsStrike(!isStrike);
-    props.showAlert(isStrike ? "Strikethrough removed." : "Strikethrough applied.", "success");
+    props.showAlert(
+      isStrike ? "Strikethrough removed." : "Strikethrough applied.",
+      "success"
+    );
   };
 
   const handleGrammarCheck = async () => {
@@ -181,7 +205,8 @@ export const getTextOperations = (
 
     try {
       // If configured, use abstractive API; otherwise fall back to local extractive summarizer
-      const useApi = import.meta.env.VITE_USE_ABSTRACT_API?.toLowerCase() === "true";
+      const useApi =
+        import.meta.env.VITE_USE_ABSTRACT_API?.toLowerCase() === "true";
       let summary = "";
       if (useApi) {
         summary = await summarizeTextAPI(text, level);
@@ -197,7 +222,12 @@ export const getTextOperations = (
       try {
         const fallback = summarizeText(text, level);
         setPreviewText(fallback || text);
-        props.showAlert(`Abstractive API failed (${err?.name || "Error"}: ${err?.message || err}). Used local fallback summarizer.`, "warning");
+        props.showAlert(
+          `Abstractive API failed (${err?.name || "Error"}: ${
+            err?.message || err
+          }). Used local fallback summarizer.`,
+          "warning"
+        );
       } catch (fallbackErr) {
         console.error("Fallback summarizer error:", fallbackErr);
         props.showAlert("Failed to summarize text.", "error");
@@ -208,38 +238,65 @@ export const getTextOperations = (
 
   // Case Conversion Handlers
   const handleTitleCase = () => {
-    const minorWords = ['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'by', 'in', 'of'];
-    const newText = (previewText || text).toLowerCase().split(' ').map((word, index) => {
-      if (index === 0 || !minorWords.includes(word)) {
-        return word.charAt(0).toUpperCase() + word.slice(1);
-      }
-      return word;
-    }).join(' ');
+    const minorWords = [
+      "a",
+      "an",
+      "the",
+      "and",
+      "but",
+      "or",
+      "for",
+      "nor",
+      "on",
+      "at",
+      "to",
+      "by",
+      "in",
+      "of",
+    ];
+    const newText = (previewText || text)
+      .toLowerCase()
+      .split(" ")
+      .map((word, index) => {
+        if (index === 0 || !minorWords.includes(word)) {
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        }
+        return word;
+      })
+      .join(" ");
     setPreviewText(newText);
     props.showAlert("Title case applied.", "success");
   };
 
   const handleToggleCase = () => {
-    const newText = (previewText || text).split('').map(char => {
-      if (char === char.toUpperCase()) {
-        return char.toLowerCase();
-      }
-      return char.toUpperCase();
-    }).join('');
+    const newText = (previewText || text)
+      .split("")
+      .map((char) => {
+        if (char === char.toUpperCase()) {
+          return char.toLowerCase();
+        }
+        return char.toUpperCase();
+      })
+      .join("");
     setPreviewText(newText);
     props.showAlert("Case toggled.", "success");
   };
 
   const handleAlternatingCase = () => {
     let shouldCapitalize = true;
-    const newText = (previewText || text).split('').map(char => {
-      if (/[a-zA-Z]/.test(char)) {
-        const result = shouldCapitalize ? char.toUpperCase() : char.toLowerCase();
-        shouldCapitalize = !shouldCapitalize;
-        return result;
-      }
-      return char;
-    }).join('');
+    const newText = (previewText || text)
+      .split("")
+      .map((char) => {
+        if (/[a-zA-Z]/.test(char)) {
+          const result = shouldCapitalize
+            ? char.toUpperCase()
+            : char.toLowerCase();
+          shouldCapitalize = !shouldCapitalize;
+          return result;
+        }
+        return char;
+      })
+      .join("");
     setPreviewText(newText);
     props.showAlert("Alternating case applied.", "success");
   };
@@ -248,7 +305,9 @@ export const getTextOperations = (
   const handleBulletedList = () => {
     const src = previewText || text;
     const lines = src.split(/\r?\n/);
-    const newText = lines.map(line => line.trim() ? `- ${line.trim()}` : line).join('\n');
+    const newText = lines
+      .map((line) => (line.trim() ? `- ${line.trim()}` : line))
+      .join("\n");
     setPreviewText(newText);
     props.showAlert("Converted to bulleted list.", "success");
   };
@@ -257,12 +316,14 @@ export const getTextOperations = (
     const src = previewText || text;
     const lines = src.split(/\r?\n/);
     let counter = 1;
-    const newText = lines.map(line => {
-      if (line.trim()) {
-        return `${counter++}. ${line.trim()}`;
-      }
-      return line;
-    }).join('\n');
+    const newText = lines
+      .map((line) => {
+        if (line.trim()) {
+          return `${counter++}. ${line.trim()}`;
+        }
+        return line;
+      })
+      .join("\n");
     setPreviewText(newText);
     props.showAlert("Converted to numbered list.", "success");
   };
@@ -282,36 +343,118 @@ export const getTextOperations = (
 
   const obj = [
     // Undo/Redo operations (at the beginning for easy access)
-    ...(undoRedoActions ? [
-      { id: "undo", func: handleUndo, label: "Undo", allowEmpty: true, disabled: !canUndo },
-      { id: "redo", func: handleRedo, label: "Redo", allowEmpty: true, disabled: !canRedo },
-    ] : []),
+    ...(undoRedoActions
+      ? [
+          {
+            id: "undo",
+            func: handleUndo,
+            label: "Undo",
+            allowEmpty: true,
+            disabled: !canUndo,
+          },
+          {
+            id: "redo",
+            func: handleRedo,
+            label: "Redo",
+            allowEmpty: true,
+            disabled: !canRedo,
+          },
+        ]
+      : []),
     { id: "uppercase", func: handleUpClick, label: "Convert to uppercase" },
     { id: "lowercase", func: handleLoClick, label: "Convert to lowercase" },
-    { id: "remove-line-breaks", func: handleRemoveLineBreaks, label: "Remove line breaks", allowEmpty: false },
-    { id: "trim-edges", func: handleTrimEdges, label: "Trim start/end spaces", allowEmpty: false },
-    { id: "remove-extra-spaces", func: handleExtraSpaces, label: "Remove extra spaces" },
+    {
+      id: "remove-line-breaks",
+      func: handleRemoveLineBreaks,
+      label: "Remove line breaks",
+      allowEmpty: false,
+    },
+    {
+      id: "trim-edges",
+      func: handleTrimEdges,
+      label: "Trim start/end spaces",
+      allowEmpty: false,
+    },
+    {
+      id: "remove-extra-spaces",
+      func: handleExtraSpaces,
+      label: "Remove extra spaces",
+    },
     { id: "copy", func: handleCopyClick, label: "Copy text" },
     { id: "clear", func: handleClearText, label: "Clear text" },
-  { id: "grammar-check", func: handleGrammarCheck, label: "Check Grammar" },
-  { id: "summarize-short", func: () => handleSummarize("short"), label: "Summarize - Short" },
-  { id: "summarize-medium", func: () => handleSummarize("medium"), label: "Summarize - Medium" },
-  { id: "summarize-long", func: () => handleSummarize("long"), label: "Summarize - Long" },
-    { id: "remove-punctuation", func: handleRemovePunctuation, label: "Remove punctuation" },
-    { id: "smart-capitalization", func: handleSmartCapitalization, label: "Smart Capitalization" },
-    { id: "remove-duplicate-lines", func: handleRemoveDuplicateLines, label: "Remove duplicate lines", allowEmpty: false },
-    { id: "generate-lorem", func: handleGenerateLorem, label: "Generate lorem ipsum", allowEmpty: true },
-    { id: "import-file", func: handleImportFile, label: "Import file", allowEmpty: true },
+    { id: "grammar-check", func: handleGrammarCheck, label: "Check Grammar" },
+    {
+      id: "summarize-short",
+      func: () => handleSummarize("short"),
+      label: "Summarize - Short",
+    },
+    {
+      id: "summarize-medium",
+      func: () => handleSummarize("medium"),
+      label: "Summarize - Medium",
+    },
+    {
+      id: "summarize-long",
+      func: () => handleSummarize("long"),
+      label: "Summarize - Long",
+    },
+    {
+      id: "remove-punctuation",
+      func: handleRemovePunctuation,
+      label: "Remove punctuation",
+    },
+    {
+      id: "smart-capitalization",
+      func: handleSmartCapitalization,
+      label: "Smart Capitalization",
+    },
+    {
+      id: "remove-duplicate-lines",
+      func: handleRemoveDuplicateLines,
+      label: "Remove duplicate lines",
+      allowEmpty: false,
+    },
+    {
+      id: "generate-lorem",
+      func: handleGenerateLorem,
+      label: "Generate lorem ipsum",
+      allowEmpty: true,
+    },
+    {
+      id: "import-file",
+      func: handleImportFile,
+      label: "Import file",
+      allowEmpty: true,
+    },
     { id: "export-text", func: handleExportText, label: "Export text" },
     { id: "bold", func: handleBold, label: "Bold" },
     { id: "italic", func: handleItalic, label: "Italic" },
     { id: "underline", func: handleUnderline, label: "Underline" },
-    { id: "strike", func: handleStrike, label: "Strikethrough", allowEmpty: false },
+    {
+      id: "strike",
+      func: handleStrike,
+      label: "Strikethrough",
+      allowEmpty: false,
+    },
     { id: "title-case", func: handleTitleCase, label: "Title Case" },
     { id: "toggle-case", func: handleToggleCase, label: "Toggle Case" },
-    { id: "alternating-case", func: handleAlternatingCase, label: "Alternating Case" },
-    { id: "bulleted-list", func: handleBulletedList, label: "Bulleted List", allowEmpty: false },
-    { id: "numbered-list", func: handleNumberedList, label: "Numbered List", allowEmpty: false },
+    {
+      id: "alternating-case",
+      func: handleAlternatingCase,
+      label: "Alternating Case",
+    },
+    {
+      id: "bulleted-list",
+      func: handleBulletedList,
+      label: "Bulleted List",
+      allowEmpty: false,
+    },
+    {
+      id: "numbered-list",
+      func: handleNumberedList,
+      label: "Numbered List",
+      allowEmpty: false,
+    },
   ];
   return obj;
 };
