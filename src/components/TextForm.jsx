@@ -5,6 +5,7 @@ import Toolbar from "./Toolbar";
 import Aos from "aos";
 import { useTranslation } from "react-i18next";
 import SummaryCard from "./SummaryCard";
+import Split from "react-split";
 
 const TextForm = (props) => {
     const {
@@ -27,9 +28,35 @@ const TextForm = (props) => {
     const [loadingGrammar, setLoadingGrammar] = useState(false);
     const [activeOperation, setActiveOperation] = useState(null);
 
+    // Split sizes state - stores the percentage widths for left and right panes
+    const [splitSizes, setSplitSizes] = useState([50, 50]);
+
     const fileInputRef = React.useRef();
 
     const { t } = useTranslation();
+
+    // Load saved split width from localStorage on mount
+    useEffect(() => {
+        const savedWidth = localStorage.getItem("splitWidth");
+        if (savedWidth) {
+            const parsed = parseFloat(savedWidth);
+            if (!isNaN(parsed) && parsed >= 20 && parsed <= 80) {
+                setSplitSizes([parsed, 100 - parsed]);
+            }
+        }
+    }, []);
+
+    // Handler for when split sizes change during drag (updates state only)
+    const handleSplitDrag = (sizes) => {
+        setSplitSizes(sizes);
+    };
+
+    // Handler for when dragging ends (saves to localStorage)
+    const handleSplitDragEnd = (sizes) => {
+        setSplitSizes(sizes);
+        // Save the left pane percentage
+        localStorage.setItem("splitWidth", sizes[0].toString());
+    };
 
     useEffect(() => {
         Aos.refresh();
@@ -184,17 +211,27 @@ const TextForm = (props) => {
                             />
                         </div>
 
-                        <div
-                            className={`flex flex-col md:flex-row max-h-[70vh] min-h-[50vh] rounded-lg border-2 overflow-hidden ${
+                        <Split
+                            className={`split flex flex-row max-h-[70vh] min-h-[50vh] rounded-lg border-2 overflow-hidden ${
                                 props.theme === "light"
                                     ? "bg-white border-gray-300 text-gray-900"
                                     : "bg-gray-700 border-gray-500 text-white"
                             }`}
+                            sizes={splitSizes}
+                            minSize={[20, 20]}
+                            gutterSize={10}
+                            gutterAlign="center"
+                            snapOffset={30}
+                            dragInterval={1}
+                            direction="horizontal"
+                            cursor="col-resize"
+                            onDrag={handleSplitDrag}
+                            onDragEnd={handleSplitDragEnd}
                         >
                             {/* Textarea Section */}
-                            <div className="flex-1 md:rounded-l-lg md:rounded-r-none rounded-t-lg md:rounded-t-none">
+                            <div className="flex flex-col h-full overflow-hidden">
                                 <textarea
-                                    className={`w-full h-full p-4 min-h-[35vh] md:min-h-[50vh] resize-none focus:outline-none focus:ring-2 overflow-y-auto custom-scrollbar bg-transparent rounded-t-lg md:rounded-t-none md:rounded-l-lg`}
+                                    className={`w-full h-full p-4 resize-none focus:outline-none focus:ring-2 overflow-y-auto custom-scrollbar bg-transparent`}
                                     value={text}
                                     onChange={handleChange}
                                     placeholder={t("textForm.placeholder")}
@@ -202,27 +239,22 @@ const TextForm = (props) => {
                             </div>
 
                             {/* Preview Section */}
-                            <div className="flex-1 flex flex-col min-h-[35vh] overflow-y-auto custom-scrollbar md:rounded-r-lg md:rounded-l-none rounded-b-lg md:rounded-b-none">
-                                <p
-                                    className={`flex-1 text-lg leading-relaxed whitespace-pre-wrap break-words p-6 transition-all duration-300 ${
-                                        props.theme === "light"
-                                            ? "bg-blue-100"
-                                            : "bg-gray-800"
-                                    }`}
-                                    style={{
-                                        fontWeight: isBold ? "bold" : "normal",
-                                        fontStyle: isItalic
-                                            ? "italic"
-                                            : "normal",
-                                        textDecoration: textDecoration,
-                                    }}
-                                >
-                                    {previewText && previewText.length > 0
-                                        ? previewText
-                                        : t("textForm.noPreview")}
-                                </p>
+                            <div
+                                className={`flex-1 w-full overflow-y-auto custom-scrollbar text-lg leading-relaxed whitespace-pre-wrap break-words p-6 ${
+                                    props.theme === "light"
+                                        ? "bg-gray-600 text-white"
+                                        : "bg-gray-800 text-white"
+                                }`}
+                                style={{
+                                    fontWeight: isBold ? "bold" : "normal",
+                                    fontStyle: isItalic ? "italic" : "normal",
+                                    textDecoration: textDecoration,
+                                    minHeight: "100%",
+                                }}
+                            >
+                                {previewText || t("textForm.noPreview")}
                             </div>
-                        </div>
+                        </Split>
 
                         <input
                             ref={fileInputRef}
@@ -458,3 +490,4 @@ export default TextForm;
 
 // minimal propTypes stub to satisfy prop validation rules where configured
 TextForm.propTypes = {};
+
