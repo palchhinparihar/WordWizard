@@ -79,7 +79,7 @@ function App() {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowWelcome(false), 5000);
+    const timer = setTimeout(() => setShowWelcome(false), 2500);
     return () => clearTimeout(timer);
   }, []);
 

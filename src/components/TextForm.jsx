@@ -11,7 +11,11 @@ const TextForm = (props) => {
     const {
         text, // This is the 'currentValue' from the hook in App.js
         setText: addToHistory, // 'setText' prop is 'addToHistory' from App.js
+        showAlert,
+        theme,
+        colorTheme,
         onFileImport, // This is the 'handleFileImport' from App.js
+        onExport,
         undo,
         redo,
         canUndo,
