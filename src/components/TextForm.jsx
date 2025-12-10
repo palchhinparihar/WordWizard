@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { getTextOperations } from "../data/textUtils";
 import DialogBox from "./DialogBox";
 import Toolbar from "./Toolbar";
@@ -41,7 +41,7 @@ const TextForm = (props) => {
 
     // Load saved split width from localStorage on mount
     useEffect(() => {
-        const savedWidth = localStorage.getItem("wordwizard:split-width");
+        const savedWidth = localStorage.getItem("splitWidth");
         if (savedWidth) {
             const parsed = parseFloat(savedWidth);
             if (!isNaN(parsed) && parsed >= 20 && parsed <= 80) {
@@ -50,11 +50,16 @@ const TextForm = (props) => {
         }
     }, []);
 
-    // Handler for when split sizes change (during drag)
-    const handleSplitChange = (sizes) => {
+    // Handler for when split sizes change during drag (updates state only)
+    const handleSplitDrag = (sizes) => {
+        setSplitSizes(sizes);
+    };
+
+    // Handler for when dragging ends (saves to localStorage)
+    const handleSplitDragEnd = (sizes) => {
         setSplitSizes(sizes);
         // Save the left pane percentage
-        localStorage.setItem("wordwizard:split-width", sizes[0].toString());
+        localStorage.setItem("splitWidth", sizes[0].toString());
     };
 
     useEffect(() => {
@@ -217,16 +222,15 @@ const TextForm = (props) => {
                                     : "bg-gray-700 border-gray-500 text-white"
                             }`}
                             sizes={splitSizes}
-                            minSize={[200, 200]}
+                            minSize={[20, 20]}
                             gutterSize={10}
                             gutterAlign="center"
                             snapOffset={30}
                             dragInterval={1}
                             direction="horizontal"
                             cursor="col-resize"
-                            onDrag={handleSplitChange}
-                            onDragEnd={handleSplitChange}
-                            style={{ display: 'flex' }}
+                            onDrag={handleSplitDrag}
+                            onDragEnd={handleSplitDragEnd}
                         >
                             {/* Textarea Section */}
                             <div className="flex flex-col h-full overflow-hidden">

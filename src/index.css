@@ -74,7 +74,11 @@
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
 }
 
-/* Ensure Split pane children fill available height within constraints */
+/* 
+ * Ensure Split pane children fill available height within constraints.
+ * Using !important here because react-split library adds inline styles that need to be overridden
+ * to ensure proper flexbox layout for preview section background color coverage.
+ */
 .split > div {
   display: flex !important;
   flex-direction: column !important;
