@@ -176,6 +176,7 @@ const Toolbar = ({
               }}
             >
               {getIcon(label)}
+              
             </button>
 
             {/* No inline controls for lorem paragraphs here (random generation handled in TextForm) */}
